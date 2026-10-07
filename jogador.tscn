@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://0dshrkugbvwf"]
+
+[ext_resource type="Script" uid="uid://6kbg83jcoyja" path="res://jogador.gd" id="1_c2wt1"]
+[ext_resource type="Texture2D" uid="uid://tdm2b7ikjwrt" path="res://untitled_0002.png" id="1_yuxfx"]
+[ext_resource type="Resource" uid="uid://c7sctofmw2c8c" path="res://jogador.tres" id="2_q2130"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boia5"]
+radius = 15.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=161441557]
+script = ExtResource("1_c2wt1")
+stats = ExtResource("2_q2130")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1804992950]
+texture = ExtResource("1_yuxfx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845284533]
+shape = SubResource("CircleShape2D_boia5")
