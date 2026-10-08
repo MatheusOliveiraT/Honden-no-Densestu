@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cymrdd5tpxjku"]
+
+[ext_resource type="Texture2D" uid="uid://tdm2b7ikjwrt" path="res://jogador/untitled_0002.png" id="1_h74vx"]
+[ext_resource type="Script" uid="uid://dg63slndrfpfx" path="res://inimigo_exemplo/inimigo_exemplo.gd" id="1_id45k"]
+[ext_resource type="Resource" uid="uid://bmam6nf4x5pkm" path="res://inimigo_exemplo/inimigo_exemplo.tres" id="2_l3nph"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boia5"]
+radius = 15.033297
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1980399220 groups=["Enemies"]]
+script = ExtResource("1_id45k")
+stats = ExtResource("2_l3nph")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1422828273]
+texture = ExtResource("1_h74vx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1075600582]
+shape = SubResource("CircleShape2D_boia5")

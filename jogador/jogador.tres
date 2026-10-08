@@ -1,9 +1,8 @@
 [gd_resource type="Resource" script_class="CharacterStats" format=3 uid="uid://c7sctofmw2c8c"]
 
-[ext_resource type="Script" uid="uid://4wiuat28bu07" path="res://character_stats.gd" id="1_jpkpj"]
+[ext_resource type="Script" uid="uid://4wiuat28bu07" path="res://character_stats.gd" id="1_qxpig"]
 
 [resource]
-script = ExtResource("1_jpkpj")
+script = ExtResource("1_qxpig")
 character_name = "Jogador"
-max_hp = 50
 metadata/_custom_type_script = "uid://4wiuat28bu07"
