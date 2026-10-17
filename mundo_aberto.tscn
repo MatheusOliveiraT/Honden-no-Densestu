@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://tgqkciq5672d"]
+
+[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://seiji/seiji.tscn" id="1_htkv2"]
+
+[node name="MundoAberto" type="Node2D" unique_id=1950123425]
+
+[node name="Seiji" parent="." unique_id=161441557 instance=ExtResource("1_htkv2")]
+position = Vector2(160, 104)
+
+[node name="Camera2D" type="Camera2D" parent="Seiji" unique_id=1213736736]

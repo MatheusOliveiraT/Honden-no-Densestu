@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tdm2b7ikjwrt"
-path="res://.godot/imported/untitled_0002.png-5057b01dfbc2f47a074fb1c560776e7c.ctex"
+uid="uid://usrby6t6smhi"
+path="res://.godot/imported/tsuchinoko-1.png-07d2aaee1d4b0dc0686b85b8cf752b3d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://jogador/untitled_0002.png"
-dest_files=["res://.godot/imported/untitled_0002.png-5057b01dfbc2f47a074fb1c560776e7c.ctex"]
+source_file="res://sprites-import/tsuchinoko-1.png"
+dest_files=["res://.godot/imported/tsuchinoko-1.png-07d2aaee1d4b0dc0686b85b8cf752b3d.ctex"]
 
 [params]
 

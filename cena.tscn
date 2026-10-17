@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://bjo1i8si3plnq"]
 
-[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://jogador/jogador.tscn" id="1_2vsai"]
+[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://seiji/seiji.tscn" id="1_2vsai"]
 [ext_resource type="Script" uid="uid://cw0tmxtc06fup" path="res://battle_manager.gd" id="1_fwo5d"]
 [ext_resource type="PackedScene" uid="uid://cymrdd5tpxjku" path="res://inimigo_exemplo/inimigo.tscn" id="3_mxkdn"]
 
 [node name="Cena" type="Node2D" unique_id=1763208964]
 script = ExtResource("1_fwo5d")
 
-[node name="Jogador" parent="." unique_id=1782972372 instance=ExtResource("1_2vsai")]
-position = Vector2(412, 262)
+[node name="Seiji" parent="." unique_id=1782972372 instance=ExtResource("1_2vsai")]
+position = Vector2(97, 90)
 
 [node name="Inimigo" parent="." unique_id=1980399220 instance=ExtResource("3_mxkdn")]
-position = Vector2(950, 258)
+position = Vector2(206, 97)

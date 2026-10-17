@@ -59,17 +59,9 @@ func _create_temp_ui() -> void:
 	sub_menu_container.hide()
 
 func log_msg(text: String) -> void:
-	# Imprime no console de debug da Godot
-	print(text)
-	
 	if log_label:
-		# Adiciona o texto no label
 		log_label.append_text(text + "\n")
-		
-		# Aguarda 1 frame para que a Godot recalcule o tamanho do texto no container
 		await get_tree().process_frame
-		
-		# Ajusta a barra de rolagem vertical para o valor máximo (final do log)
 		if log_scroll:
 			var v_scroll = log_scroll.get_v_scroll_bar()
 			v_scroll.value = v_scroll.max_value
@@ -78,7 +70,10 @@ func start_battle() -> void:
 	current_state = BattleState.START
 	log_msg("[b][color=yellow]=== INÍCIO DA BATALHA ===[/color][/b]")
 	for player in player_party:
-		if player.stats: player.stats.initialize()
+		if player.stats: 
+			player.stats.initialize()
+		if player.has_method("set_in_battle"):
+			player.set_in_battle(true)
 	for enemy in enemy_party:
 		if enemy.stats: enemy.stats.initialize()
 	generate_turn_queue()
@@ -298,16 +293,20 @@ func check_battle_end() -> bool:
 	var players_alive = player_party.any(func(p): return p.stats.current_hp > 0)
 	var enemies_alive = enemy_party.any(func(e): return e.stats.current_hp > 0)
 	
-	if not enemies_alive:
-		current_state = BattleState.WIN
-		_hide_all_ui()
-		log_msg("\n[b][color=green]=== VITÓRIA! Todos os inimigos foram derrotados. ===[/color][/b]")
+	if not enemies_alive or not players_alive:
+		for player in player_party:
+			if player.has_method("set_in_battle"):
+				player.set_in_battle(false)
+		if not enemies_alive:
+			current_state = BattleState.WIN
+			_hide_all_ui()
+			log_msg("\n[b][color=green]=== VITÓRIA! Todos os inimigos foram derrotados. ===[/color][/b]")
+		else:
+			current_state = BattleState.LOSE
+			_hide_all_ui()
+			log_msg("\n[b][color=red]=== DERROTA! A sua equipe caiu em combate. ===[/color][/b]")
 		return true
-	elif not players_alive:
-		current_state = BattleState.LOSE
-		_hide_all_ui()
-		log_msg("\n[b][color=red]=== DERROTA! A sua equipe caiu em combate. ===[/color][/b]")
-		return true
+		
 	return false
 
 # --- UTILITÁRIOS DE UI ---
