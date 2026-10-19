@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bjo1i8si3plnq"]
+
+[ext_resource type="Script" uid="uid://cw0tmxtc06fup" path="res://battle/battle_manager.gd" id="1_u2cu5"]
+[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://seiji/seiji.tscn" id="2_1otyf"]
+
+[node name="BattleScene" type="Node2D" unique_id=1763208964]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=778205936]
+
+[node name="SpawnPositions" type="Node2D" parent="." unique_id=1354169017]
+
+[node name="PlayerSpawn" type="Marker2D" parent="SpawnPositions" unique_id=1202065932]
+position = Vector2(100, 94)
+
+[node name="EnemySpawn" type="Marker2D" parent="SpawnPositions" unique_id=640459156]
+position = Vector2(290, 104)
+
+[node name="BattleManager" type="Node2D" parent="." unique_id=233486942]
+script = ExtResource("1_u2cu5")
+player_scene = ExtResource("2_1otyf")

@@ -31,9 +31,12 @@ signal status_expired(type: StatusType)
 signal status_paralyzed()
 
 func initialize() -> void:
-	current_hp = max_hp
-	current_mp = max_mp
 	active_statuses.clear()
+	if character_name == "Herói":
+		GameManager.sync_stats_from_game_manager(self)
+	else:
+		current_hp = max_hp
+		current_mp = max_mp
 
 func take_damage(amount: int) -> void:
 	var damage_taken = max(1, amount - get_current_defense())

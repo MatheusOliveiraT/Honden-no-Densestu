@@ -10,16 +10,22 @@ config_version=5
 
 [application]
 
-config/name="RPG"
-run/main_scene="uid://bjo1i8si3plnq"
+config/name="Honden no Densestu"
+run/main_scene="uid://tgqkciq5672d"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneTransition="*uid://cdv5jhfqkidyi"
+GameManager="*uid://cue3jsu4obuw6"
+
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=224
-window/stretch/mode="canvas_items"
+window/size/viewport_width=384
+window/size/viewport_height=216
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [global_group]
 

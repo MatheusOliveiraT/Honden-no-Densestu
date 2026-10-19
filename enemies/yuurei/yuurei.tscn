@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cymrdd5tpxjku"]
+
+[ext_resource type="Script" path="res://yuurei/yuurei.gd" id="1_id45k"]
+[ext_resource type="Resource" uid="uid://bmam6nf4x5pkm" path="res://enemies/yuurei/yuurei.tres" id="2_l3nph"]
+[ext_resource type="Texture2D" uid="uid://cg8iyw7roju85" path="res://enemies/yuurei/yuurei-10.png" id="3_id45k"]
+[ext_resource type="Texture2D" uid="uid://d0gs2fs4mtwgq" path="res://enemies/yuurei/yuurei-1.png" id="3_ren63"]
+[ext_resource type="Texture2D" uid="uid://c7iq2j14ouijc" path="res://enemies/yuurei/yuurei-2.png" id="4_3vqw6"]
+[ext_resource type="Texture2D" uid="uid://c38ajm8dr0ua1" path="res://enemies/yuurei/yuurei-3.png" id="5_b2emk"]
+[ext_resource type="Texture2D" uid="uid://c7ntq7o7dthhh" path="res://enemies/yuurei/yuurei-7.png" id="6_mybyn"]
+[ext_resource type="Texture2D" uid="uid://kibyhp1uqiul" path="res://enemies/yuurei/yuurei-8.png" id="7_fimio"]
+[ext_resource type="Texture2D" uid="uid://gpan8xly6rrv" path="res://enemies/yuurei/yuurei-9.png" id="8_1yav0"]
+[ext_resource type="Texture2D" uid="uid://og853pxauod5" path="res://enemies/yuurei/yuurei-4.png" id="9_iykl0"]
+[ext_resource type="Texture2D" uid="uid://c2svgpqevm3jo" path="res://enemies/yuurei/yuurei-5.png" id="10_l4bgn"]
+[ext_resource type="Texture2D" uid="uid://cqp6kc5j6cnp1" path="res://enemies/yuurei/yuurei-6.png" id="11_w35gf"]
+[ext_resource type="Texture2D" uid="uid://dcktsq1y304m1" path="res://enemies/yuurei/yuurei-11.png" id="13_gglyi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boia5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ren63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3vqw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b2emk")
+}],
+"loop": 1,
+"name": &"andando_baixo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_mybyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fimio")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1yav0")
+}],
+"loop": 1,
+"name": &"andando_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_iykl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_l4bgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w35gf")
+}],
+"loop": 1,
+"name": &"andando_lado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_id45k")
+}],
+"loop": 1,
+"name": &"em_batalha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_gglyi")
+}],
+"loop": 1,
+"name": &"levou_dano",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fgtr"]
+size = Vector2(22, 32)
+
+[node name="Yuurei" type="CharacterBody2D" unique_id=1980399220 groups=["Enemies"]]
+script = ExtResource("1_id45k")
+stats = ExtResource("2_l3nph")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1067959627]
+sprite_frames = SubResource("SpriteFrames_boia5")
+animation = &"andando_baixo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1075600582]
+shape = SubResource("RectangleShape2D_5fgtr")
