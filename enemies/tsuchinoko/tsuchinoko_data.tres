@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://d1hqdb772c3bd"]
+
+[ext_resource type="Script" uid="uid://b43urw7ppk1wj" path="res://enemies/enemy_data.gd" id="1_3id6b"]
+[ext_resource type="SpriteFrames" uid="uid://b76y6gv1f1npr" path="res://enemies/tsuchinoko/tsuchinoko_sprite_frame.tres" id="2_tbi26"]
+[ext_resource type="Script" uid="uid://4wiuat28bu07" path="res://character_stats.gd" id="3_cjmjh"]
+
+[sub_resource type="Resource" id="Resource_ss36u"]
+script = ExtResource("3_cjmjh")
+character_name = "Tsuchinoko"
+max_hp = 10
+max_mp = 5
+speed = 3
+attack = 5
+defense = 2
+metadata/_custom_type_script = "uid://4wiuat28bu07"
+
+[resource]
+script = ExtResource("1_3id6b")
+enemy_name = "Tsuchinoko"
+stats = SubResource("Resource_ss36u")
+sprite_frames = ExtResource("2_tbi26")
+souls_reward = 1
+metadata/_custom_type_script = "uid://b43urw7ppk1wj"

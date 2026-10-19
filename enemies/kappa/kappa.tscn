@@ -8,7 +8,7 @@
 size = Vector2(16, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mtl0x"]
-size = Vector2(29, 44)
+size = Vector2(22, 36)
 
 [node name="Kappa" type="CharacterBody2D" unique_id=1401986159 groups=["Enemies"]]
 script = ExtResource("1_rht43")
@@ -25,5 +25,4 @@ shape = SubResource("RectangleShape2D_boia5")
 [node name="InteractionArea" type="Area2D" parent="." unique_id=368996148]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=167975143]
-position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_mtl0x")

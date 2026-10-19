@@ -12,9 +12,16 @@
 [node name="PlayerSpawn" type="Marker2D" parent="SpawnPositions" unique_id=1202065932]
 position = Vector2(100, 94)
 
-[node name="EnemySpawn" type="Marker2D" parent="SpawnPositions" unique_id=640459156]
-position = Vector2(290, 104)
+[node name="EnemySpawn1" type="Marker2D" parent="SpawnPositions" unique_id=640459156]
+position = Vector2(253, 93)
+
+[node name="EnemySpawn2" type="Marker2D" parent="SpawnPositions" unique_id=1448392350]
+position = Vector2(301, 39)
+
+[node name="EnemySpawn3" type="Marker2D" parent="SpawnPositions" unique_id=257596747]
+position = Vector2(301, 161)
 
 [node name="BattleManager" type="Node2D" parent="." unique_id=233486942]
+position = Vector2(0, 1)
 script = ExtResource("1_u2cu5")
 player_scene = ExtResource("2_1otyf")

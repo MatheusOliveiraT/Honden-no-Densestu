@@ -1,7 +1,7 @@
 extends Resource
 class_name CharacterStats
 
-@export var character_name: String = "Herói"
+@export var character_name: String = "Entidade"
 @export var max_hp: int = 100
 @export var max_mp: int = 50
 @export var speed: int = 10

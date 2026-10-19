@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bfg3liaw2brcl"]
+
+[ext_resource type="Script" uid="uid://b4mtl0cfxj2px" path="res://enemies/enemy_overworld.gd" id="1_ss36u"]
+[ext_resource type="Resource" uid="uid://d1hqdb772c3bd" path="res://enemies/tsuchinoko/tsuchinoko_data.tres" id="2_ss36u"]
+[ext_resource type="SpriteFrames" uid="uid://b76y6gv1f1npr" path="res://enemies/tsuchinoko/tsuchinoko_sprite_frame.tres" id="3_pd27h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd27h"]
+size = Vector2(15, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1o0vn"]
+size = Vector2(23, 34)
+
+[node name="Tsuchinoko" type="CharacterBody2D" unique_id=1797316529 groups=["Enemies"]]
+script = ExtResource("1_ss36u")
+enemy_id = "tsuchinoko_00"
+enemy_data = ExtResource("2_ss36u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1577464126]
+sprite_frames = ExtResource("3_pd27h")
+animation = &"andando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=963668851]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_pd27h")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1428538663]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1106668626]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_1o0vn")
