@@ -37,14 +37,17 @@ func _spawn_combatants() -> void:
 				if spawn_node is Marker2D and "EnemySpawn" in spawn_node.name:
 					enemy_spawns.append(spawn_node)
 		enemy_spawns.sort_custom(func(a, b): return a.name < b.name)
+		
 	if player_scene and player_spawn:
 		var player_instance = player_scene.instantiate()
 		player_party.append(player_instance)
 		player_instance.add_to_group("Players")
 		get_parent().add_child.call_deferred(player_instance)
+		
 	var party_data = GameManager.current_enemy_party_data
 	if party_data.is_empty() and GameManager.current_enemy_data:
 		party_data.append(GameManager.current_enemy_data)
+		
 	for i in range(party_data.size()):
 		var data = party_data[i]
 		var enemy_instance = BattleEnemy.new()
@@ -60,13 +63,16 @@ func _spawn_combatants() -> void:
 		get_parent().add_child.call_deferred(enemy_instance)
 		if sprite.sprite_frames and sprite.sprite_frames.has_animation("em_batalha"):
 			sprite.play("em_batalha")
+			
 	await get_tree().process_frame
+	
 	for player in player_party:
 		if is_instance_valid(player) and player_spawn:
 			player.global_position = player_spawn.global_position
 			player.set_physics_process(false)
 			if player.has_method("set_in_battle"):
 				player.set_in_battle(true)
+				
 	for i in range(enemy_party.size()):
 		if is_instance_valid(enemy_party[i]):
 			if i < enemy_spawns.size() and enemy_spawns[i] != null:
@@ -77,26 +83,31 @@ func _spawn_combatants() -> void:
 func _create_temp_ui() -> void:
 	ui_canvas = CanvasLayer.new()
 	add_child(ui_canvas)
+	
 	log_scroll = ScrollContainer.new()
-	log_scroll.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	log_scroll.position = Vector2(20, 20)
-	log_scroll.size = Vector2(600, 150)
+	log_scroll.position = Vector2(8, 6)
+	log_scroll.size = Vector2(368, 48)
 	ui_canvas.add_child(log_scroll)
+
 	log_label = RichTextLabel.new()
 	log_label.bbcode_enabled = true
 	log_label.fit_content = true
-	log_label.custom_minimum_size = Vector2(580, 0)
+	log_label.custom_minimum_size = Vector2(350, 0)
+	log_label.add_theme_font_size_override("normal_font_size", 8)
+	log_label.add_theme_font_size_override("bold_font_size", 8)
 	log_scroll.add_child(log_label)
+	
 	main_action_container = VBoxContainer.new()
-	main_action_container.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	main_action_container.position = Vector2(50, -200)
-	main_action_container.size = Vector2(200, 150)
+	main_action_container.position = Vector2(8, 128)
+	main_action_container.size = Vector2(100, 60)
+	main_action_container.add_theme_constant_override("separation", 2)
 	ui_canvas.add_child(main_action_container)
 	main_action_container.hide()
+	
 	sub_menu_container = VBoxContainer.new()
-	sub_menu_container.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
-	sub_menu_container.position = Vector2(270, -200)
-	sub_menu_container.size = Vector2(250, 150)
+	sub_menu_container.position = Vector2(112, 128)
+	sub_menu_container.size = Vector2(140, 60)
+	sub_menu_container.add_theme_constant_override("separation", 2)
 	ui_canvas.add_child(sub_menu_container)
 	sub_menu_container.hide()
 
@@ -167,30 +178,30 @@ func enable_player_ui() -> void:
 	_clear_container(main_action_container)
 	_clear_container(sub_menu_container)
 	sub_menu_container.hide()
-	var btn_attack = Button.new()
-	btn_attack.text = "⚔️ Atacar"
+	
+	var btn_attack = _create_pixel_button("Atacar")
 	btn_attack.pressed.connect(_show_target_selection)
 	main_action_container.add_child(btn_attack)
-	var btn_magic = Button.new()
-	btn_magic.text = "🪄 Magia (" + str(current_character.stats.current_mp) + " MP)"
+	
+	var btn_magic = _create_pixel_button("Magia (" + str(current_character.stats.current_mp) + " MP)")
 	btn_magic.pressed.connect(_show_magic_menu)
 	main_action_container.add_child(btn_magic)
-	var btn_item = Button.new()
-	btn_item.text = "🧪 Item"
+	
+	var btn_item = _create_pixel_button("Item")
 	btn_item.pressed.connect(_show_item_menu)
 	main_action_container.add_child(btn_item)
-	var btn_defend = Button.new()
-	btn_defend.text = "🛡️ Defender"
+	
+	var btn_defend = _create_pixel_button("Defender")
 	btn_defend.pressed.connect(_player_choose_defend)
 	main_action_container.add_child(btn_defend)
+	
 	main_action_container.show()
 
 func _show_target_selection() -> void:
 	_clear_container(sub_menu_container)
 	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
 	for enemy in valid_enemies:
-		var btn = Button.new()
-		btn.text = enemy.stats.character_name + " (HP: " + str(enemy.stats.current_hp) + ")"
+		var btn = _create_pixel_button(enemy.stats.character_name + " (" + str(enemy.stats.current_hp) + " HP)")
 		btn.pressed.connect(func(): player_choose_attack(enemy))
 		sub_menu_container.add_child(btn)
 	_add_back_button()
@@ -198,16 +209,17 @@ func _show_target_selection() -> void:
 
 func _show_magic_menu() -> void:
 	_clear_container(sub_menu_container)
-	var btn_fireball = Button.new()
-	btn_fireball.text = "Bola de Fogo (15 MP)"
-	btn_fireball.disabled = current_character.stats.current_mp < 15
-	btn_fireball.pressed.connect(func(): _select_magic_target("Bola de Fogo", 15, 25))
-	sub_menu_container.add_child(btn_fireball)
-	var btn_heal = Button.new()
-	btn_heal.text = "Cura (10 MP)"
-	btn_heal.disabled = current_character.stats.current_mp < 10
-	btn_heal.pressed.connect(func(): _cast_heal(10, 30))
-	sub_menu_container.add_child(btn_heal)
+	var spells = GameManager.equipped_spells
+	if spells.is_empty():
+		var btn_empty = _create_pixel_button("Sem magias")
+		btn_empty.disabled = true
+		sub_menu_container.add_child(btn_empty)
+	else:
+		for spell in spells:
+			var btn = _create_pixel_button(spell.spell_name + " (" + str(spell.mp_cost) + "MP)")
+			btn.disabled = current_character.stats.current_mp < spell.mp_cost
+			btn.pressed.connect(func(): _on_spell_selected(spell))
+			sub_menu_container.add_child(btn)
 	_add_back_button()
 	sub_menu_container.show()
 
@@ -215,8 +227,7 @@ func _select_magic_target(spell_name: String, mp_cost: int, damage: int) -> void
 	_clear_container(sub_menu_container)
 	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
 	for enemy in valid_enemies:
-		var btn = Button.new()
-		btn.text = "Usar " + spell_name + " em " + enemy.stats.character_name
+		var btn = _create_pixel_button(spell_name + " -> " + enemy.stats.character_name)
 		btn.pressed.connect(func():
 			current_character.stats.current_mp -= mp_cost
 			log_msg(current_character.stats.character_name + " usou " + spell_name + " em " + enemy.stats.character_name + " causando " + str(damage) + " de dano!")
@@ -226,19 +237,45 @@ func _select_magic_target(spell_name: String, mp_cost: int, damage: int) -> void
 		sub_menu_container.add_child(btn)
 	_add_back_button()
 
-func _cast_heal(mp_cost: int, heal_amount: int) -> void:
-	current_character.stats.current_mp -= mp_cost
-	current_character.stats.heal(heal_amount)
-	log_msg(current_character.stats.character_name + " usou Cura e recuperou " + str(heal_amount) + " de HP!")
+func _on_spell_selected(spell: SpellData) -> void:
+	if spell.type == SpellData.SpellType.HEAL or spell.type == SpellData.SpellType.BUFF:
+		_cast_spell(spell, current_character)
+	else:
+		_select_spell_target(spell)
+
+func _select_spell_target(spell: SpellData) -> void:
+	_clear_container(sub_menu_container)
+	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
+	for enemy in valid_enemies:
+		var btn = _create_pixel_button(spell.spell_name + " -> " + enemy.stats.character_name)
+		btn.pressed.connect(func(): _cast_spell(spell, enemy))
+		sub_menu_container.add_child(btn)
+		
+	_add_back_button()
+
+func _cast_spell(spell: SpellData, target: Node) -> void:
+	_hide_all_ui()
+	current_character.stats.current_mp -= spell.mp_cost
+	match spell.type:
+		SpellData.SpellType.HEAL:
+			target.stats.heal(spell.base_value)
+			log_msg(current_character.stats.character_name + " usou " + spell.spell_name + " e recuperou " + str(spell.base_value) + " HP!")
+		SpellData.SpellType.DAMAGE:
+			log_msg(current_character.stats.character_name + " usou " + spell.spell_name + " em " + target.stats.character_name + "!")
+			await _apply_damage_and_animate(target, spell.base_value)
+		SpellData.SpellType.BUFF, SpellData.SpellType.DEBUFF:
+			log_msg(current_character.stats.character_name + " usou " + spell.spell_name + " em " + target.stats.character_name + "!")
+	if spell.applies_status and "stats" in target and target.stats:
+		target.stats.apply_status(spell.status_type, spell.status_duration, spell.status_potency)
+		log_msg("Efeito de status aplicado a " + target.stats.character_name + "!")
 	end_character_turn()
 
 func _show_item_menu() -> void:
 	_clear_container(sub_menu_container)
-	var btn_potion = Button.new()
-	btn_potion.text = "Poção de Vida (+50 HP)"
+	var btn_potion = _create_pixel_button("Poção (+50 HP)")
 	btn_potion.pressed.connect(func():
 		current_character.stats.heal(50)
-		log_msg(current_character.stats.character_name + " usou uma Poção de Vida e recuperou 50 de HP!")
+		log_msg(current_character.stats.character_name + " usou Poção (+50 HP)!")
 		end_character_turn()
 	)
 	sub_menu_container.add_child(btn_potion)
@@ -247,14 +284,20 @@ func _show_item_menu() -> void:
 
 func _player_choose_defend() -> void:
 	defending_characters.append(current_character)
-	log_msg(current_character.stats.character_name + " assumiu postura defensiva (+50% de Defesa neste turno)!")
+	log_msg(current_character.stats.character_name + " assumiu postura defensiva!")
 	end_character_turn()
 
 func _add_back_button() -> void:
-	var btn_back = Button.new()
-	btn_back.text = "⬅️ Voltar"
+	var btn_back = _create_pixel_button("<- Voltar")
 	btn_back.pressed.connect(func(): sub_menu_container.hide())
 	sub_menu_container.add_child(btn_back)
+
+func _create_pixel_button(btn_text: String) -> Button:
+	var btn = Button.new()
+	btn.text = btn_text
+	btn.custom_minimum_size = Vector2(0, 14)
+	btn.add_theme_font_size_override("font_size", 8)
+	return btn
 
 func player_choose_attack(target: Node) -> void:
 	if current_state != BattleState.PLAYER_TURN: return
@@ -264,11 +307,56 @@ func player_choose_attack(target: Node) -> void:
 
 func execute_enemy_ai() -> void:
 	await get_tree().create_timer(1.0).timeout
-	var valid_targets = player_party.filter(func(p): return p.stats.current_hp > 0)
-	if not valid_targets.is_empty():
-		var target = valid_targets.pick_random()
-		await execute_attack(current_character, target)
+	var valid_player_targets = player_party.filter(func(p): return p.stats.current_hp > 0)
+	if valid_player_targets.is_empty():
+		end_character_turn()
+		return
+	var player_target = valid_player_targets.pick_random()
+	var enemy_data: EnemyData = current_character.get("enemy_data")
+	var spells: Array[SpellData] = []
+	if enemy_data and not enemy_data.spells.is_empty():
+		spells = enemy_data.spells
+	var heal_spells = spells.filter(func(s): return s.type == SpellData.SpellType.HEAL and current_character.stats.current_mp >= s.mp_cost)
+	var offensive_spells = spells.filter(func(s): return s.type != SpellData.SpellType.HEAL and current_character.stats.current_mp >= s.mp_cost)
+	if not heal_spells.is_empty():
+		var injured_allies = enemy_party.filter(
+			func(e): return e.stats.current_hp > 0 and (float(e.stats.current_hp) / float(e.stats.max_hp)) < 0.5
+		)
+		if not injured_allies.is_empty():
+			injured_allies.sort_custom(
+				func(a, b): return (float(a.stats.current_hp) / a.stats.max_hp) < (float(b.stats.current_hp) / b.stats.max_hp)
+			)
+			var target_to_heal = injured_allies[0]
+			var chosen_heal_spell = heal_spells.pick_random()
+			await _enemy_cast_spell(chosen_heal_spell, target_to_heal)
+			end_character_turn()
+			return
+	if not offensive_spells.is_empty() and randf() < 0.5:
+		var chosen_offensive_spell = offensive_spells.pick_random()
+		await _enemy_cast_spell(chosen_offensive_spell, player_target)
+		end_character_turn()
+		return
+	await execute_attack(current_character, player_target)
 	end_character_turn()
+	
+func _enemy_cast_spell(spell: SpellData, target: Node) -> void:
+	current_character.stats.current_mp -= spell.mp_cost
+	match spell.type:
+		SpellData.SpellType.HEAL:
+			var ally_target = enemy_party.filter(func(e): return e.stats.current_hp > 0).pick_random()
+			ally_target.stats.heal(spell.base_value)
+			log_msg(current_character.stats.character_name + " usou [color=magenta]" + spell.spell_name + "[/color] em " + ally_target.stats.character_name + "!")
+		SpellData.SpellType.DAMAGE:
+			log_msg(current_character.stats.character_name + " usou [color=magenta]" + spell.spell_name + "[/color] em " + target.stats.character_name + "!")
+			await _apply_damage_and_animate(target, spell.base_value)
+		SpellData.SpellType.BUFF:
+			current_character.stats.apply_status(spell.status_type, spell.status_duration, spell.status_potency)
+			log_msg(current_character.stats.character_name + " usou [color=magenta]" + spell.spell_name + "[/color]!")
+		SpellData.SpellType.DEBUFF:
+			log_msg(current_character.stats.character_name + " usou [color=magenta]" + spell.spell_name + "[/color] em " + target.stats.character_name + "!")
+	if spell.applies_status and "stats" in target and target.stats:
+		target.stats.apply_status(spell.status_type, spell.status_duration, spell.status_potency)
+		log_msg("Efeito [color=yellow]" + spell.spell_name + "[/color] afetou " + target.stats.character_name + "!")
 
 func execute_attack(attacker: Node, defender: Node) -> void:
 	var atk_value = attacker.stats.get_current_attack()
@@ -319,7 +407,7 @@ func check_battle_end() -> bool:
 		if not enemies_alive:
 			current_state = BattleState.WIN
 			_hide_all_ui()
-			log_msg("\n[b][color=green]=== VITÓRIA! Todos os inimigos foram derrotados. ===[/color][/b]")
+			log_msg("\n[b][color=green]=== VITÓRIA! ===[/color][/b]")
 			var total_earned_souls: int = 0
 			for i in range(enemy_party.size()):
 				var enemy = enemy_party[i]
@@ -332,17 +420,17 @@ func check_battle_end() -> bool:
 					total_earned_souls += data.souls_reward
 			if total_earned_souls > 0:
 				GameManager.add_souls(total_earned_souls)
-				log_msg("[color=cyan]+ " + str(total_earned_souls) + " Almas obtidas! (Total: " + str(GameManager.total_souls) + ")[/color]")
+				log_msg("[color=cyan]+ " + str(total_earned_souls) + " Almas! (Total: " + str(GameManager.total_souls) + ")[/color]")
 			else:
-				log_msg("[color=yellow]Nenhuma alma foi obtida nesta batalha.[/color]")
+				log_msg("[color=yellow]Nenhuma alma obtida.[/color]")
 			if GameManager.defeated_enemy_id != "":
 				GameManager.register_defeated_enemy(GameManager.defeated_enemy_id)
 			await get_tree().create_timer(1.5).timeout
-			SceneTransition.fade_to_battle("res://mundo_aberto.tscn")
+			SceneTransition.fade_to_battle(GameManager.current_map_scene_path)
 		else:
 			current_state = BattleState.LOSE
 			_hide_all_ui()
-			log_msg("\n[b][color=red]=== DERROTA! A sua equipe caiu em combate. ===[/color][/b]")
+			log_msg("\n[b][color=red]=== DERROTA! ===[/color][/b]")
 		return true
 	return false
 

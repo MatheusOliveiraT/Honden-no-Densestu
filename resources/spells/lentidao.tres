@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://c43fsy727vaof"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_wq6d1"]
+
+[resource]
+script = ExtResource("1_wq6d1")
+id = "lentidao"
+spell_name = "Lentidão"
+description = "Reduz a velocidade do inimigo"
+mp_cost = 8
+type = 3
+status_type = 4
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"
