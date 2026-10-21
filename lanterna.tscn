@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cb1evgtyrq7l2"]
+
+[ext_resource type="Texture2D" uid="uid://crj000gwkdqs0" path="res://sprites-import/lanterna.png" id="1_nnn4h"]
+
+[sub_resource type="Gradient" id="Gradient_aui74"]
+colors = PackedColorArray(0.89058477, 0.76362306, 0.1394375, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lfkbx"]
+gradient = SubResource("Gradient_aui74")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfkbx"]
+size = Vector2(12, 31)
+
+[node name="lanterna" type="StaticBody2D" unique_id=280399726]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1282005160]
+texture = ExtResource("1_nnn4h")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1929909336]
+position = Vector2(-64, -159)
+scale = Vector2(0.578125, 0.578125)
+texture = SubResource("GradientTexture2D_lfkbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1712748152]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_lfkbx")
