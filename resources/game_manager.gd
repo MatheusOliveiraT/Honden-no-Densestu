@@ -2,7 +2,7 @@ extends Node
 
 var player_map_position: Vector2 = Vector2.ZERO
 var returning_from_battle: bool = false
-var current_map_scene_path: String = "res://levels/chinju_no_mori.tscn"
+var current_map_scene_path: String = "res://levels/floresta.tscn"
 
 var defeated_enemy_id: String = ""
 var defeated_enemies: Array[String] = []
