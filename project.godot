@@ -32,6 +32,10 @@ window/stretch/scale_mode="integer"
 Enemies=""
 Players=""
 
+[layer_names]
+
+2d_physics/layer_1="arvores"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
