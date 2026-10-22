@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://d2oba6cvsmlue"]
+
+[ext_resource type="Script" uid="uid://b4mtl0cfxj2px" path="res://entities/enemies/enemy_overworld.gd" id="1_nxd50"]
+[ext_resource type="Resource" uid="uid://fm41nsyt126b" path="res://entities/enemies/rokurokubi/rokurokubi_data.tres" id="2_ovp05"]
+[ext_resource type="SpriteFrames" uid="uid://ngf64j764je" path="res://entities/enemies/rokurokubi/rokurokubi_sprite_frame.tres" id="2_pko6j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pko6j"]
+size = Vector2(19, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovp05"]
+size = Vector2(29, 42)
+
+[node name="Rokurokubi" type="CharacterBody2D" unique_id=1476780502 groups=["Enemies"]]
+script = ExtResource("1_nxd50")
+enemy_id = "rokurokubi_00"
+enemy_data = ExtResource("2_ovp05")
+speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=762574436]
+sprite_frames = ExtResource("2_pko6j")
+animation = &"andando_baixo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1990377295]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_pko6j")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1825945129]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=370484211]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ovp05")

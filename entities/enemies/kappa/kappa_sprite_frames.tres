@@ -1,0 +1,102 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://da4d7qnfno6r0"]
+
+[ext_resource type="Texture2D" uid="uid://ifxk5ye3avqe" path="res://entities/enemies/kappa/kappa-1.png" id="1_ud6lk"]
+[ext_resource type="Texture2D" uid="uid://bsyusr1qr2n7" path="res://entities/enemies/kappa/kappa-2.png" id="2_c5wc8"]
+[ext_resource type="Texture2D" uid="uid://b2dxrmq37lr8t" path="res://entities/enemies/kappa/kappa-3.png" id="3_tao3s"]
+[ext_resource type="Texture2D" uid="uid://ck88rndor3uc1" path="res://entities/enemies/kappa/kappa-4.png" id="4_svr82"]
+[ext_resource type="Texture2D" uid="uid://dgif8jj4m7xki" path="res://entities/enemies/kappa/kappa-5.png" id="5_8xypn"]
+[ext_resource type="Texture2D" uid="uid://cjenpuxegw6fq" path="res://entities/enemies/kappa/kappa-6.png" id="6_agclc"]
+[ext_resource type="Texture2D" uid="uid://wo08cuat6r13" path="res://entities/enemies/kappa/kappa-7.png" id="7_3rejw"]
+[ext_resource type="Texture2D" uid="uid://b2ubrnaxouvvc" path="res://entities/enemies/kappa/kappa-8.png" id="8_lugon"]
+[ext_resource type="Texture2D" uid="uid://ouw3r74tfru6" path="res://entities/enemies/kappa/kappa-9.png" id="9_85y0u"]
+[ext_resource type="Texture2D" uid="uid://b3rsi1othdabp" path="res://entities/enemies/kappa/kappa-10.png" id="10_lxnu2"]
+[ext_resource type="Texture2D" uid="uid://b7jyncu487ybh" path="res://entities/enemies/kappa/kappa-11.png" id="11_58mbb"]
+[ext_resource type="Texture2D" uid="uid://b57pxyp3p2nbn" path="res://entities/enemies/kappa/kappa-12.png" id="12_eplti"]
+[ext_resource type="Texture2D" uid="uid://d0ig7ooohjh5s" path="res://entities/enemies/kappa/kappa-13.png" id="13_yoq4g"]
+[ext_resource type="Texture2D" uid="uid://bgargsv5e2fwg" path="res://entities/enemies/kappa/kappa-14.png" id="14_mqmj6"]
+[ext_resource type="Texture2D" uid="uid://2o4rw2s5kky4" path="res://entities/enemies/kappa/kappa-15.png" id="15_k1qtf"]
+[ext_resource type="Texture2D" uid="uid://cd2xwyo1faw5g" path="res://entities/enemies/kappa/kappa-16.png" id="16_n33vs"]
+[ext_resource type="Texture2D" uid="uid://c7ysjyodrhv8c" path="res://entities/enemies/kappa/kappa-17.png" id="17_jao3r"]
+[ext_resource type="Texture2D" uid="uid://nyeyopvv5b0i" path="res://entities/enemies/kappa/kappa-18.png" id="18_11ca5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ud6lk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c5wc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tao3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_svr82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8xypn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_agclc")
+}],
+"loop": 1,
+"name": &"andando_baixo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_3rejw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_lugon")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_85y0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lxnu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_58mbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eplti")
+}],
+"loop": 1,
+"name": &"andando_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_yoq4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_mqmj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_k1qtf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_n33vs")
+}],
+"loop": 1,
+"name": &"andando_lado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_jao3r")
+}],
+"loop": 1,
+"name": &"em_batalha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_11ca5")
+}],
+"loop": 1,
+"name": &"levou_dano",
+"speed": 5.0
+}]

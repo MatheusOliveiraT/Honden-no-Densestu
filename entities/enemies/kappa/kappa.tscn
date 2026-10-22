@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cn4gf46e7srph"]
+
+[ext_resource type="Script" uid="uid://b4mtl0cfxj2px" path="res://entities/enemies/enemy_overworld.gd" id="1_rht43"]
+[ext_resource type="Resource" uid="uid://0pn2fopjof86" path="res://entities/enemies/kappa/kappa_data.tres" id="2_tbu6e"]
+[ext_resource type="SpriteFrames" uid="uid://da4d7qnfno6r0" path="res://entities/enemies/kappa/kappa_sprite_frames.tres" id="3_wj0y7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boia5"]
+size = Vector2(16, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtl0x"]
+size = Vector2(22, 36)
+
+[node name="Kappa" type="CharacterBody2D" unique_id=1401986159 groups=["Enemies"]]
+script = ExtResource("1_rht43")
+enemy_id = "kappa"
+enemy_data = ExtResource("2_tbu6e")
+speed = 70.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1848387776]
+sprite_frames = ExtResource("3_wj0y7")
+animation = &"em_batalha"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025546121]
+shape = SubResource("RectangleShape2D_boia5")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=368996148]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=167975143]
+shape = SubResource("RectangleShape2D_mtl0x")

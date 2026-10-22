@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://1ngt5lpfiuxw"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_ve8l2"]
+
+[resource]
+script = ExtResource("1_ve8l2")
+id = "veneno"
+spell_name = "Veneno"
+description = "Causa dano por turno ao alvo"
+type = 3
+applies_status = true
+status_potency = 3
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

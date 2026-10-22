@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bjo1i8si3plnq"]
 
 [ext_resource type="Script" uid="uid://cw0tmxtc06fup" path="res://battle/battle_manager.gd" id="1_u2cu5"]
-[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://seiji/seiji.tscn" id="2_1otyf"]
+[ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="2_1otyf"]
 
 [node name="BattleScene" type="Node2D" unique_id=1763208964]
 

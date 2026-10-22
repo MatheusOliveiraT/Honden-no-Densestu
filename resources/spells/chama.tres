@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://b4uvmapx8ajji"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_r7oka"]
+
+[resource]
+script = ExtResource("1_r7oka")
+id = "chama"
+spell_name = "Chama"
+description = "Dano inicial + Queimadura"
+mp_cost = 15
+type = 0
+applies_status = true
+status_type = 1
+status_potency = 3
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

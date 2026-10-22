@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://v0ulkign6lb2"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_rjkqk"]
+
+[resource]
+script = ExtResource("1_rjkqk")
+id = "choque"
+spell_name = "Choque"
+description = "Dano + Chance de paralisar"
+mp_cost = 20
+type = 0
+applies_status = true
+status_type = 3
+status_potency = 50
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

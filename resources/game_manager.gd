@@ -1,0 +1,77 @@
+extends Node
+
+var player_map_position: Vector2 = Vector2.ZERO
+var returning_from_battle: bool = false
+var current_map_scene_path: String = "res://levels/chinju_no_mori.tscn"
+
+var defeated_enemy_id: String = ""
+var defeated_enemies: Array[String] = []
+
+var current_hp: int = -1
+var current_mp: int = -1
+
+var total_souls: int = 0
+
+var current_enemy_data: EnemyData
+
+var current_level: int = 1 
+
+var current_enemy_party_data: Array[EnemyData] = []
+
+var unlocked_spells: Array[SpellData] = []
+var equipped_spells: Array[SpellData] = []
+
+func _ready() -> void:
+	_init_default_spells()
+
+func _init_default_spells() -> void:
+	var cura = SpellData.new()
+	cura.id = "cura"
+	cura.spell_name = "Cura"
+	cura.mp_cost = 10
+	cura.type = SpellData.SpellType.HEAL
+	cura.base_value = 30
+	cura.applies_status = false
+	unlock_spell(cura)
+	equip_spell(cura)
+
+func unlock_spell(spell: SpellData) -> void:
+	if not unlocked_spells.has(spell):
+		unlocked_spells.append(spell)
+
+func equip_spell(spell: SpellData) -> bool:
+	if equipped_spells.size() < 4 and not equipped_spells.has(spell):
+		equipped_spells.append(spell)
+		return true
+	return false
+
+func unequip_spell(spell: SpellData) -> void:
+	equipped_spells.erase(spell)
+
+func register_defeated_enemy(enemy_id: String) -> void:
+	if enemy_id != "" and not defeated_enemies.has(enemy_id):
+		defeated_enemies.append(enemy_id)
+	defeated_enemy_id = enemy_id
+
+func is_enemy_defeated(enemy_id: String) -> bool:
+	return defeated_enemies.has(enemy_id) or defeated_enemy_id == enemy_id
+
+func add_souls(amount: int) -> void:
+	total_souls += amount
+
+func spend_souls(amount: int) -> bool:
+	if total_souls >= amount:
+		total_souls -= amount
+		return true
+	return false
+
+func sync_stats_from_game_manager(stats: CharacterStats) -> void:
+	if current_hp == -1 or current_mp == -1:
+		current_hp = stats.max_hp
+		current_mp = stats.max_mp
+	stats.current_hp = current_hp
+	stats.current_mp = current_mp
+
+func save_stats_to_game_manager(stats: CharacterStats) -> void:
+	current_hp = stats.current_hp
+	current_mp = stats.current_mp
