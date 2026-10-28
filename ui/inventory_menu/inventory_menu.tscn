@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://5a0lel4g7oei"]
+
+[ext_resource type="Script" uid="uid://c750tcjt56wus" path="res://ui/inventory_menu/inventory_menu.gd" id="1_3j2ss"]
+
+[node name="InventoryMenu" type="CanvasLayer" unique_id=56679545]
+process_mode = 3
+script = ExtResource("1_3j2ss")
+
+[node name="Panel" type="Panel" parent="." unique_id=422876805]
+offset_left = 72.0
+offset_top = 38.0
+offset_right = 312.0
+offset_bottom = 178.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1380311781]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 130.0
+
+[node name="ItemListContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1876749133]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Panel" unique_id=355975840]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 10.0
+offset_right = 230.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2

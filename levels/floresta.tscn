@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://ligldrqm0dvd" path="res://entities/chest/chest.tscn" id="28_rbpvg"]
 [ext_resource type="Resource" uid="uid://bwvsir733qg8x" path="res://resources/items/pocao_hp_p.tres" id="29_rghct"]
 [ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="31_rghct"]
+[ext_resource type="PackedScene" uid="uid://5a0lel4g7oei" path="res://ui/inventory_menu/inventory_menu.tscn" id="32_rbpvg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4pt4k"]
 texture = ExtResource("1_6xnmb")
@@ -398,8 +399,11 @@ position = Vector2(-64, -153)
 position = Vector2(-64, -155)
 
 [node name="Seiji" parent="." unique_id=161441557 instance=ExtResource("31_rghct")]
+position = Vector2(202, 433)
 
-[node name="Camera2D" type="Camera2D" parent="Seiji" unique_id=67588569]
+[node name="Camera2D" type="Camera2D" parent="Seiji" unique_id=209341930]
+
+[node name="inventario" parent="." unique_id=56679545 instance=ExtResource("32_rbpvg")]
 
 [editable path="lanternas/lanterna"]
 [editable path="lanternas/lanterna2"]
