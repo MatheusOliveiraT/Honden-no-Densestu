@@ -4,8 +4,9 @@
 [ext_resource type="Resource" uid="uid://c7sctofmw2c8c" path="res://entities/seiji/seiji.tres" id="2_q2130"]
 [ext_resource type="SpriteFrames" uid="uid://f073wtmnnub8" path="res://entities/seiji/animacoes.tres" id="3_pvtfr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_boia5"]
-size = Vector2(16, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vk34m"]
+radius = 6.0
+height = 27.0
 
 [node name="Seiji" type="CharacterBody2D" unique_id=161441557 groups=["Players"]]
 script = ExtResource("1_c2wt1")
@@ -14,6 +15,9 @@ stats = ExtResource("2_q2130")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1457427052]
 sprite_frames = ExtResource("3_pvtfr")
 animation = &"andando_baixo"
+frame = 2
+frame_progress = 0.6813823
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502813511]
-shape = SubResource("RectangleShape2D_boia5")
+position = Vector2(0, 1.5)
+shape = SubResource("CapsuleShape2D_vk34m")

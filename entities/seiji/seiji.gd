@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var _animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var speed: float = 100.0
+@export var run_speed: float = 150.0 
 
 var is_in_battle: bool = false
 var _last_direction: Vector2 = Vector2.DOWN
@@ -25,30 +26,31 @@ func _physics_process(delta: float) -> void:
 		if _animated_sprite and _animated_sprite.sprite_frames and _animated_sprite.sprite_frames.has_animation("em_batalha"):
 			_animated_sprite.play("em_batalha")
 		return
-		
 	_move_into_direction(delta)
 	_animate()
 	move_and_slide()
 
 func set_in_battle(active: bool) -> void:
 	is_in_battle = active
-	
 	if not _animated_sprite:
 		_animated_sprite = get_node_or_null("AnimatedSprite2D")
-		
 	if active and _animated_sprite:
 		velocity = Vector2.ZERO
 		if _animated_sprite.sprite_frames and _animated_sprite.sprite_frames.has_animation("em_batalha"):
 			_animated_sprite.play("em_batalha")
 
 func _move_into_direction(_delta: float) -> void:
-	var input_direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_direction: Vector2 = Input.get_vector("esquerda", "direita", "cima", "baixo")
 	if input_direction != Vector2.ZERO:
 		_last_direction = input_direction
-	velocity = input_direction * speed
+	var is_running: bool = Input.is_action_pressed("correr")
+	var current_speed: float = run_speed if is_running else speed
+	velocity = input_direction * current_speed
 
 func _animate() -> void:
 	if velocity != Vector2.ZERO:
+		var is_running: bool = Input.is_action_pressed("correr")
+		_animated_sprite.speed_scale = 1.5 if is_running else 1.0
 		if abs(velocity.x) > abs(velocity.y):
 			_animated_sprite.play("andando_lado")
 		elif velocity.y > 0:
@@ -56,13 +58,13 @@ func _animate() -> void:
 		else:
 			_animated_sprite.play("andando_cima")
 	else:
+		_animated_sprite.speed_scale = 1.0
 		if abs(_last_direction.x) > abs(_last_direction.y):
 			_animated_sprite.play("idle_lado")
 		elif _last_direction.y > 0:
 			_animated_sprite.play("idle_baixo")
 		else:
 			_animated_sprite.play("idle_cima")
-
 	var facing_x: float = velocity.x if velocity.x != 0 else _last_direction.x
 	if facing_x != 0:
 		_animated_sprite.flip_h = facing_x < 0
