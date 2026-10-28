@@ -272,15 +272,26 @@ func _cast_spell(spell: SpellData, target: Node) -> void:
 
 func _show_item_menu() -> void:
 	_clear_container(sub_menu_container)
-	var btn_potion = _create_pixel_button("Poção (+50 HP)")
-	btn_potion.pressed.connect(func():
-		current_character.stats.heal(50)
-		log_msg(current_character.stats.character_name + " usou Poção (+50 HP)!")
-		end_character_turn()
-	)
-	sub_menu_container.add_child(btn_potion)
+	if GameManager.inventory.is_empty():
+		var btn_empty = _create_pixel_button("Sem itens")
+		btn_empty.disabled = true
+		sub_menu_container.add_child(btn_empty)
+	else:
+		for item in GameManager.inventory.keys():
+			var count = GameManager.inventory[item]
+			var btn = _create_pixel_button(item.item_name + " x" + str(count))
+			btn.pressed.connect(func():
+				_use_item_in_battle(item)
+			)
+			sub_menu_container.add_child(btn)
 	_add_back_button()
 	sub_menu_container.show()
+
+func _use_item_in_battle(item: ItemData) -> void:
+	if GameManager.remove_item(item, 1):
+		var msg = item.use(current_character.stats)
+		log_msg(msg)
+		end_character_turn()
 
 func _player_choose_defend() -> void:
 	defending_characters.append(current_character)

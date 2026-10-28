@@ -10,10 +10,27 @@ extends CharacterBody2D
 var is_in_battle: bool = false
 var _last_direction: Vector2 = Vector2.DOWN
 
+@onready var interaction_detector: Area2D = $InteractionDetector
+
 func _ready() -> void:
 	if get_tree().current_scene and get_tree().current_scene.name != "BattleScene":
 		if GameManager.returning_from_battle and GameManager.player_map_position != Vector2.ZERO:
 			call_deferred("_restore_map_position")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interagir") and not is_in_battle:
+		_try_interact()
+
+func _try_interact() -> void:
+	if not interaction_detector: return
+	var bodies = interaction_detector.get_overlapping_bodies()
+	var areas = interaction_detector.get_overlapping_areas()
+	
+	var targets = bodies + areas
+	for target in targets:
+		if target.has_method("interact"):
+			target.interact(self)
+			break
 
 func _restore_map_position() -> void:
 	global_position = GameManager.player_map_position

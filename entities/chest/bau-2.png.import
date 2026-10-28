@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eoprtqsd8eop"
-path="res://.godot/imported/bau-1.png-34a555157d04019e7d963acb5917a7f2.ctex"
+uid="uid://1ybf0rmgchfl"
+path="res://.godot/imported/bau-2.png-adf6f2f3fb9d484e47e3cab14002701e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites-import/bau-1.png"
-dest_files=["res://.godot/imported/bau-1.png-34a555157d04019e7d963acb5917a7f2.ctex"]
+source_file="res://entities/chest/bau-2.png"
+dest_files=["res://.godot/imported/bau-2.png-adf6f2f3fb9d484e47e3cab14002701e.ctex"]
 
 [params]
 

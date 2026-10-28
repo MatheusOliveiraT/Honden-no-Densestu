@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dk3hva7lgi8gd"
-path="res://.godot/imported/sombra-bau.png-67e1a972a978d538b168792d867bcd97.ctex"
+path="res://.godot/imported/sombra-bau.png-52af30fa35177e42d562fc103496b114.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites-import/sombra-bau.png"
-dest_files=["res://.godot/imported/sombra-bau.png-67e1a972a978d538b168792d867bcd97.ctex"]
+source_file="res://entities/chest/sombra-bau.png"
+dest_files=["res://.godot/imported/sombra-bau.png-52af30fa35177e42d562fc103496b114.ctex"]
 
 [params]
 

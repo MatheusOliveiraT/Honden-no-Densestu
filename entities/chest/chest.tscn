@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ligldrqm0dvd"]
+
+[ext_resource type="Script" uid="uid://c0dx8rpubrsao" path="res://entities/chest/chest.gd" id="1_ektp4"]
+[ext_resource type="Texture2D" uid="uid://dk3hva7lgi8gd" path="res://entities/chest/sombra-bau.png" id="2_0p1s4"]
+[ext_resource type="Texture2D" uid="uid://eoprtqsd8eop" path="res://entities/chest/bau-1.png" id="2_32syd"]
+[ext_resource type="Texture2D" uid="uid://1ybf0rmgchfl" path="res://entities/chest/bau-2.png" id="3_0p1s4"]
+[ext_resource type="Texture2D" uid="uid://b0bk6ht8ur2vw" path="res://entities/chest/bau-3.png" id="4_y8sn2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boia5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_y8sn2")
+}],
+"loop": 0,
+"name": &"aberto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_32syd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0p1s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y8sn2")
+}],
+"loop": 0,
+"name": &"abrir",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtl0x"]
+size = Vector2(18, 18)
+
+[node name="Chest" type="StaticBody2D" unique_id=434083459]
+script = ExtResource("1_ektp4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=598334710]
+texture = ExtResource("2_0p1s4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1490583320]
+sprite_frames = SubResource("SpriteFrames_boia5")
+animation = &"abrir"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=786123620]
+shape = SubResource("RectangleShape2D_mtl0x")

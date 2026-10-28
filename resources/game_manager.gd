@@ -21,6 +21,8 @@ var current_enemy_party_data: Array[EnemyData] = []
 var unlocked_spells: Array[SpellData] = []
 var equipped_spells: Array[SpellData] = []
 
+var inventory: Dictionary = {}
+
 func _ready() -> void:
 	_init_default_spells()
 
@@ -34,6 +36,21 @@ func _init_default_spells() -> void:
 	cura.applies_status = false
 	unlock_spell(cura)
 	equip_spell(cura)
+
+func add_item(item: ItemData, amount: int = 1) -> void:
+	if inventory.has(item):
+		inventory[item] += amount
+	else:
+		inventory[item] = amount
+	print("Item obtido: ", item.item_name, " x", amount)
+
+func remove_item(item: ItemData, amount: int = 1) -> bool:
+	if inventory.has(item) and inventory[item] >= amount:
+		inventory[item] -= amount
+		if inventory[item] <= 0:
+			inventory.erase(item)
+		return true
+	return false
 
 func unlock_spell(spell: SpellData) -> void:
 	if not unlocked_spells.has(spell):

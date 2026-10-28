@@ -8,6 +8,9 @@
 radius = 6.0
 height = 27.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_boia5"]
+radius = 30.016663
+
 [node name="Seiji" type="CharacterBody2D" unique_id=161441557 groups=["Players"]]
 script = ExtResource("1_c2wt1")
 stats = ExtResource("2_q2130")
@@ -21,3 +24,8 @@ frame_progress = 0.6813823
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502813511]
 position = Vector2(0, 1.5)
 shape = SubResource("CapsuleShape2D_vk34m")
+
+[node name="InteractionDetector" type="Area2D" parent="." unique_id=1042820648]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=1988468189]
+shape = SubResource("CircleShape2D_boia5")
