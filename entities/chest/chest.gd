@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Chest
 
-enum ChestType { SOULS, ITEM, SPELL }
+enum ChestType { SOULS, ITEM, SPELL, EQUIPMENT }
 
 @export var chest_id: String = "chest_fase1_01"
 @export var type: ChestType = ChestType.SOULS
@@ -9,6 +9,7 @@ enum ChestType { SOULS, ITEM, SPELL }
 @export var souls_amount: int = 10
 @export var item_data: Resource = null
 @export var spell_data: SpellData = null
+@export var equipment_data: EquipmentData = null
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -40,7 +41,11 @@ func _grant_reward() -> void:
 				GameManager.add_item(item_data, 1)
 			else:
 				GameManager.show_message_box("O baú continha um item, mas estava vazio!")
-				
+		ChestType.EQUIPMENT:
+			if equipment_data:
+				GameManager.add_equipment(equipment_data)
+			else:
+				GameManager.show_message_box("O baú continha um equipamento quebrado...")
 		ChestType.SPELL:
 			if spell_data:
 				GameManager.unlock_spell(spell_data)

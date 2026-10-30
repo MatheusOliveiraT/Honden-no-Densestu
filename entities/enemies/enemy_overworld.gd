@@ -75,7 +75,7 @@ func _setup_detection_area() -> void:
 		detection_area = Area2D.new()
 		var shape = CollisionShape2D.new()
 		var circle = CircleShape2D.new()
-		circle.radius = 150.0
+		circle.radius = 125.0
 		shape.shape = circle
 		detection_area.add_child(shape)
 		add_child(detection_area)

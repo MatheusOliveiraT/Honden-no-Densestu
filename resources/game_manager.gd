@@ -23,6 +23,10 @@ var equipped_spells: Array[SpellData] = []
 
 var inventory: Dictionary = {}
 
+var owned_equipments: Array[EquipmentData] = []
+var equipped_weapon: EquipmentData = null
+var equipped_armor: EquipmentData = null
+
 func _ready() -> void:
 	_init_default_spells()
 
@@ -36,6 +40,32 @@ func _init_default_spells() -> void:
 	cura.applies_status = false
 	unlock_spell(cura, false)
 	equip_spell(cura)
+
+func add_equipment(equip: EquipmentData) -> void:
+	if not owned_equipments.has(equip):
+		owned_equipments.append(equip)
+	var msg = "Equipamento obtido:\n[color=yellow]" + equip.item_name + "[/color]"
+	show_message_box(msg)
+
+func equip_item(equip: EquipmentData, stats: CharacterStats) -> void:
+	match equip.slot:
+		EquipmentData.EquipmentSlot.WEAPON:
+			equipped_weapon = equip
+			stats.equipped_weapon = equip
+		EquipmentData.EquipmentSlot.ARMOR:
+			equipped_armor = equip
+			stats.equipped_armor = equip
+	show_message_box("Equipado:\n[color=green]" + equip.item_name + "[/color]")
+
+func unequip_slot(slot: EquipmentData.EquipmentSlot, stats: CharacterStats) -> void:
+	match slot:
+		EquipmentData.EquipmentSlot.WEAPON:
+			equipped_weapon = null
+			stats.equipped_weapon = null
+		EquipmentData.EquipmentSlot.ARMOR:
+			equipped_armor = null
+			stats.equipped_armor = null
+	show_message_box("Equipamento removido.")
 
 func add_item(item: ItemData, amount: int = 1) -> void:
 	if inventory.has(item):
