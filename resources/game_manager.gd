@@ -23,6 +23,10 @@ var equipped_spells: Array[SpellData] = []
 
 var inventory: Dictionary = {}
 
+var owned_equipments: Array[EquipmentData] = []
+var equipped_weapon: EquipmentData = null
+var equipped_armor: EquipmentData = null
+
 func _ready() -> void:
 	_init_default_spells()
 
@@ -34,15 +38,42 @@ func _init_default_spells() -> void:
 	cura.type = SpellData.SpellType.HEAL
 	cura.base_value = 30
 	cura.applies_status = false
-	unlock_spell(cura)
+	unlock_spell(cura, false)
 	equip_spell(cura)
+
+func add_equipment(equip: EquipmentData) -> void:
+	if not owned_equipments.has(equip):
+		owned_equipments.append(equip)
+	var msg = "Equipamento obtido:\n[color=yellow]" + equip.item_name + "[/color]"
+	show_message_box(msg)
+
+func equip_item(equip: EquipmentData, stats: CharacterStats) -> void:
+	match equip.slot:
+		EquipmentData.EquipmentSlot.WEAPON:
+			equipped_weapon = equip
+			stats.equipped_weapon = equip
+		EquipmentData.EquipmentSlot.ARMOR:
+			equipped_armor = equip
+			stats.equipped_armor = equip
+	show_message_box("Equipado:\n[color=green]" + equip.item_name + "[/color]")
+
+func unequip_slot(slot: EquipmentData.EquipmentSlot, stats: CharacterStats) -> void:
+	match slot:
+		EquipmentData.EquipmentSlot.WEAPON:
+			equipped_weapon = null
+			stats.equipped_weapon = null
+		EquipmentData.EquipmentSlot.ARMOR:
+			equipped_armor = null
+			stats.equipped_armor = null
+	show_message_box("Equipamento removido.")
 
 func add_item(item: ItemData, amount: int = 1) -> void:
 	if inventory.has(item):
 		inventory[item] += amount
 	else:
 		inventory[item] = amount
-	print("Item obtido: ", item.item_name, " x", amount)
+	var msg = "Você obteve:\n[color=yellow]" + item.item_name + " x" + str(amount) + "[/color]"
+	show_message_box(msg)
 
 func remove_item(item: ItemData, amount: int = 1) -> bool:
 	if inventory.has(item) and inventory[item] >= amount:
@@ -52,9 +83,41 @@ func remove_item(item: ItemData, amount: int = 1) -> bool:
 		return true
 	return false
 
-func unlock_spell(spell: SpellData) -> void:
+func unlock_spell(spell: SpellData, show_notification: bool = true) -> void:
 	if not unlocked_spells.has(spell):
 		unlocked_spells.append(spell)
+		if show_notification:
+			var msg = "Nova magia desbloqueada!\n[color=cyan]" + spell.spell_name + "[/color]"
+			show_message_box(msg)
+
+func show_message_box(text: String) -> void:
+	if not get_tree() or not get_tree().root:
+		return
+	var canvas = CanvasLayer.new()
+	canvas.layer = 100
+	var panel = Panel.new()
+	panel.custom_minimum_size = Vector2(180, 40)
+	panel.position = Vector2(102, 160)
+	canvas.add_child(panel)
+	var label = RichTextLabel.new()
+	label.bbcode_enabled = true
+	label.text = "[center]" + text + "[/center]"
+	label.fit_content = true
+	label.position = Vector2(5, 6)
+	label.size = Vector2(170, 28)
+	label.add_theme_font_size_override("normal_font_size", 8)
+	label.add_theme_font_size_override("bold_font_size", 8)
+	panel.add_child(label)
+	get_tree().root.add_child.call_deferred(canvas)
+	panel.modulate.a = 0.0
+	await get_tree().process_frame
+	if is_instance_valid(canvas):
+		var tween = canvas.create_tween()
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tween.tween_property(panel, "modulate:a", 1.0, 0.2)
+		tween.tween_interval(2.0)
+		tween.tween_property(panel, "modulate:a", 0.0, 0.3)
+		tween.finished.connect(func(): canvas.queue_free())
 
 func equip_spell(spell: SpellData) -> bool:
 	if equipped_spells.size() < 4 and not equipped_spells.has(spell):

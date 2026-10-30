@@ -7,6 +7,8 @@ class_name CharacterStats
 @export var speed: int = 10
 @export var attack: int = 15
 @export var defense: int = 5
+@export var equipped_weapon: EquipmentData = null
+@export var equipped_armor: EquipmentData = null
 
 var current_hp: int
 var current_mp: int
@@ -17,14 +19,12 @@ class ActiveStatus:
 	var type: StatusType
 	var duration: int
 	var potency: int
-
 	func _init(_type: StatusType, _duration: int, _potency: int):
 		type = _type
 		duration = _duration
 		potency = _potency
 
 var active_statuses: Array[ActiveStatus] = []
-
 signal status_applied(type: StatusType)
 signal status_ticked(type: StatusType, damage_or_effect: int)
 signal status_expired(type: StatusType)
@@ -98,6 +98,10 @@ func get_current_speed() -> int:
 
 func get_current_attack() -> int:
 	var final_attack = attack
+	if equipped_weapon:
+		final_attack += equipped_weapon.attack_bonus
+	if equipped_armor:
+		final_attack += equipped_armor.attack_bonus
 	for status in active_statuses:
 		if status.type == StatusType.STRENGTH:
 			final_attack += status.potency
@@ -107,6 +111,10 @@ func get_current_attack() -> int:
 
 func get_current_defense() -> int:
 	var final_defense = defense
+	if equipped_weapon:
+		final_defense += equipped_weapon.defense_bonus
+	if equipped_armor:
+		final_defense += equipped_armor.defense_bonus
 	for status in active_statuses:
 		if status.type == StatusType.RESISTANCE:
 			final_defense += status.potency
