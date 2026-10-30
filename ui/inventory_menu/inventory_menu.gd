@@ -8,6 +8,8 @@ var current_tab: TabType = TabType.ITEMS
 @onready var item_list_container: VBoxContainer = $Panel/ScrollContainer/ItemListContainer
 @onready var description_label: Label = $Panel/DescriptionLabel
 
+@onready var label_alma: Label = %label_almas
+@onready var label_moeda: Label = %label_moedas
 var tab_bar_container: HBoxContainer
 var action_menu_container: VBoxContainer
 
@@ -19,7 +21,7 @@ var is_open: bool = false
 var is_busy: bool = false
 
 func _ready() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS # jogo pausado
 	hide()
 	panel.hide()
 	_create_tab_bar()
@@ -41,12 +43,14 @@ func _create_action_menu_container() -> void:
 	action_menu_container.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("inventario") and not is_busy:
+	if event.is_action_pressed("menu"):
 		toggle_menu()
 
 func toggle_menu() -> void:
 	is_open = !is_open
 	if is_open:
+		_refresh_inventory()
+		_refresh_currencies()
 		panel.show()
 		show()
 		get_tree().paused = true
@@ -58,6 +62,16 @@ func toggle_menu() -> void:
 		hide()
 		get_tree().paused = false
 
+func _refresh_currencies() -> void:
+	if label_alma and "almas" in GameManager:
+		label_alma.text = str(GameManager.almas)
+	if label_moeda and "moedas" in GameManager:
+		label_moeda.text = str(GameManager.moedas)
+
+func _refresh_inventory() -> void:
+	for child in item_list_container.get_children():
+		child.queue_free()
+    
 func _render_tab_buttons() -> void:
 	_clear_container(tab_bar_container)
 	var tabs = [
