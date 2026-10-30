@@ -21,35 +21,37 @@ func _ready() -> void:
 
 func interact(_player: Seiji) -> void:
 	if is_opened:
-		print("O baú já está vazio.")
+		GameManager.show_message_box("O baú já está vazio.")
 		return
 	is_opened = true
 	GameManager.register_defeated_enemy(chest_id)
 	_grant_reward()
-	if animated_sprite and animated_sprite.sprite_frames.has_animation("abrir"):
+	if animated_sprite and animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation("abrir"):
 		animated_sprite.play("abrir")
 
 func _grant_reward() -> void:
 	match type:
 		ChestType.SOULS:
 			GameManager.add_souls(souls_amount)
-			print("Você abriu o baú e encontrou ", souls_amount, " Almas!")
+			var msg = "Você abriu o baú e encontrou:\n[color=cyan]+ " + str(souls_amount) + " Almas![/color]"
+			GameManager.show_message_box(msg)
 		ChestType.ITEM:
 			if item_data is ItemData:
 				GameManager.add_item(item_data, 1)
-				print("Você encontrou: ", item_data.item_name, "!")
 			else:
-				print("O baú continha um item, mas está nulo!")
+				GameManager.show_message_box("O baú continha um item, mas estava vazio!")
+				
 		ChestType.SPELL:
 			if spell_data:
 				GameManager.unlock_spell(spell_data)
-				print("Você aprendeu uma nova magia: ", spell_data.spell_name, "!")
 			else:
-				print("O baú continha uma magia, mas está nulo!")
+				GameManager.show_message_box("O baú continha um pergaminho antigo ilegível...")
 
 func _play_open_animation_instant() -> void:
-	if animated_sprite and animated_sprite.sprite_frames.has_animation("aberto"):
+	if not animated_sprite or not animated_sprite.sprite_frames:
+		return
+	if animated_sprite.sprite_frames.has_animation("aberto"):
 		animated_sprite.play("aberto")
-	elif animated_sprite and animated_sprite.sprite_frames.has_animation("abrir"):
+	elif animated_sprite.sprite_frames.has_animation("abrir"):
 		animated_sprite.play("abrir")
 		animated_sprite.frame = animated_sprite.sprite_frames.get_frame_count("abrir") - 1

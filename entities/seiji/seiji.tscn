@@ -17,9 +17,7 @@ stats = ExtResource("2_q2130")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1457427052]
 sprite_frames = ExtResource("3_pvtfr")
-animation = &"andando_baixo"
-frame = 2
-frame_progress = 0.6813823
+animation = &"idle_cima"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502813511]
 position = Vector2(0, 1.5)

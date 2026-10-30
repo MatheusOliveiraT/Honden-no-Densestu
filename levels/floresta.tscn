@@ -32,6 +32,8 @@
 [ext_resource type="Resource" uid="uid://bwvsir733qg8x" path="res://resources/items/pocao_hp_p.tres" id="29_rghct"]
 [ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="31_rghct"]
 [ext_resource type="PackedScene" uid="uid://5a0lel4g7oei" path="res://ui/inventory_menu/inventory_menu.tscn" id="32_rbpvg"]
+[ext_resource type="PackedScene" uid="uid://cn4gf46e7srph" path="res://entities/enemies/kappa/kappa.tscn" id="32_uv657"]
+[ext_resource type="PackedScene" uid="uid://bfg3liaw2brcl" path="res://entities/enemies/tsuchinoko/tsuchinoko.tscn" id="33_rw562"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4pt4k"]
 texture = ExtResource("1_6xnmb")
@@ -403,7 +405,34 @@ position = Vector2(202, 433)
 
 [node name="Camera2D" type="Camera2D" parent="Seiji" unique_id=209341930]
 
+[node name="Inimigos" type="Node2D" parent="." unique_id=601781384]
+
+[node name="Kappa00" parent="Inimigos" unique_id=1401986159 instance=ExtResource("32_uv657")]
+position = Vector2(-270, -35)
+enemy_id = "kappa_00"
+speed = 130.0
+
+[node name="Kappa01" parent="Inimigos" unique_id=355447226 instance=ExtResource("32_uv657")]
+position = Vector2(723, 72)
+enemy_id = "kappa_01"
+speed = 130.0
+
+[node name="Kappa02" parent="Inimigos" unique_id=1904829737 instance=ExtResource("32_uv657")]
+position = Vector2(635, -723)
+enemy_id = "kappa_02"
+speed = 130.0
+
+[node name="Tsuchinoko00" parent="Inimigos" unique_id=1797316529 instance=ExtResource("33_rw562")]
+position = Vector2(732, -371)
+speed = 125.0
+
+[node name="Tsuchinoko01" parent="Inimigos" unique_id=1711810108 instance=ExtResource("33_rw562")]
+position = Vector2(-148, -354)
+enemy_id = "tsuchinoko_01"
+speed = 125.0
+
 [node name="inventario" parent="." unique_id=56679545 instance=ExtResource("32_rbpvg")]
+visible = false
 
 [editable path="lanternas/lanterna"]
 [editable path="lanternas/lanterna2"]
