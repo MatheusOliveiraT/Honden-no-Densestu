@@ -71,7 +71,7 @@ func _refresh_currencies() -> void:
 func _refresh_inventory() -> void:
 	for child in item_list_container.get_children():
 		child.queue_free()
-    
+	
 func _render_tab_buttons() -> void:
 	_clear_container(tab_bar_container)
 	var tabs = [
