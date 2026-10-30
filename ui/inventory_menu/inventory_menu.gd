@@ -5,19 +5,24 @@ class_name InventoryMenu
 @onready var item_list_container: VBoxContainer = $Panel/ScrollContainer/ItemListContainer
 @onready var description_label: Label = $Panel/DescriptionLabel
 
+@onready var label_alma: Label = %label_almas
+@onready var label_moeda: Label = %label_moedas
+
 var is_open: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS # jogo pausado
 	hide()
 	panel.hide()
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("inventario"):
+	if event.is_action_pressed("menu"):
 		toggle_menu()
 
 func toggle_menu() -> void:
 	is_open = !is_open
 	if is_open:
 		_refresh_inventory()
+		_refresh_currencies()
 		panel.show()
 		show()
 		get_tree().paused = true
@@ -25,6 +30,12 @@ func toggle_menu() -> void:
 		panel.hide()
 		hide()
 		get_tree().paused = false
+
+func _refresh_currencies() -> void:
+	if label_alma and "almas" in GameManager:
+		label_alma.text = str(GameManager.almas)
+	if label_moeda and "moedas" in GameManager:
+		label_moeda.text = str(GameManager.moedas)
 
 func _refresh_inventory() -> void:
 	for child in item_list_container.get_children():
