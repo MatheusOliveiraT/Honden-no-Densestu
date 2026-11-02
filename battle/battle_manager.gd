@@ -54,6 +54,7 @@ func _spawn_combatants() -> void:
 		var sprite = AnimatedSprite2D.new()
 		sprite.sprite_frames = data.sprite_frames
 		sprite.scale = data.battle_sprite_scale
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		enemy_instance.add_child(sprite)
 		if data.stats:
 			enemy_instance.stats = data.stats.duplicate()
@@ -68,7 +69,7 @@ func _spawn_combatants() -> void:
 	
 	for player in player_party:
 		if is_instance_valid(player) and player_spawn:
-			player.global_position = player_spawn.global_position
+			player.global_position = player_spawn.global_position.round()
 			player.set_physics_process(false)
 			if player.has_method("set_in_battle"):
 				player.set_in_battle(true)
@@ -76,40 +77,51 @@ func _spawn_combatants() -> void:
 	for i in range(enemy_party.size()):
 		if is_instance_valid(enemy_party[i]):
 			if i < enemy_spawns.size() and enemy_spawns[i] != null:
-				enemy_party[i].global_position = enemy_spawns[i].global_position
+				enemy_party[i].global_position = enemy_spawns[i].global_position.round()
 			elif not enemy_spawns.is_empty() and enemy_spawns[0] != null:
-				enemy_party[i].global_position = enemy_spawns[0].global_position + Vector2(i * 32, 0)
+				enemy_party[i].global_position = (enemy_spawns[0].global_position + Vector2(i * 32, 0)).round()
 
 func _create_temp_ui() -> void:
 	ui_canvas = CanvasLayer.new()
+	ui_canvas.layer = 50
 	add_child(ui_canvas)
 	
+	# LOG DE BATALHA COM TAMANHO E POSIÇÃO EM PIXELS INTEIROS
 	log_scroll = ScrollContainer.new()
-	log_scroll.position = Vector2(8, 6)
-	log_scroll.size = Vector2(368, 48)
+	log_scroll.position = Vector2(8, 6).round()
+	log_scroll.size = Vector2(368, 52).round()
+	log_scroll.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	ui_canvas.add_child(log_scroll)
 
 	log_label = RichTextLabel.new()
 	log_label.bbcode_enabled = true
 	log_label.fit_content = true
 	log_label.custom_minimum_size = Vector2(350, 0)
-	log_label.add_theme_font_size_override("normal_font_size", 8)
-	log_label.add_theme_font_size_override("bold_font_size", 8)
-	log_scroll.add_child(log_label)
+	log_label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
+	# FONTE 16PX NATIVA COM RESPIRO VERTICAL ENTRE LINHAS
+	log_label.add_theme_font_size_override("normal_font_size", 16)
+	log_label.add_theme_font_size_override("bold_font_size", 16)
+	log_label.add_theme_constant_override("line_separation", 2)
+	log_scroll.add_child(label_or_log())
+
+	# MENUS DE AÇÃO COM TAMANHOS ADEQUADOS À FONTE 16PX
 	main_action_container = VBoxContainer.new()
-	main_action_container.position = Vector2(8, 128)
-	main_action_container.size = Vector2(100, 60)
+	main_action_container.position = Vector2(8, 120).round()
+	main_action_container.size = Vector2(110, 88).round()
 	main_action_container.add_theme_constant_override("separation", 2)
 	ui_canvas.add_child(main_action_container)
 	main_action_container.hide()
 	
 	sub_menu_container = VBoxContainer.new()
-	sub_menu_container.position = Vector2(112, 128)
-	sub_menu_container.size = Vector2(140, 60)
+	sub_menu_container.position = Vector2(124, 120).round()
+	sub_menu_container.size = Vector2(160, 88).round()
 	sub_menu_container.add_theme_constant_override("separation", 2)
 	ui_canvas.add_child(sub_menu_container)
 	sub_menu_container.hide()
+
+func label_or_log() -> RichTextLabel:
+	return log_label
 
 func log_msg(text: String) -> void:
 	if log_label:
@@ -196,46 +208,44 @@ func enable_player_ui() -> void:
 	main_action_container.add_child(btn_defend)
 	
 	main_action_container.show()
+	_focus_element(btn_attack)
 
 func _show_target_selection() -> void:
 	_clear_container(sub_menu_container)
 	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
+	var first_btn: Button = null
+	
 	for enemy in valid_enemies:
 		var btn = _create_pixel_button(enemy.stats.character_name + " (" + str(enemy.stats.current_hp) + " HP)")
 		btn.pressed.connect(func(): player_choose_attack(enemy))
 		sub_menu_container.add_child(btn)
-	_add_back_button()
+		if first_btn == null: first_btn = btn
+		
+	_add_back_button(main_action_container.get_child(0))
 	sub_menu_container.show()
+	_focus_element(first_btn)
 
 func _show_magic_menu() -> void:
 	_clear_container(sub_menu_container)
 	var spells = GameManager.equipped_spells
+	var first_btn: Button = null
+	
 	if spells.is_empty():
 		var btn_empty = _create_pixel_button("Sem magias")
 		btn_empty.disabled = true
 		sub_menu_container.add_child(btn_empty)
+		first_btn = btn_empty
 	else:
 		for spell in spells:
-			var btn = _create_pixel_button(spell.spell_name + " (" + str(spell.mp_cost) + "MP)")
+			var btn = _create_pixel_button(spell.spell_name + " (" + str(spell.mp_cost) + " MP)")
 			btn.disabled = current_character.stats.current_mp < spell.mp_cost
 			btn.pressed.connect(func(): _on_spell_selected(spell))
 			sub_menu_container.add_child(btn)
-	_add_back_button()
+			if first_btn == null: first_btn = btn
+			
+	_add_back_button(main_action_container.get_child(1))
 	sub_menu_container.show()
-
-func _select_magic_target(spell_name: String, mp_cost: int, damage: int) -> void:
-	_clear_container(sub_menu_container)
-	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
-	for enemy in valid_enemies:
-		var btn = _create_pixel_button(spell_name + " -> " + enemy.stats.character_name)
-		btn.pressed.connect(func():
-			current_character.stats.current_mp -= mp_cost
-			log_msg(current_character.stats.character_name + " usou " + spell_name + " em " + enemy.stats.character_name + " causando " + str(damage) + " de dano!")
-			_apply_damage_and_animate(enemy, damage)
-			end_character_turn()
-		)
-		sub_menu_container.add_child(btn)
-	_add_back_button()
+	_focus_element(first_btn)
 
 func _on_spell_selected(spell: SpellData) -> void:
 	if spell.type == SpellData.SpellType.HEAL or spell.type == SpellData.SpellType.BUFF:
@@ -246,12 +256,17 @@ func _on_spell_selected(spell: SpellData) -> void:
 func _select_spell_target(spell: SpellData) -> void:
 	_clear_container(sub_menu_container)
 	var valid_enemies = enemy_party.filter(func(e): return e.stats.current_hp > 0)
+	var first_btn: Button = null
+	
 	for enemy in valid_enemies:
 		var btn = _create_pixel_button(spell.spell_name + " -> " + enemy.stats.character_name)
 		btn.pressed.connect(func(): _cast_spell(spell, enemy))
 		sub_menu_container.add_child(btn)
+		if first_btn == null: first_btn = btn
 		
-	_add_back_button()
+	_add_back_button(sub_menu_container.get_child(0))
+	sub_menu_container.show()
+	_focus_element(first_btn)
 
 func _cast_spell(spell: SpellData, target: Node) -> void:
 	_hide_all_ui()
@@ -272,10 +287,13 @@ func _cast_spell(spell: SpellData, target: Node) -> void:
 
 func _show_item_menu() -> void:
 	_clear_container(sub_menu_container)
+	var first_btn: Button = null
+	
 	if GameManager.inventory.is_empty():
 		var btn_empty = _create_pixel_button("Sem itens")
 		btn_empty.disabled = true
 		sub_menu_container.add_child(btn_empty)
+		first_btn = btn_empty
 	else:
 		for item in GameManager.inventory.keys():
 			var count = GameManager.inventory[item]
@@ -284,8 +302,11 @@ func _show_item_menu() -> void:
 				_use_item_in_battle(item)
 			)
 			sub_menu_container.add_child(btn)
-	_add_back_button()
+			if first_btn == null: first_btn = btn
+			
+	_add_back_button(main_action_container.get_child(2))
 	sub_menu_container.show()
+	_focus_element(first_btn)
 
 func _use_item_in_battle(item: ItemData) -> void:
 	if GameManager.remove_item(item, 1):
@@ -298,17 +319,29 @@ func _player_choose_defend() -> void:
 	log_msg(current_character.stats.character_name + " assumiu postura defensiva!")
 	end_character_turn()
 
-func _add_back_button() -> void:
+func _add_back_button(return_target: Button = null) -> void:
 	var btn_back = _create_pixel_button("<- Voltar")
-	btn_back.pressed.connect(func(): sub_menu_container.hide())
+	btn_back.pressed.connect(func(): 
+		sub_menu_container.hide()
+		if is_instance_valid(return_target):
+			return_target.grab_focus()
+		elif main_action_container.visible and main_action_container.get_child_count() > 0:
+			main_action_container.get_child(0).grab_focus()
+	)
 	sub_menu_container.add_child(btn_back)
 
 func _create_pixel_button(btn_text: String) -> Button:
 	var btn = Button.new()
 	btn.text = btn_text
-	btn.custom_minimum_size = Vector2(0, 14)
-	btn.add_theme_font_size_override("font_size", 8)
+	btn.custom_minimum_size = Vector2(0, 16)
+	btn.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	btn.add_theme_font_size_override("font_size", 16)
 	return btn
+
+func _focus_element(btn: Button) -> void:
+	await get_tree().process_frame
+	if is_instance_valid(btn) and not btn.disabled:
+		btn.grab_focus()
 
 func player_choose_attack(target: Node) -> void:
 	if current_state != BattleState.PLAYER_TURN: return

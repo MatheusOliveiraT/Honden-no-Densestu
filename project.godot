@@ -24,6 +24,7 @@ GameManager="*uid://cue3jsu4obuw6"
 
 window/size/viewport_width=384
 window/size/viewport_height=216
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
@@ -31,6 +32,12 @@ window/stretch/scale_mode="integer"
 
 Enemies=""
 Players=""
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/default_font_subpixel_positioning=0
+theme/custom="uid://dllkilrtopvmt"
 
 [input]
 

@@ -10,6 +10,7 @@ var current_tab: TabType = TabType.ITEMS
 
 @onready var label_alma: Label = %label_almas
 @onready var label_moeda: Label = %label_moedas
+
 var tab_bar_container: HBoxContainer
 var action_menu_container: VBoxContainer
 
@@ -21,7 +22,7 @@ var is_open: bool = false
 var is_busy: bool = false
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS # jogo pausado
+	process_mode = Node.PROCESS_MODE_ALWAYS # Continua rodando com o jogo pausado
 	hide()
 	panel.hide()
 	_create_tab_bar()
@@ -29,27 +30,22 @@ func _ready() -> void:
 
 func _create_tab_bar() -> void:
 	tab_bar_container = HBoxContainer.new()
-	tab_bar_container.position = Vector2(8, 6)
-	tab_bar_container.size = Vector2(224, 16)
+	tab_bar_container.position = Vector2(8, 6).round()
+	tab_bar_container.size = Vector2(224, 18).round()
 	tab_bar_container.add_theme_constant_override("separation", 2)
 	panel.add_child(tab_bar_container)
 
 func _create_action_menu_container() -> void:
 	action_menu_container = VBoxContainer.new()
-	action_menu_container.position = Vector2(130, 60)
-	action_menu_container.size = Vector2(100, 60)
+	action_menu_container.position = Vector2(130, 60).round()
+	action_menu_container.size = Vector2(100, 70).round()
 	action_menu_container.add_theme_constant_override("separation", 2)
 	panel.add_child(action_menu_container)
 	action_menu_container.hide()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("menu"):
-		toggle_menu()
-
 func toggle_menu() -> void:
 	is_open = !is_open
 	if is_open:
-		_refresh_inventory()
 		_refresh_currencies()
 		panel.show()
 		show()
@@ -63,15 +59,15 @@ func toggle_menu() -> void:
 		get_tree().paused = false
 
 func _refresh_currencies() -> void:
-	if label_alma and "almas" in GameManager:
-		label_alma.text = str(GameManager.almas)
-	if label_moeda and "moedas" in GameManager:
-		label_moeda.text = str(GameManager.moedas)
+	if label_alma:
+		if "almas" in GameManager:
+			label_alma.text = str(GameManager.almas)
+		elif "total_souls" in GameManager:
+			label_alma.text = str(GameManager.total_souls)
+	if label_moeda:
+		if "moedas" in GameManager:
+			label_moeda.text = str(GameManager.moedas)
 
-func _refresh_inventory() -> void:
-	for child in item_list_container.get_children():
-		child.queue_free()
-	
 func _render_tab_buttons() -> void:
 	_clear_container(tab_bar_container)
 	var tabs = [
@@ -151,6 +147,7 @@ func _use_selected_item() -> void:
 		description_label.text = msg
 		GameManager.remove_item(selected_item, 1)
 		GameManager.save_stats_to_game_manager(player.stats)
+		_refresh_currencies()
 		_close_sub_menu()
 		await get_tree().create_timer(2.0).timeout
 		is_busy = false
@@ -272,7 +269,8 @@ func _add_back_button(origin_btn: Button) -> void:
 func _add_empty_label(text_msg: String) -> void:
 	var empty_lbl = Label.new()
 	empty_lbl.text = text_msg
-	empty_lbl.add_theme_font_size_override("font_size", 8)
+	empty_lbl.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	empty_lbl.add_theme_font_size_override("font_size", 16)
 	item_list_container.add_child(empty_lbl)
 
 func _focus_element(btn: Button) -> void:
@@ -292,6 +290,7 @@ func _clear_container(container: Container) -> void:
 func _create_pixel_button(btn_text: String) -> Button:
 	var btn = Button.new()
 	btn.text = btn_text
-	btn.custom_minimum_size = Vector2(0, 14)
-	btn.add_theme_font_size_override("font_size", 8)
+	btn.custom_minimum_size = Vector2(0, 16)
+	btn.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	btn.add_theme_font_size_override("font_size", 16)
 	return btn

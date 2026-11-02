@@ -465,7 +465,6 @@ tile_map_data = PackedByteArray("AAAQABwAAAAAAAAAAAARAB0AAAAAAAAAAAASAB0AAAAAAAA
 tile_set = SubResource("TileSet_vicex")
 
 [node name="Inventário" parent="." unique_id=1552711463 instance=ExtResource("32_rbpvg")]
-visible = true
 
 [editable path="lanternas/lanterna"]
 [editable path="lanternas/lanterna2"]

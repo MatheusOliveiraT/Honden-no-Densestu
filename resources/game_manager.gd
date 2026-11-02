@@ -96,17 +96,18 @@ func show_message_box(text: String) -> void:
 	var canvas = CanvasLayer.new()
 	canvas.layer = 100
 	var panel = Panel.new()
-	panel.custom_minimum_size = Vector2(180, 40)
-	panel.position = Vector2(102, 160)
+	panel.custom_minimum_size = Vector2(220, 52)
+	panel.position = Vector2(82, 146).round()
+	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	canvas.add_child(panel)
 	var label = RichTextLabel.new()
 	label.bbcode_enabled = true
 	label.text = "[center]" + text + "[/center]"
 	label.fit_content = true
 	label.position = Vector2(5, 6)
-	label.size = Vector2(170, 28)
-	label.add_theme_font_size_override("normal_font_size", 8)
-	label.add_theme_font_size_override("bold_font_size", 8)
+	label.size = Vector2(210, 40)
+	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	label.add_theme_constant_override("line_separation", 4)
 	panel.add_child(label)
 	get_tree().root.add_child.call_deferred(canvas)
 	panel.modulate.a = 0.0

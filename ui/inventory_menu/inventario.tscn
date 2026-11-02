@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://d0mbknfk2on2f" path="res://ui/inventory_menu/Fonte.ttf" id="1_hvhlb"]
 [ext_resource type="PackedScene" uid="uid://5a0lel4g7oei" path="res://ui/inventory_menu/inventory_menu.tscn" id="1_jhntj"]
 [ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://sprites-import/menu-5.png" id="2_hvhlb"]
+[ext_resource type="Script" uid="uid://dgb87ogar465a" path="res://ui/inventory_menu/inventario.gd" id="3_8oetb"]
 [ext_resource type="Texture2D" uid="uid://bycpumu4on8c5" path="res://sprites-import/icone-menu.png" id="4_htrs3"]
 [ext_resource type="Texture2D" uid="uid://em1f770hplc7" path="res://sprites-import/almas.png" id="5_i4ef3"]
 [ext_resource type="Texture2D" uid="uid://c01s34fi5716s" path="res://sprites-import/moedas.png" id="6_8oetb"]
@@ -10,24 +11,6 @@
 [sub_resource type="Theme" id="Theme_vicex"]
 default_font = ExtResource("1_hvhlb")
 default_font_size = 8
-
-[sub_resource type="Theme" id="Theme_77to7"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_hvhlb"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_htrs3"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_6kv6x"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_olta5"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_lfkbx"]
-default_font = ExtResource("1_hvhlb")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_77to7"]
 
@@ -40,35 +23,8 @@ bg_color = Color(0.28627452, 0.32941177, 0.62352943, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkbx"]
 
-[sub_resource type="Theme" id="Theme_aui74"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_1pkoy"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_nhfc8"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_aos7j"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_wamhp"]
-default_font = ExtResource("1_hvhlb")
-default_font_size = 14
-
-[sub_resource type="Theme" id="Theme_nyvtw"]
-default_font = ExtResource("1_hvhlb")
-
-[sub_resource type="Theme" id="Theme_i4ef3"]
-default_font = ExtResource("1_hvhlb")
-default_font_size = 14
-
-[sub_resource type="Theme" id="Theme_hy5d6"]
-default_font = ExtResource("1_hvhlb")
-
 [node name="Inventário" type="Control" unique_id=1552711463]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,6 +35,7 @@ theme = SubResource("Theme_vicex")
 
 [node name="inventario" parent="." unique_id=56679545 instance=ExtResource("1_jhntj")]
 visible = false
+script = ExtResource("3_8oetb")
 
 [node name="Control" type="Control" parent="inventario" unique_id=45132555]
 layout_mode = 3
@@ -144,7 +101,6 @@ layout_mode = 2
 
 [node name="Seiji" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji" unique_id=1060545205]
 layout_mode = 2
-theme = SubResource("Theme_77to7")
 text = "Seiji Mikage"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji" unique_id=955303022]
@@ -152,23 +108,19 @@ layout_mode = 2
 
 [node name="HP" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer" unique_id=999967578]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 theme_override_colors/font_color = Color(0.13333334, 1, 1, 1)
 text = "HP"
 
 [node name="label_hp" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer" unique_id=963935988]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "20"
 
 [node name="label_hp2" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer" unique_id=917484453]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "/"
 
 [node name="label_hp3" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer" unique_id=721545423]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "20"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji" unique_id=951762857]
@@ -176,23 +128,19 @@ layout_mode = 2
 
 [node name="MP" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer2" unique_id=523120719]
 layout_mode = 2
-theme = SubResource("Theme_htrs3")
 theme_override_colors/font_color = Color(0.13333334, 1, 1, 1)
 text = "MP"
 
 [node name="label_mp4" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer2" unique_id=1072966420]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "40"
 
 [node name="label_mp5" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer2" unique_id=1732642933]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "/"
 
 [node name="label_mp6" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/SEIJI/INFOseiji/HBoxContainer2" unique_id=1657347095]
 layout_mode = 2
-theme = SubResource("Theme_hvhlb")
 text = "40"
 
 [node name="Espaçamento" type="Control" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer" unique_id=664588915]
@@ -201,14 +149,14 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer" unique_id=99841018]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 10
 
 [node name="INFOarma" type="VBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/MarginContainer" unique_id=813766699]
 layout_mode = 2
 
 [node name="arma" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/MarginContainer/INFOarma" unique_id=1479483742]
 layout_mode = 2
-theme = SubResource("Theme_6kv6x")
 text = "Arma"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/MarginContainer/INFOarma" unique_id=661433032]
@@ -217,13 +165,11 @@ layout_mode = 2
 [node name="Yorishiro - LVL" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/MarginContainer/INFOarma/HBoxContainer2" unique_id=527955022]
 layout_mode = 2
 size_flags_vertical = 0
-theme = SubResource("Theme_olta5")
 theme_override_colors/font_color = Color(0.13333334, 1, 1, 1)
 text = "Yorishiro - LV"
 
 [node name="label_arma" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/esquerda/MarginContainer/VBoxContainer/MarginContainer/INFOarma/HBoxContainer2" unique_id=1245802462]
 layout_mode = 2
-theme = SubResource("Theme_olta5")
 text = "1
 "
 
@@ -255,7 +201,6 @@ layout_mode = 2
 
 [node name="Itens" type="Button" parent="inventario/Control/CenterContainer/HBoxContainer/direita/Menu/INFObotoes/Menu" unique_id=108895829]
 layout_mode = 2
-theme = SubResource("Theme_lfkbx")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_77to7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1pkoy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i4ef3")
@@ -266,7 +211,6 @@ alignment = 0
 
 [node name="Skills" type="Button" parent="inventario/Control/CenterContainer/HBoxContainer/direita/Menu/INFObotoes/Menu" unique_id=461115293]
 layout_mode = 2
-theme = SubResource("Theme_aui74")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_77to7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1pkoy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i4ef3")
@@ -277,7 +221,6 @@ alignment = 0
 
 [node name="Equip" type="Button" parent="inventario/Control/CenterContainer/HBoxContainer/direita/Menu/INFObotoes/Menu" unique_id=1373462281]
 layout_mode = 2
-theme = SubResource("Theme_1pkoy")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_77to7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1pkoy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i4ef3")
@@ -288,7 +231,6 @@ alignment = 0
 
 [node name="Save" type="Button" parent="inventario/Control/CenterContainer/HBoxContainer/direita/Menu/INFObotoes/Menu" unique_id=1687220890]
 layout_mode = 2
-theme = SubResource("Theme_nhfc8")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_77to7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1pkoy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i4ef3")
@@ -299,7 +241,6 @@ alignment = 0
 
 [node name="Exit" type="Button" parent="inventario/Control/CenterContainer/HBoxContainer/direita/Menu/INFObotoes/Menu" unique_id=747468021]
 layout_mode = 2
-theme = SubResource("Theme_aos7j")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_77to7")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1pkoy")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i4ef3")
@@ -322,14 +263,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.5
-offset_right = -6.0
-offset_bottom = 3.0
+offset_right = -19.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Info" type="VBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/direita/INFOmoedas/MarginContainer" unique_id=2128226001]
@@ -342,11 +282,11 @@ theme_override_constants/separation = 6
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 14
+alignment = 1
 
 [node name="Almas" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/direita/INFOmoedas/MarginContainer/Info/HBoxContainer" unique_id=1161085601]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_wamhp")
 text = "Almas"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/direita/INFOmoedas/MarginContainer/Info/HBoxContainer" unique_id=1347839277]
@@ -365,7 +305,6 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
-theme = SubResource("Theme_nyvtw")
 theme_override_font_sizes/font_size = 12
 text = "10"
 
@@ -373,11 +312,11 @@ text = "10"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 14
+alignment = 1
 
 [node name="Moedas" type="Label" parent="inventario/Control/CenterContainer/HBoxContainer/direita/INFOmoedas/MarginContainer/Info/HBoxContainer2" unique_id=1252372479]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_i4ef3")
 text = "Moedas"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="inventario/Control/CenterContainer/HBoxContainer/direita/INFOmoedas/MarginContainer/Info/HBoxContainer2" unique_id=1845062289]
@@ -396,6 +335,5 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
-theme = SubResource("Theme_hy5d6")
 theme_override_font_sizes/font_size = 12
 text = "10"
