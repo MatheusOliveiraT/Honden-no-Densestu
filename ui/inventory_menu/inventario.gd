@@ -36,15 +36,20 @@ func _setup_button_focus_effects() -> void:
 		if is_instance_valid(btn):
 			original_button_texts[btn] = btn.text
 			btn.focus_mode = Control.FOCUS_ALL
+			btn.mouse_entered.connect(func(): btn.grab_focus())
 			btn.focus_entered.connect(func():
 				btn.text = "> " + original_button_texts[btn]
 				btn.add_theme_color_override("font_color", Color.YELLOW)
 				btn.add_theme_color_override("font_focus_color", Color.YELLOW)
+				btn.add_theme_color_override("font_hover_color", Color.YELLOW)
+				btn.add_theme_color_override("font_hover_pressed_color", Color.YELLOW)
 			)
 			btn.focus_exited.connect(func():
 				btn.text = original_button_texts[btn]
 				btn.remove_theme_color_override("font_color")
 				btn.remove_theme_color_override("font_focus_color")
+				btn.remove_theme_color_override("font_hover_color")
+				btn.remove_theme_color_override("font_hover_pressed_color")
 			)
 
 func _connect_buttons() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c01s34fi5716s"
-path="res://.godot/imported/moedas.png-542b0e59fee154ec159fa4920c230448.ctex"
+uid="uid://bycpumu4on8c5"
+path="res://.godot/imported/icone-menu.png-7ea9590fb7f785a92ced57181b729ed9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites-import/moedas.png"
-dest_files=["res://.godot/imported/moedas.png-542b0e59fee154ec159fa4920c230448.ctex"]
+source_file="res://ui/textures/icone-menu.png"
+dest_files=["res://.godot/imported/icone-menu.png-7ea9590fb7f785a92ced57181b729ed9.ctex"]
 
 [params]
 
