@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://p8hue3d3w00j"]
+
+[ext_resource type="Texture2D" uid="uid://d0m6ljsmnofxi" path="res://sprites-import/pocao.png" id="1_wxfbp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ifapn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxbo6"]
+bg_color = Color(0.25824806, 0.29446462, 0.6462732, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idm0a"]
+bg_color = Color(0.15686275, 0.18039216, 0.43137255, 1)
+
+[node name="Button" type="Button" unique_id=939593220]
+custom_minimum_size = Vector2(64, 0)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ifapn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wxbo6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_idm0a")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1870875495]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=278947227]
+custom_minimum_size = Vector2(4, 4)
+custom_maximum_size = Vector2(4, 4)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("1_wxfbp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="HBoxContainer" unique_id=1031958522]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 4
+text = "teste"
+
+[node name="label_quantidade" type="Label" parent="HBoxContainer" unique_id=283785639]
+layout_mode = 2
