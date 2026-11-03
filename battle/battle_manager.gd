@@ -453,6 +453,7 @@ func check_battle_end() -> bool:
 			_hide_all_ui()
 			log_msg("\n[b][color=green]=== VITÓRIA! ===[/color][/b]")
 			var total_earned_souls: int = 0
+			var total_earned_coins: int = 0
 			for i in range(enemy_party.size()):
 				var enemy = enemy_party[i]
 				var data: EnemyData = enemy.get("enemy_data")
@@ -462,11 +463,13 @@ func check_battle_end() -> bool:
 					data = GameManager.current_enemy_data
 				if data:
 					total_earned_souls += data.souls_reward
-			if total_earned_souls > 0:
+					total_earned_coins += data.coins_reward
+			if total_earned_souls > 0 or total_earned_coins > 0:
 				GameManager.add_souls(total_earned_souls)
-				log_msg("[color=cyan]+ " + str(total_earned_souls) + " Almas! (Total: " + str(GameManager.total_souls) + ")[/color]")
+				GameManager.add_coins(total_earned_coins)
+				log_msg("[color=cyan]+ " + str(total_earned_souls) + " Almas e + " + str(total_earned_coins) + " Moedas![/color]")
 			else:
-				log_msg("[color=yellow]Nenhuma alma obtida.[/color]")
+				log_msg("[color=yellow]Nenhuma recompensa obtida.[/color]")
 			if GameManager.defeated_enemy_id != "":
 				GameManager.register_defeated_enemy(GameManager.defeated_enemy_id)
 			await get_tree().create_timer(1.5).timeout

@@ -362,7 +362,7 @@ souls_amount = 5
 [node name="bau3" parent="baus" unique_id=1074420536 instance=ExtResource("28_rbpvg")]
 position = Vector2(848, 240)
 chest_id = "chest_fase1_03"
-type = 1
+type = 2
 item_data = ExtResource("29_rghct")
 
 [node name="lanternas" type="Node2D" parent="." unique_id=1200984714]

@@ -11,6 +11,7 @@ var current_hp: int = -1
 var current_mp: int = -1
 
 var total_souls: int = 0
+var total_coins: int = 0
 
 var current_enemy_data: EnemyData
 
@@ -143,6 +144,15 @@ func add_souls(amount: int) -> void:
 func spend_souls(amount: int) -> bool:
 	if total_souls >= amount:
 		total_souls -= amount
+		return true
+	return false
+
+func add_coins(amount: int) -> void:
+	total_coins += amount
+
+func spend_coins(amount: int) -> bool:
+	if total_coins >= amount:
+		total_coins -= amount
 		return true
 	return false
 

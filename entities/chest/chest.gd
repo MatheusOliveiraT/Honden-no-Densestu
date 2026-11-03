@@ -1,12 +1,13 @@
 extends StaticBody2D
 class_name Chest
 
-enum ChestType { SOULS, ITEM, SPELL, EQUIPMENT }
+enum ChestType { COINS, SOULS, ITEM, SPELL, EQUIPMENT }
 
 @export var chest_id: String = "chest_fase1_01"
-@export var type: ChestType = ChestType.SOULS
+@export var type: ChestType = ChestType.COINS
 
 @export var souls_amount: int = 10
+@export var coins_amount: int = 10
 @export var item_data: Resource = null
 @export var spell_data: SpellData = null
 @export var equipment_data: EquipmentData = null
@@ -32,6 +33,10 @@ func interact(_player: Seiji) -> void:
 
 func _grant_reward() -> void:
 	match type:
+		ChestType.COINS:
+			GameManager.add_coins(coins_amount)
+			var msg = "Você abriu o baú e encontrou:\n[color=yellow]+ " + str(coins_amount) + " Moedas![/color]"
+			GameManager.show_message_box(msg)
 		ChestType.SOULS:
 			GameManager.add_souls(souls_amount)
 			var msg = "Você abriu o baú e encontrou:\n[color=cyan]+ " + str(souls_amount) + " Almas![/color]"

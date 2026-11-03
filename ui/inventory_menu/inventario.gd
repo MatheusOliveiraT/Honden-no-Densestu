@@ -99,10 +99,9 @@ func _update_player_stats() -> void:
 
 func _update_currencies() -> void:
 	if label_almas:
-		if "almas" in GameManager: label_almas.text = str(GameManager.almas)
-		elif "total_souls" in GameManager: label_almas.text = str(GameManager.total_souls)
+		if "total_souls" in GameManager: label_almas.text = str(GameManager.total_souls)
 	if label_moedas:
-		if "moedas" in GameManager: label_moedas.text = str(GameManager.moedas)
+		if "total_coins" in GameManager: label_moedas.text = str(GameManager.total_coins)
 
 func _on_itens_pressed() -> void:
 	GameManager.show_message_box("Aba de Itens selecionada.")
