@@ -10,7 +10,7 @@ enum ItemType { HEAL_HP, HEAL_MP, HEAL_BOTH, REMOVE_STATUS }
 
 @export var type: ItemType = ItemType.HEAL_HP
 @export var value: int = 10
-@export var cost_in_souls: int = 10
+@export var cost_in_coins: int = 10
 
 @export var status_to_remove: CharacterStats.StatusType = CharacterStats.StatusType.POISON
 

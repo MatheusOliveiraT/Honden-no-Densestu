@@ -166,3 +166,19 @@ func sync_stats_from_game_manager(stats: CharacterStats) -> void:
 func save_stats_to_game_manager(stats: CharacterStats) -> void:
 	current_hp = stats.current_hp
 	current_mp = stats.current_mp
+
+
+func upgrade_equipment(equip: EquipmentData, stats: CharacterStats = null) -> bool:
+	if not equip or not equip.can_upgrade():
+		show_message_box("Equipamento já está no nível máximo!")
+		return false
+	var cost = equip.get_upgrade_cost()
+	if spend_souls(cost):
+		equip.upgrade()
+		show_message_box("[color=yellow]" + equip.item_name + "[/color] melhorado para [color=cyan]LV " + str(equip.level) + "[/color]!")
+		if stats:
+			save_stats_to_game_manager(stats)
+		return true
+	else:
+		show_message_box("Almas insuficientes! (Requer: " + str(cost) + " Almas)")
+		return false
