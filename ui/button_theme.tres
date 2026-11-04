@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://b2ndshwl0x6mb"]
+
+[ext_resource type="Texture2D" uid="uid://bycpumu4on8c5" path="res://ui/textures/icone-menu.png" id="1_0b7qo"]
+
+[resource]
+texture = ExtResource("1_0b7qo")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0

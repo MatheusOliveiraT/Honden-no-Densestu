@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name OverworldEnemy
 
-@export var enemy_id: String = "enemy_01"    
-@export var enemy_data: EnemyData            
+@export var enemy_id: String = "enemy_01"
+@export var enemy_data: EnemyData
 @export var speed: float = 50.0
 @export var is_ghost: bool = false
 
@@ -39,9 +39,9 @@ func _update_walk_animation(direction: Vector2) -> void:
 	var frames = animated_sprite.sprite_frames
 	if frames.has_animation("andando"):
 		animated_sprite.play("andando")
-		if direction.x != 0:
-			animated_sprite.flip_h = direction.x < 0
+		animated_sprite.rotation = direction.angle() - (PI / 2)
 		return
+	animated_sprite.rotation = 0.0
 	animated_sprite.flip_h = false
 	if abs(direction.x) > abs(direction.y):
 		if frames.has_animation("andando_lado"):
@@ -56,6 +56,7 @@ func _update_walk_animation(direction: Vector2) -> void:
 func _play_default_idle_animation() -> void:
 	if not animated_sprite or not animated_sprite.sprite_frames:
 		return
+	animated_sprite.rotation = 0.0
 	var frames = animated_sprite.sprite_frames
 	if frames.has_animation("idle"):
 		animated_sprite.play("idle")
@@ -99,7 +100,7 @@ func _on_body_entered(body: Node2D) -> void:
 		GameManager.defeated_enemy_id = enemy_id
 		GameManager.current_map_scene_path = get_tree().current_scene.scene_file_path
 		GameManager.current_enemy_party_data = EncounterManager.generate_encounter(
-			enemy_data, 
+			enemy_data,
 			GameManager.current_level
 		)
 		if body.has_method("set_in_battle"):

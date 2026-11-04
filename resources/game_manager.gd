@@ -15,7 +15,7 @@ var total_coins: int = 0
 
 var current_enemy_data: EnemyData
 
-var current_level: int = 1 
+var current_level: int = 1
 
 var current_enemy_party_data: Array[EnemyData] = []
 
@@ -96,7 +96,12 @@ func show_message_box(text: String) -> void:
 		return
 	var canvas = CanvasLayer.new()
 	canvas.layer = 100
-	var panel = Panel.new()
+	var panel = NinePatchRect.new()
+	panel.texture = load("res://ui/textures/menu-5.png")
+	panel.patch_margin_left = 8
+	panel.patch_margin_top = 8
+	panel.patch_margin_right = 8
+	panel.patch_margin_bottom = 8
 	panel.custom_minimum_size = Vector2(220, 52)
 	panel.position = Vector2(82, 146).round()
 	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -167,7 +172,6 @@ func save_stats_to_game_manager(stats: CharacterStats) -> void:
 	current_hp = stats.current_hp
 	current_mp = stats.current_mp
 
-
 func upgrade_equipment(equip: EquipmentData, stats: CharacterStats = null) -> bool:
 	if not equip or not equip.can_upgrade():
 		show_message_box("Equipamento já está no nível máximo!")
@@ -182,3 +186,163 @@ func upgrade_equipment(equip: EquipmentData, stats: CharacterStats = null) -> bo
 	else:
 		show_message_box("Almas insuficientes! (Requer: " + str(cost) + " Almas)")
 		return false
+
+func get_save_path(slot_index: int) -> String:
+	return "user://save_slot_" + str(slot_index) + ".json"
+
+func get_save_image_path(slot_index: int) -> String:
+	return "user://save_slot_" + str(slot_index) + ".png"
+
+func _capture_and_save_screenshot(slot_index: int) -> void:
+	var pause_menu = get_tree().get_first_node_in_group("PauseMenu")
+	if pause_menu and pause_menu.has_method("hide"):
+		pause_menu.hide()
+	await get_tree().process_frame
+	var img = get_tree().root.get_viewport().get_texture().get_image()
+	if pause_menu and pause_menu.has_method("show"):
+		pause_menu.show()
+	img.save_png(get_save_image_path(slot_index))
+
+func get_slot_thumbnail(slot_index: int) -> Texture2D:
+	var path = get_save_image_path(slot_index)
+	if FileAccess.file_exists(path):
+		var img = Image.load_from_file(path)
+		if img:
+			return ImageTexture.create_from_image(img)
+	return null
+
+func save_game(slot_index: int = 1) -> void:
+	_capture_and_save_screenshot(slot_index)
+	var player = get_tree().get_first_node_in_group("Players")
+	if player:
+		player_map_position = player.global_position
+	var inventory_serialized: Dictionary = {}
+	for item in inventory.keys():
+		if item is ItemData and item.resource_path != "":
+			inventory_serialized[item.resource_path] = inventory[item]
+	var owned_equipments_serialized: Array = []
+	for equip in owned_equipments:
+		if equip is EquipmentData and equip.resource_path != "":
+			owned_equipments_serialized.append({
+				"path": equip.resource_path,
+				"level": equip.level
+			})
+	var unlocked_spells_serialized: Array[String] = []
+	for spell in unlocked_spells:
+		if spell is SpellData and spell.resource_path != "":
+			unlocked_spells_serialized.append(spell.resource_path)
+	var equipped_spells_serialized: Array[String] = []
+	for spell in equipped_spells:
+		if spell is SpellData and spell.resource_path != "":
+			equipped_spells_serialized.append(spell.resource_path)
+	var datetime = Time.get_datetime_dict_from_system()
+	var formatted_date = "%04d/%02d/%02d %02d:%02d" % [
+		datetime.year, datetime.month, datetime.day,
+		datetime.hour, datetime.minute
+	]
+	var save_data: Dictionary = {
+		"save_date": formatted_date,
+		"current_map_scene_path": current_map_scene_path,
+		"player_position_x": player_map_position.x,
+		"player_position_y": player_map_position.y,
+		"current_hp": current_hp,
+		"current_mp": current_mp,
+		"total_souls": total_souls,
+		"total_coins": total_coins,
+		"current_level": current_level,
+		"defeated_enemies": defeated_enemies,
+		"inventory": inventory_serialized,
+		"owned_equipments": owned_equipments_serialized,
+		"equipped_weapon_path": equipped_weapon.resource_path if equipped_weapon else "",
+		"equipped_armor_path": equipped_armor.resource_path if equipped_armor else "",
+		"unlocked_spells": unlocked_spells_serialized,
+		"equipped_spells": equipped_spells_serialized
+	}
+	var path = get_save_path(slot_index)
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		var json_string = JSON.stringify(save_data, "\t")
+		file.store_string(json_string)
+		file.close()
+		show_message_box("[color=green]Jogo salvo no Slot " + str(slot_index) + "![/color]")
+
+func load_game(slot_index: int = 1) -> bool:
+	var path = get_save_path(slot_index)
+	if not FileAccess.file_exists(path):
+		show_message_box("[color=red]Slot " + str(slot_index) + " vazio![/color]")
+		return false
+	var file = FileAccess.open(path, FileAccess.READ)
+	if not file: return false
+	var json_string = file.get_as_text()
+	file.close()
+	var json = JSON.new()
+	if json.parse(json_string) != OK: return false
+	var save_data: Dictionary = json.data
+	current_map_scene_path = save_data.get("current_map_scene_path", "res://levels/floresta.tscn")
+	player_map_position = Vector2(save_data.get("player_position_x", 0.0), save_data.get("player_position_y", 0.0))
+	current_hp = save_data.get("current_hp", -1)
+	current_mp = save_data.get("current_mp", -1)
+	total_souls = save_data.get("total_souls", 0)
+	total_coins = save_data.get("total_coins", 0)
+	current_level = save_data.get("current_level", 1)
+	var def_enemies = save_data.get("defeated_enemies", [])
+	defeated_enemies.clear()
+	for enemy_id in def_enemies:
+		defeated_enemies.append(str(enemy_id))
+	inventory.clear()
+	var inv_data: Dictionary = save_data.get("inventory", {})
+	for res_path in inv_data.keys():
+		if ResourceLoader.exists(res_path):
+			var item_res = load(res_path) as ItemData
+			if item_res: inventory[item_res] = int(inv_data[res_path])
+	owned_equipments.clear()
+	equipped_weapon = null
+	equipped_armor = null
+	var eq_data: Array = save_data.get("owned_equipments", [])
+	for eq_info in eq_data:
+		var res_path = eq_info.get("path", "")
+		if ResourceLoader.exists(res_path):
+			var eq_res = (load(res_path) as EquipmentData).duplicate()
+			eq_res.level = int(eq_info.get("level", 1))
+			owned_equipments.append(eq_res)
+	var eq_w_path = save_data.get("equipped_weapon_path", "")
+	if eq_w_path != "":
+		for eq in owned_equipments:
+			if eq.resource_path == eq_w_path:
+				equipped_weapon = eq
+				break
+	var eq_a_path = save_data.get("equipped_armor_path", "")
+	if eq_a_path != "":
+		for eq in owned_equipments:
+			if eq.resource_path == eq_a_path:
+				equipped_armor = eq
+				break
+	unlocked_spells.clear()
+	for s_path in save_data.get("unlocked_spells", []):
+		if ResourceLoader.exists(s_path):
+			var spell_res = load(s_path) as SpellData
+			if spell_res: unlocked_spells.append(spell_res)
+	equipped_spells.clear()
+	for s_path in save_data.get("equipped_spells", []):
+		if ResourceLoader.exists(s_path):
+			var spell_res = load(s_path) as SpellData
+			if spell_res: equipped_spells.append(spell_res)
+	returning_from_battle = true
+	get_tree().paused = false
+	get_tree().change_scene_to_file(current_map_scene_path)
+	return true
+
+func get_slot_info(slot_index: int) -> Dictionary:
+	var path = get_save_path(slot_index)
+	if not FileAccess.file_exists(path):
+		return {"exists": false}
+	var file = FileAccess.open(path, FileAccess.READ)
+	if not file: return {"exists": false}
+	var json = JSON.new()
+	if json.parse(file.get_as_text()) != OK:
+		file.close()
+		return {"exists": false}
+	file.close()
+	var data: Dictionary = json.data
+	data["exists"] = true
+	return data

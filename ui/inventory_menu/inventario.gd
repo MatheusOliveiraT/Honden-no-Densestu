@@ -80,8 +80,12 @@ func _connect_buttons() -> void:
 	if btn_exit: btn_exit.pressed.connect(_on_exit_pressed)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("menu") or event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("inventario"):
 		toggle_menu()
+		get_viewport().set_input_as_handled()
+	if is_open and (event.is_action_pressed("menu") or event.is_action_pressed("ui_cancel")):
+		toggle_menu()
+		get_viewport().set_input_as_handled()
 
 func toggle_menu() -> void:
 	is_open = !is_open

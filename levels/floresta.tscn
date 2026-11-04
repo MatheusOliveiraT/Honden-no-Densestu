@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://cn4gf46e7srph" path="res://entities/enemies/kappa/kappa.tscn" id="32_uv657"]
 [ext_resource type="PackedScene" uid="uid://bfg3liaw2brcl" path="res://entities/enemies/tsuchinoko/tsuchinoko.tscn" id="33_rw562"]
 [ext_resource type="PackedScene" uid="uid://ch6aorf60q72" path="res://ui/inventory_menu/inventário.scn" id="36_nutwo"]
+[ext_resource type="PackedScene" uid="uid://coi1qoem1qibl" path="res://ui/pause_menu/pause_menu.tscn" id="37_h1qmq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4pt4k"]
 texture = ExtResource("1_6xnmb")
@@ -470,6 +471,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="PauseMenu" parent="." unique_id=1393715638 instance=ExtResource("37_h1qmq")]
 
 [editable path="lanternas/lanterna"]
 [editable path="lanternas/lanterna2"]
