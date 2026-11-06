@@ -99,9 +99,9 @@ func get_current_speed() -> int:
 func get_current_attack() -> int:
 	var final_attack = attack
 	if equipped_weapon:
-		final_attack += equipped_weapon.attack_bonus
+		final_attack += equipped_weapon.get_current_attack()
 	if equipped_armor:
-		final_attack += equipped_armor.attack_bonus
+		final_attack += equipped_armor.get_current_attack()
 	for status in active_statuses:
 		if status.type == StatusType.STRENGTH:
 			final_attack += status.potency
@@ -112,9 +112,9 @@ func get_current_attack() -> int:
 func get_current_defense() -> int:
 	var final_defense = defense
 	if equipped_weapon:
-		final_defense += equipped_weapon.defense_bonus
+		final_defense += equipped_weapon.get_current_defense()
 	if equipped_armor:
-		final_defense += equipped_armor.defense_bonus
+		final_defense += equipped_armor.get_current_defense()
 	for status in active_statuses:
 		if status.type == StatusType.RESISTANCE:
 			final_defense += status.potency

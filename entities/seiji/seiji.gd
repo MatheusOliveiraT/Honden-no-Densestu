@@ -13,6 +13,10 @@ var _last_direction: Vector2 = Vector2.DOWN
 @onready var interaction_detector: Area2D = $InteractionDetector
 
 func _ready() -> void:
+	if stats:
+		stats.initialize()
+		stats.equipped_weapon = GameManager.equipped_weapon
+		stats.equipped_armor = GameManager.equipped_armor
 	if get_tree().current_scene and get_tree().current_scene.name != "BattleScene":
 		if GameManager.returning_from_battle and GameManager.player_map_position != Vector2.ZERO:
 			call_deferred("_restore_map_position")

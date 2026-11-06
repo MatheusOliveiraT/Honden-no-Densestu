@@ -14,7 +14,7 @@ border_color = Color(0.28235295, 0.29803923, 0.5803922, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77to7"]
 
 [node name="Button" type="Button" unique_id=628834498]
-custom_minimum_size = Vector2(48, 0)
+custom_minimum_size = Vector2(48, 28)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lfkbx")
@@ -28,7 +28,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -39,30 +38,50 @@ mouse_filter = 2
 
 [node name="Cursor" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1647795461]
 unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
 text = ">"
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=159982512]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 6)
 layout_mode = 2
+size_flags_horizontal = 4
 mouse_filter = 2
 texture = ExtResource("2_h8rdq")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Nome" type="Label" parent="MarginContainer/HBoxContainer" unique_id=448785385]
-unique_name_in_owner = true
+[node name="Textos" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1017739090]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 8
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Nome" type="Label" parent="MarginContainer/HBoxContainer/Textos" unique_id=448785385]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
 text = "Teste"
+clip_text = true
+
+[node name="Descricao" type="Label" parent="MarginContainer/HBoxContainer/Textos" unique_id=1203412751]
+unique_name_in_owner = true
+visible = false
+clip_contents = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
 clip_text = true
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=303915483]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "99"
 horizontal_alignment = 2

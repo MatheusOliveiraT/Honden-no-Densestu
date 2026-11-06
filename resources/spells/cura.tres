@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://plqx02yqrvxo"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_wumlc"]
+[ext_resource type="Texture2D" uid="uid://dpmpyucs02we2" path="res://sprites-import/cura.png" id="2_prjaf"]
+
+[resource]
+script = ExtResource("1_wumlc")
+texture = ExtResource("2_prjaf")
+base_value = 30
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

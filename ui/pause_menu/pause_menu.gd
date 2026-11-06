@@ -25,6 +25,8 @@ var current_slot_mode: SlotMode = SlotMode.SAVE
 var is_open: bool = false
 var original_button_texts: Dictionary = {}
 
+const CONTROLS_POPUP: PackedScene = preload("res://ui/components/ControlsPopup.tscn")
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if main_container: main_container.hide()
@@ -111,7 +113,12 @@ func _on_continue_pressed() -> void:
 	_open_slots_panel()
 
 func _on_config_pressed() -> void:
-	GameManager.show_message_box("Configurações em breve!")
+	var popup := CONTROLS_POPUP.instantiate()
+	get_tree().root.add_child(popup)
+	popup.tree_exited.connect(func():
+		if is_instance_valid(btn_config):
+			btn_config.grab_focus()
+	)
 
 func _on_quit_pressed() -> void:
 	toggle_pause_menu()

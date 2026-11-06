@@ -19,6 +19,10 @@ enum EquipmentSlot { WEAPON, ARMOR }
 @export var base_soul_upgrade_cost: int = 50
 @export var cost_in_coins: int = 50
 
+var source_path: String = ""
+
+func get_source_path() -> String:
+	return resource_path if resource_path != "" else source_path
 
 func get_display_name() -> String:
 	return display_name if display_name != "" else item_name

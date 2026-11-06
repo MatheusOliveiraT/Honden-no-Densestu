@@ -170,21 +170,48 @@ func _render_skills_list(target_index: int = 0, should_focus: bool = false) -> v
 		return
 	var created_buttons: Array[Button] = []
 	for i in range(GameManager.unlocked_spells.size()):
-		var spell = GameManager.unlocked_spells[i]
+		var spell: SpellData = GameManager.unlocked_spells[i]
 		var is_equipped = GameManager.equipped_spells.has(spell)
-		var label_text = ("[E] " if is_equipped else "") + spell.spell_name + " (" + str(spell.mp_cost) + " MP)"
-		var btn = _create_pixel_button(label_text)
+		var titulo = ("[E] " if is_equipped else "") + spell.spell_name + " (" + str(spell.mp_cost) + " MP)"
+		var btn: ItemRow = ITEM_ROW_SCENE.instantiate()
+		skill_list_container.add_child(btn)
+		btn.setup(titulo, spell.texture, -1, "", spell.get_description())
+		# clique ou enter usar a skill (mudar enter pra x?)
 		btn.pressed.connect(func():
-			if GameManager.equipped_spells.has(spell):
-				GameManager.unequip_spell(spell)
-			else:
-				GameManager.equip_spell(spell)
+			if await _confirm("Usar " + spell.spell_name + "?", btn):
+				_use_spell(spell)
 			_render_skills_list(i, true)
 		)
-		skill_list_container.add_child(btn)
+		# botão direito ou X equipar ou desequipar
+		btn.alt_pressed.connect(func():
+			if is_equipped:
+				GameManager.unequip_spell(spell)
+			elif not GameManager.equip_spell(spell):
+				GameManager.show_message_box("Limite de 4 skills equipadas!")
+			_render_skills_list(i, true)
+		)
 		created_buttons.append(btn)
 	if should_focus:
 		_restore_list_focus(created_buttons, target_index)
+
+func _use_spell(spell: SpellData) -> void:
+	var player = get_tree().get_first_node_in_group("Players")
+	if not (player and "stats" in player and player.stats): return
+	var stats: CharacterStats = player.stats
+	if spell.type != SpellData.SpellType.HEAL: # vao ter outras skills usaveis fora de batalha?
+		GameManager.show_message_box("Esta skill só pode ser usada em batalha.")
+		return
+	if stats.current_mp < spell.mp_cost:
+		GameManager.show_message_box("MP insuficiente!")
+		return
+	if stats.current_hp >= stats.max_hp:
+		GameManager.show_message_box("HP já está cheio!")
+		return
+	stats.current_mp -= spell.mp_cost
+	stats.heal(spell.base_value)
+	GameManager.save_stats_to_game_manager(stats)
+	GameManager.show_message_box("Skill utilizada!")
+	_update_player_stats()
 
 func _render_equip_list(target_index: int = 0, should_focus: bool = false) -> void:
 	if not equip_list_container: return

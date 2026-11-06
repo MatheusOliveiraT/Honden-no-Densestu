@@ -32,13 +32,7 @@ func _ready() -> void:
 	_init_default_spells()
 
 func _init_default_spells() -> void:
-	var cura = SpellData.new()
-	cura.id = "cura"
-	cura.spell_name = "Cura"
-	cura.mp_cost = 10
-	cura.type = SpellData.SpellType.HEAL
-	cura.base_value = 30
-	cura.applies_status = false
+	var cura := load("res://resources/spells/cura.tres") as SpellData
 	unlock_spell(cura, false)
 	equip_spell(cura)
 
@@ -227,9 +221,10 @@ func save_game(slot_index: int = 1) -> void:
 			inventory_serialized[item.resource_path] = inventory[item]
 	var owned_equipments_serialized: Array = []
 	for equip in owned_equipments:
-		if equip is EquipmentData and equip.resource_path != "":
+		var p: String = equip.get_source_path()
+		if p != "":
 			owned_equipments_serialized.append({
-				"path": equip.resource_path,
+				"path": p,
 				"level": equip.level
 			})
 	var unlocked_spells_serialized: Array[String] = []
@@ -258,8 +253,8 @@ func save_game(slot_index: int = 1) -> void:
 		"defeated_enemies": defeated_enemies,
 		"inventory": inventory_serialized,
 		"owned_equipments": owned_equipments_serialized,
-		"equipped_weapon_path": equipped_weapon.resource_path if equipped_weapon else "",
-		"equipped_armor_path": equipped_armor.resource_path if equipped_armor else "",
+		"equipped_weapon_path": equipped_weapon.get_source_path() if equipped_weapon else "",
+		"equipped_armor_path": equipped_armor.get_source_path() if equipped_armor else "",
 		"unlocked_spells": unlocked_spells_serialized,
 		"equipped_spells": equipped_spells_serialized
 	}
@@ -307,19 +302,20 @@ func load_game(slot_index: int = 1) -> bool:
 	for eq_info in eq_data:
 		var res_path = eq_info.get("path", "")
 		if ResourceLoader.exists(res_path):
-			var eq_res = (load(res_path) as EquipmentData).duplicate()
+			var eq_res := (load(res_path) as EquipmentData).duplicate() as EquipmentData
+			eq_res.source_path = res_path
 			eq_res.level = int(eq_info.get("level", 1))
 			owned_equipments.append(eq_res)
 	var eq_w_path = save_data.get("equipped_weapon_path", "")
 	if eq_w_path != "":
 		for eq in owned_equipments:
-			if eq.resource_path == eq_w_path:
+			if eq.get_source_path() == eq_w_path:
 				equipped_weapon = eq
 				break
 	var eq_a_path = save_data.get("equipped_armor_path", "")
 	if eq_a_path != "":
 		for eq in owned_equipments:
-			if eq.resource_path == eq_a_path:
+			if eq.get_source_path() == eq_a_path:
 				equipped_armor = eq
 				break
 	unlocked_spells.clear()
@@ -332,6 +328,8 @@ func load_game(slot_index: int = 1) -> bool:
 		if ResourceLoader.exists(s_path):
 			var spell_res = load(s_path) as SpellData
 			if spell_res: equipped_spells.append(spell_res)
+	if unlocked_spells.is_empty():
+		_init_default_spells()
 	returning_from_battle = true
 	get_tree().paused = false
 	get_tree().change_scene_to_file(current_map_scene_path)
