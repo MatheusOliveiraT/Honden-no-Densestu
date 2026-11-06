@@ -1,7 +1,10 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bwvsir733qg8x"]
 
 [ext_resource type="Script" uid="uid://cf1kd1r7eqlua" path="res://resources/item_data.gd" id="1_epldu"]
+[ext_resource type="Texture2D" uid="uid://r24nwg1tses0" path="res://sprites-import/pocao.png" id="2_y604r"]
 
 [resource]
 script = ExtResource("1_epldu")
+display_name = "Poção de Vida (P)"
+texture = ExtResource("2_y604r")
 metadata/_custom_type_script = "uid://cf1kd1r7eqlua"

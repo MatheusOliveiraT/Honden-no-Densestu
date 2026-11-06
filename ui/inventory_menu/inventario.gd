@@ -36,6 +36,9 @@ var current_tab: TabType = TabType.GERAL
 @onready var label_almas: Label = %label_almas
 @onready var label_moedas: Label = %label_moedas
 
+const ITEM_ROW_SCENE := preload("res://ui/inventory_menu/BotaoInventario.tscn")
+const POPUP_SCENE := preload("res://ui/components/Confirmar.tscn")
+
 var is_open: bool = false
 var original_button_texts: Dictionary = {}
 
@@ -63,6 +66,7 @@ func _setup_button_focus_effects() -> void:
 				elif btn == btn_itens: _switch_tab(TabType.ITENS, false)
 				elif btn == btn_skills: _switch_tab(TabType.SKILLS, false)
 				elif btn == btn_equip: _switch_tab(TabType.EQUIP, false)
+				elif btn == btn_exit: _switch_tab(TabType.GERAL, false)
 			)
 			btn.focus_exited.connect(func():
 				btn.text = original_button_texts[btn]
@@ -137,7 +141,11 @@ func _render_items_list(target_index: int = 0, should_focus: bool = false) -> vo
 	for i in range(items.size()):
 		var item = items[i]
 		var count = GameManager.inventory[item]
-		var btn = _create_pixel_button(item.item_name + " x" + str(count))
+#		var btn = _create_pixel_button(item.item_name + " x" + str(count))
+		var btn: ItemRow = ITEM_ROW_SCENE.instantiate()
+		item_list_container.add_child(btn)
+		btn.setup(item.get_display_name(), item.texture, count) 
+		
 		btn.pressed.connect(func():
 			var player = get_tree().get_first_node_in_group("Players")
 			if player and "stats" in player and player.stats:
@@ -147,7 +155,7 @@ func _render_items_list(target_index: int = 0, should_focus: bool = false) -> vo
 				_update_currencies()
 				_render_items_list(i, true)
 		)
-		item_list_container.add_child(btn)
+		#item_list_container.add_child(btn)
 		created_buttons.append(btn)
 	if should_focus:
 		_restore_list_focus(created_buttons, target_index)
@@ -188,20 +196,25 @@ func _render_equip_list(target_index: int = 0, should_focus: bool = false) -> vo
 		return
 	var created_buttons: Array[Button] = []
 	for i in range(GameManager.owned_equipments.size()):
-		var equip = GameManager.owned_equipments[i]
+		var equip: EquipmentData = GameManager.owned_equipments[i]
 		var is_equipped = (GameManager.equipped_weapon == equip or GameManager.equipped_armor == equip)
-		var label_text = ("[E] " if is_equipped else "") + equip.item_name + " LV " + str(equip.level)
-		var btn = _create_pixel_button(label_text)
+		var nome: String = equip.get_display_name()
+
+		var btn: ItemRow = ITEM_ROW_SCENE.instantiate()
+		equip_list_container.add_child(btn)
+		btn.setup(("[E] " if is_equipped else "") + nome, equip.texture, -1, "LV " + str(equip.level))
+
 		btn.pressed.connect(func():
 			var player = get_tree().get_first_node_in_group("Players")
-			if player and "stats" in player:
-				if is_equipped:
+			if not (player and "stats" in player and player.stats): return
+			if is_equipped:
+				if await _confirm("Desequipar " + nome + "?", btn):
 					GameManager.unequip_slot(equip.slot, player.stats)
-				else:
+			else:
+				if await _confirm("Equipar " + nome + "?", btn):
 					GameManager.equip_item(equip, player.stats)
-				_render_equip_list(i, true)
+			_render_equip_list(i, true)
 		)
-		equip_list_container.add_child(btn)
 		created_buttons.append(btn)
 	if should_focus:
 		_restore_list_focus(created_buttons, target_index)
@@ -227,14 +240,14 @@ func _update_player_stats() -> void:
 		if label_mp_max: label_mp_max.text = str(stats.max_mp)
 	if label_lvl_arma and label_nome_arma: 
 		if GameManager.equipped_weapon != null:
-			label_nome_arma.text = GameManager.equipped_weapon.item_name + " - LV "
+			label_nome_arma.text = GameManager.equipped_weapon.get_display_name() + " - LV "
 			label_lvl_arma.text = str(GameManager.equipped_weapon.level)
 		else:
 			label_nome_arma.text = "N/A."
 			label_lvl_arma.text = ""
 	if label_lvl_armadura and label_nome_armadura:
 		if GameManager.equipped_armor != null:
-			label_nome_armadura.text = GameManager.equipped_armor.item_name + " - LV "
+			label_nome_armadura.text = GameManager.equipped_armor.get_display_name() + " - LV "
 			label_lvl_armadura.text = str(GameManager.equipped_armor.level)
 		else:
 			label_nome_armadura.text = "N/A."
@@ -279,3 +292,10 @@ func _create_pixel_button(btn_text: String) -> Button:
 	btn.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	btn.add_theme_font_size_override("font_size", 16)
 	return btn
+	
+func _confirm(text: String, near: Control) -> bool:
+	var popup: ConfirmPopup = POPUP_SCENE.instantiate()
+	main_control.add_child(popup)
+	popup.open(text, near)
+	var yes: bool = await popup.answered
+	return yes

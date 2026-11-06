@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b4qrppsxq0cut"]
+
+[ext_resource type="Script" uid="uid://cf1kd1r7eqlua" path="res://resources/item_data.gd" id="1_46k5m"]
+[ext_resource type="Texture2D" uid="uid://dbpsw0un3gful" path="res://sprites-import/pocao3.png" id="2_46k5m"]
+
+[resource]
+script = ExtResource("1_46k5m")
+id = "pocao_hp_g"
+item_name = "Poção de Vida (G)"
+display_name = "Poção de Vida (G)"
+description = "Recupera 60 de HP."
+texture = ExtResource("2_46k5m")
+value = 60
+cost_in_coins = 45
+metadata/_custom_type_script = "uid://cf1kd1r7eqlua"

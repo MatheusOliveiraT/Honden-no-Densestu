@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://eqxux7droxrd"]
+
+[ext_resource type="Script" uid="uid://k5uca2bs4iq2" path="res://ui/inventory_menu/item_inventario.gd" id="1_0xgho"]
+[ext_resource type="Texture2D" uid="uid://r24nwg1tses0" path="res://sprites-import/pocao.png" id="2_h8rdq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkbx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aui74"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vicex"]
+bg_color = Color(0.28235295, 0.29803923, 0.5803922, 1)
+border_color = Color(0.28235295, 0.29803923, 0.5803922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77to7"]
+
+[node name="Button" type="Button" unique_id=628834498]
+custom_minimum_size = Vector2(48, 0)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lfkbx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_aui74")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vicex")
+theme_override_styles/focus = SubResource("StyleBoxFlat_77to7")
+script = ExtResource("1_0xgho")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=430361090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1851849767]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Cursor" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1647795461]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = ">"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=159982512]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 6)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_h8rdq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="MarginContainer/HBoxContainer" unique_id=448785385]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Teste"
+clip_text = true
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=303915483]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 2

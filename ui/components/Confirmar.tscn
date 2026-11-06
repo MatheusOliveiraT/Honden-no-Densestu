@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://dgd0y1e36q6y3"]
+
+[ext_resource type="Script" uid="uid://cgn18qa3wwob2" path="res://ui/components/popup.gd" id="1_qhgqg"]
+[ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="2_ear0p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lfkbx"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_ear0p")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_maypl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3lrnd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6prf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_irfwe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rlnbo"]
+
+[node name="Control" type="Control" unique_id=178414354]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qhgqg")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1153862504]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_lfkbx")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1405983177]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1149968742]
+layout_mode = 2
+
+[node name="Mensagem" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1945773974]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1814855144]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Sim" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1790152570]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 16)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_maypl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3lrnd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i6prf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_irfwe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rlnbo")
+flat = true
+
+[node name="Nao" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1405888902]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 16)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_maypl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3lrnd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i6prf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_irfwe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rlnbo")
+flat = true

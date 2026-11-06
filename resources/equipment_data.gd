@@ -5,6 +5,7 @@ enum EquipmentSlot { WEAPON, ARMOR }
 
 @export var id: String = "espada_ferro"
 @export var item_name: String = "Espada de Ferro"
+@export var display_name: String = ""
 @export_multiline var description: String = "Uma espada simples que aumenta o ataque."
 @export var texture: Texture2D
 
@@ -18,6 +19,9 @@ enum EquipmentSlot { WEAPON, ARMOR }
 @export var base_soul_upgrade_cost: int = 50
 @export var cost_in_coins: int = 50
 
+
+func get_display_name() -> String:
+	return display_name if display_name != "" else item_name
 
 func get_current_attack() -> int:
 	return base_attack_bonus + ((level - 1) * 3)

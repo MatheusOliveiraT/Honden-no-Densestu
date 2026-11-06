@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dmk2qiak2p66x" path="res://sprites-import/folhas-1.png" id="28_uv657"]
 [ext_resource type="Resource" uid="uid://bwvsir733qg8x" path="res://resources/items/pocao_hp_p.tres" id="29_rghct"]
 [ext_resource type="Texture2D" uid="uid://bevy84t3bb1u0" path="res://sprites-import/folhas-2.png" id="29_rw562"]
+[ext_resource type="Resource" uid="uid://b3fvalo2bdqaj" path="res://resources/armors/capacete_1.tres" id="31_0ekug"]
 [ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="31_rghct"]
 [ext_resource type="PackedScene" uid="uid://cn4gf46e7srph" path="res://entities/enemies/kappa/kappa.tscn" id="32_uv657"]
 [ext_resource type="PackedScene" uid="uid://bfg3liaw2brcl" path="res://entities/enemies/tsuchinoko/tsuchinoko.tscn" id="33_rw562"]
@@ -354,6 +355,8 @@ tile_set = SubResource("TileSet_lfkbx")
 
 [node name="bau1" parent="baus" unique_id=434083459 instance=ExtResource("28_rbpvg")]
 position = Vector2(-96, -144)
+type = 4
+equipment_data = ExtResource("31_0ekug")
 
 [node name="bau2" parent="baus" unique_id=1419418582 instance=ExtResource("28_rbpvg")]
 position = Vector2(656, -912)

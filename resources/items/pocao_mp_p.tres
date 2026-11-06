@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bf1f52fyqn5qv"]
+
+[ext_resource type="Script" uid="uid://cf1kd1r7eqlua" path="res://resources/item_data.gd" id="1_5bi35"]
+[ext_resource type="Texture2D" uid="uid://b4hpta06pc1wm" path="res://sprites-import/pocao-mana.png" id="2_adt2r"]
+
+[resource]
+script = ExtResource("1_5bi35")
+id = "pocao_mp_p"
+item_name = "Poção de Mana (P)"
+display_name = "Poção de Mana (P)"
+description = "Recupera 10 de MP."
+texture = ExtResource("2_adt2r")
+type = 1
+metadata/_custom_type_script = "uid://cf1kd1r7eqlua"

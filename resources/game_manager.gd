@@ -45,8 +45,7 @@ func _init_default_spells() -> void:
 func add_equipment(equip: EquipmentData) -> void:
 	if not owned_equipments.has(equip):
 		owned_equipments.append(equip)
-	var msg = "Equipamento obtido:\n[color=yellow]" + equip.item_name + "[/color]"
-	show_message_box(msg)
+	show_message_box("Equipamento obtido:\n[color=yellow]" + equip.get_display_name() + "[/color]")
 
 func equip_item(equip: EquipmentData, stats: CharacterStats) -> void:
 	match equip.slot:
@@ -56,17 +55,23 @@ func equip_item(equip: EquipmentData, stats: CharacterStats) -> void:
 		EquipmentData.EquipmentSlot.ARMOR:
 			equipped_armor = equip
 			stats.equipped_armor = equip
-	show_message_box("Equipado:\n[color=green]" + equip.item_name + "[/color]")
+	show_message_box("[color=green]" + equip.get_display_name() + "[/color] equipado!")
 
 func unequip_slot(slot: EquipmentData.EquipmentSlot, stats: CharacterStats) -> void:
+	var removed: EquipmentData = null
 	match slot:
 		EquipmentData.EquipmentSlot.WEAPON:
+			removed = equipped_weapon
 			equipped_weapon = null
 			stats.equipped_weapon = null
 		EquipmentData.EquipmentSlot.ARMOR:
+			removed = equipped_armor
 			equipped_armor = null
 			stats.equipped_armor = null
-	show_message_box("Equipamento removido.")
+	if removed:
+		show_message_box("[color=green]" + removed.get_display_name() + "[/color] desequipado!")
+	else:
+		show_message_box("Equipamento removido.")
 
 func add_item(item: ItemData, amount: int = 1) -> void:
 	if inventory.has(item):

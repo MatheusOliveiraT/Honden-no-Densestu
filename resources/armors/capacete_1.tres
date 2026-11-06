@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://b3fvalo2bdqaj"]
+
+[ext_resource type="Script" uid="uid://bqcejka4soj11" path="res://resources/equipment_data.gd" id="1_auyp0"]
+[ext_resource type="Texture2D" uid="uid://bxojlu2x582wk" path="res://sprites-import/capacete.png" id="2_r8hh4"]
+
+[resource]
+script = ExtResource("1_auyp0")
+id = "capacete_1"
+item_name = "Capacete Usado"
+display_name = "Capacete Usado"
+description = "Capacete usado. Tem várias rachaduras."
+texture = ExtResource("2_r8hh4")
+slot = 1
+base_attack_bonus = 0
+base_defense_bonus = 1
+base_soul_upgrade_cost = 5
+cost_in_coins = 5
+metadata/_custom_type_script = "uid://bqcejka4soj11"
