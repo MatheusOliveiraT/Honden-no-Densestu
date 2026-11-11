@@ -106,6 +106,7 @@ func show_message_box(text: String) -> void:
 	if not get_tree() or not get_tree().root:
 		return
 	var canvas = CanvasLayer.new()
+	canvas.process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas.layer = 100
 	var panel = NinePatchRect.new()
 	panel.texture = load("res://ui/textures/menu-5.png")
@@ -205,14 +206,19 @@ func get_save_image_path(slot_index: int) -> String:
 	return "user://save_slot_" + str(slot_index) + ".png"
 
 func _capture_and_save_screenshot(slot_index: int) -> void:
-	var pause_menu = get_tree().get_first_node_in_group("PauseMenu")
-	if pause_menu and pause_menu.has_method("hide"):
-		pause_menu.hide()
+	var pause_menu = get_tree().get_first_node_in_group("PauseMenu") as PauseMenu
+	if not pause_menu:
+		pause_menu = get_tree().root.get_node_or_null("PauseMenu") as PauseMenu
+	if pause_menu and pause_menu.has_method("hide_for_screenshot"):
+		pause_menu.hide_for_screenshot()
 	await get_tree().process_frame
+	await get_tree().process_frame
+	
 	var img = get_tree().root.get_viewport().get_texture().get_image()
-	if pause_menu and pause_menu.has_method("show"):
-		pause_menu.show()
+	if pause_menu and pause_menu.has_method("restore_after_screenshot"):
+		pause_menu.restore_after_screenshot()
 	img.save_png(get_save_image_path(slot_index))
+	await get_tree().process_frame
 
 func get_slot_thumbnail(slot_index: int) -> Texture2D:
 	var path = get_save_image_path(slot_index)
@@ -223,7 +229,7 @@ func get_slot_thumbnail(slot_index: int) -> Texture2D:
 	return null
 
 func save_game(slot_index: int = 1) -> void:
-	_capture_and_save_screenshot(slot_index)
+	await _capture_and_save_screenshot(slot_index)
 	var player = get_tree().get_first_node_in_group("Players")
 	if player:
 		player_map_position = player.global_position
@@ -276,8 +282,7 @@ func save_game(slot_index: int = 1) -> void:
 		var json_string = JSON.stringify(save_data, "\t")
 		file.store_string(json_string)
 		file.close()
-		show_message_box("[color=green]Jogo salvo no Slot " + str(slot_index) + "![/color]")
-
+		
 func load_game(slot_index: int = 1) -> bool:
 	var path = get_save_path(slot_index)
 	if not FileAccess.file_exists(path):
@@ -343,9 +348,9 @@ func load_game(slot_index: int = 1) -> bool:
 	if unlocked_spells.is_empty():
 		_init_default_spells()
 	returning_from_battle = true
-	is_transitioning = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file(current_map_scene_path)
+	is_transitioning = false
 	return true
 
 func get_slot_info(slot_index: int) -> Dictionary:

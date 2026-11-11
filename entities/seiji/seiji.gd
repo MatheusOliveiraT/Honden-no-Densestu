@@ -59,6 +59,7 @@ func set_in_battle(active: bool) -> void:
 		velocity = Vector2.ZERO
 		if _animated_sprite.sprite_frames and _animated_sprite.sprite_frames.has_animation("em_batalha"):
 			_animated_sprite.play("em_batalha")
+			_animated_sprite.flip_h = false
 
 func _move_into_direction(_delta: float) -> void:
 	var input_direction: Vector2 = Input.get_vector("esquerda", "direita", "cima", "baixo")

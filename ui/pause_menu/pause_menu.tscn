@@ -142,6 +142,24 @@ theme_override_styles/hover = ExtResource("3_c3jo5")
 theme_override_styles/disabled = ExtResource("3_c3jo5")
 theme_override_styles/focus = ExtResource("3_c3jo5")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot1Button" unique_id=1020642548]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot1Button/HBoxContainer" unique_id=141670947]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot1Button/HBoxContainer" unique_id=524164389]
+layout_mode = 2
+
 [node name="Slot2Button" type="Button" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox" unique_id=332412717]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
@@ -151,6 +169,24 @@ theme_override_styles/hover = ExtResource("3_c3jo5")
 theme_override_styles/disabled = ExtResource("3_c3jo5")
 theme_override_styles/focus = ExtResource("3_c3jo5")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot2Button" unique_id=2147209628]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot2Button/HBoxContainer" unique_id=2108392289]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot2Button/HBoxContainer" unique_id=1966105331]
+layout_mode = 2
+
 [node name="Slot3Button" type="Button" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox" unique_id=2080709634]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
@@ -159,6 +195,24 @@ theme_override_styles/pressed = ExtResource("3_c3jo5")
 theme_override_styles/hover = ExtResource("3_c3jo5")
 theme_override_styles/disabled = ExtResource("3_c3jo5")
 theme_override_styles/focus = ExtResource("3_c3jo5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot3Button" unique_id=416052620]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot3Button/HBoxContainer" unique_id=978059381]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox/Slot3Button/HBoxContainer" unique_id=1409252785]
+layout_mode = 2
 
 [node name="BtnBack" type="Button" parent="SlotsPanel/SlotsControl/NinePatchRect/SlotsVBox" unique_id=1940552415]
 layout_mode = 2

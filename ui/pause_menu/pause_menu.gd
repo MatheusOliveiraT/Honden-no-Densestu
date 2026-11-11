@@ -28,6 +28,7 @@ var original_button_texts: Dictionary = {}
 const CONTROLS_POPUP: PackedScene = preload("res://ui/components/ControlsPopup.tscn")
 
 func _ready() -> void:
+	add_to_group("PauseMenu")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if main_container: main_container.hide()
 	if slots_panel: slots_panel.hide()
@@ -54,28 +55,51 @@ func toggle_pause_menu() -> void:
 		if slots_panel: slots_panel.hide()
 		get_tree().paused = false
 
+func hide_for_screenshot() -> void:
+	if main_container: main_container.hide()
+	if slots_panel: slots_panel.hide()
+
+func restore_after_screenshot() -> void:
+	if main_container: main_container.show()
+	if slots_panel: slots_panel.show()
+
 func _setup_button_focus_effects() -> void:
 	var buttons = [btn_new_game, btn_save, btn_continue, btn_config, btn_quit, slot1_btn, slot2_btn, slot3_btn, btn_back]
 	for btn in buttons:
 		if is_instance_valid(btn):
-			original_button_texts[btn] = btn.text
 			btn.focus_mode = Control.FOCUS_ALL
 			btn.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			btn.add_theme_font_size_override("font_size", 16)
 			btn.mouse_entered.connect(func(): btn.grab_focus())
 			btn.focus_entered.connect(func():
-				btn.text = "> " + original_button_texts[btn]
-				btn.add_theme_color_override("font_color", Color.YELLOW)
-				btn.add_theme_color_override("font_focus_color", Color.YELLOW)
-				btn.add_theme_color_override("font_hover_color", Color.YELLOW)
-				btn.add_theme_color_override("font_hover_pressed_color", Color.YELLOW)
+				var inner_label: Label = btn.get_node_or_null("HBoxContainer/Label")
+				if inner_label:
+					if not original_button_texts.has(inner_label):
+						original_button_texts[inner_label] = inner_label.text
+					inner_label.text = "> " + original_button_texts[inner_label]
+					inner_label.add_theme_color_override("font_color", Color.YELLOW)
+				else:
+					if not original_button_texts.has(btn):
+						original_button_texts[btn] = btn.text
+					btn.text = "> " + original_button_texts[btn]
+					btn.add_theme_color_override("font_color", Color.YELLOW)
+					btn.add_theme_color_override("font_focus_color", Color.YELLOW)
+					btn.add_theme_color_override("font_hover_color", Color.YELLOW)
+					btn.add_theme_color_override("font_hover_pressed_color", Color.YELLOW)
 			)
 			btn.focus_exited.connect(func():
-				btn.text = original_button_texts[btn]
-				btn.remove_theme_color_override("font_color")
-				btn.remove_theme_color_override("font_focus_color")
-				btn.remove_theme_color_override("font_hover_color")
-				btn.remove_theme_color_override("font_hover_pressed_color")
+				var inner_label: Label = btn.get_node_or_null("HBoxContainer/Label")
+				if inner_label:
+					if original_button_texts.has(inner_label):
+						inner_label.text = original_button_texts[inner_label]
+					inner_label.remove_theme_color_override("font_color")
+				else:
+					if original_button_texts.has(btn):
+						btn.text = original_button_texts[btn]
+					btn.remove_theme_color_override("font_color")
+					btn.remove_theme_color_override("font_focus_color")
+					btn.remove_theme_color_override("font_hover_color")
+					btn.remove_theme_color_override("font_hover_pressed_color")
 			)
 
 func _connect_buttons() -> void:
@@ -90,6 +114,13 @@ func _connect_buttons() -> void:
 	if btn_back: btn_back.pressed.connect(_close_slots_panel)
 
 func _on_new_game_pressed() -> void:
+	_show_confirmation_dialog(
+		"Iniciar novo jogo?\n[color=red]O progresso atual não salvo será perdido![/color]",
+		func(): _start_new_game(),
+		btn_new_game
+	)
+
+func _start_new_game() -> void:
 	GameManager.disable_all_overworld_enemies()
 	toggle_pause_menu()
 	GameManager.current_enemy_data = null
@@ -152,24 +183,166 @@ func _update_slot_buttons_info() -> void:
 		if is_instance_valid(btn):
 			var info = GameManager.get_slot_info(slot_idx)
 			var label_text = ""
+			var tex_rect: TextureRect = btn.get_node_or_null("HBoxContainer/Icon")
+			var inner_label: Label = btn.get_node_or_null("HBoxContainer/Label")
 			if info.get("exists", false):
 				var date_str = info.get("save_date", "Sem Data")
-				var souls = info.get("total_souls", 0)
-				label_text = "Slot " + str(slot_idx) + " [" + date_str + "] - " + str(souls) + " Almas"
+				label_text = "Slot " + str(slot_idx) + " [" + date_str + "]"
+				var thumb = GameManager.get_slot_thumbnail(slot_idx)
+				if tex_rect and thumb:
+					tex_rect.texture = thumb
+					tex_rect.show()
+				elif tex_rect:
+					tex_rect.hide()
 			else:
 				label_text = "Slot " + str(slot_idx) + " - [ Vazio ]"
-			original_button_texts[btn] = label_text
-			btn.text = label_text
+				if tex_rect:
+					tex_rect.hide()
+			if inner_label:
+				original_button_texts[inner_label] = label_text
+				if btn.has_focus():
+					inner_label.text = "> " + label_text
+				else:
+					inner_label.text = label_text
+			else:
+				original_button_texts[btn] = label_text
+				if btn.has_focus():
+					btn.text = "> " + label_text
+				else:
+					btn.text = label_text
 
 func _handle_slot_click(slot_index: int) -> void:
+	var info = GameManager.get_slot_info(slot_index)
+	var slot_buttons = [slot1_btn, slot2_btn, slot3_btn]
+	var current_btn = slot_buttons[slot_index - 1] if slot_index - 1 < slot_buttons.size() else null
 	if current_slot_mode == SlotMode.SAVE:
-		GameManager.save_game(slot_index)
-		_update_slot_buttons_info()
-		await get_tree().process_frame
-		var slot_buttons = [slot1_btn, slot2_btn, slot3_btn]
-		if slot_index - 1 < slot_buttons.size() and is_instance_valid(slot_buttons[slot_index - 1]):
-			slot_buttons[slot_index - 1].grab_focus()
+		if info.get("exists", false):
+			_show_confirmation_dialog(
+				"Sobrescrever o Slot " + str(slot_index) + "?",
+				func(): _execute_save(slot_index),
+				current_btn
+			)
+		else:
+			_execute_save(slot_index)
 	else:
-		GameManager.disable_all_overworld_enemies()
-		toggle_pause_menu()
-		GameManager.load_game(slot_index)
+		if info.get("exists", false):
+			_show_confirmation_dialog(
+				"Carregar Slot " + str(slot_index) + "?\n[color=red]O progresso atual não salvo será perdido![/color]",
+				func(): _execute_load(slot_index),
+				current_btn
+			)
+		else:
+			GameManager.load_game(slot_index)
+
+func _execute_save(slot_index: int) -> void:
+	await GameManager.save_game(slot_index)
+	_update_slot_buttons_info()
+	var slot_buttons = [slot1_btn, slot2_btn, slot3_btn]
+	if slot_index - 1 < slot_buttons.size() and is_instance_valid(slot_buttons[slot_index - 1]):
+		var clicked_btn = slot_buttons[slot_index - 1]
+		var tex_rect: TextureRect = clicked_btn.get_node_or_null("HBoxContainer/Icon")
+		if tex_rect:
+			tex_rect.texture = GameManager.get_slot_thumbnail(slot_index)
+			tex_rect.show()
+		clicked_btn.grab_focus()
+
+func _execute_load(slot_index: int) -> void:
+	GameManager.disable_all_overworld_enemies()
+	toggle_pause_menu()
+	GameManager.load_game(slot_index)
+
+func _show_confirmation_dialog(message_text: String, on_confirm: Callable, return_focus_node: Control = null) -> void:
+	var canvas = CanvasLayer.new()
+	canvas.process_mode = Node.PROCESS_MODE_ALWAYS
+	canvas.layer = 150
+	var viewport_size = get_viewport().get_visible_rect().size
+	var root_control = Control.new()
+	root_control.custom_minimum_size = viewport_size
+	root_control.size = viewport_size
+	canvas.add_child(root_control)
+	var center_container = CenterContainer.new()
+	center_container.custom_minimum_size = viewport_size
+	center_container.size = viewport_size
+	root_control.add_child(center_container)
+	var panel = NinePatchRect.new()
+	panel.texture = load("res://ui/textures/menu-5.png")
+	panel.patch_margin_left = 8
+	panel.patch_margin_top = 8
+	panel.patch_margin_right = 8
+	panel.patch_margin_bottom = 8
+	panel.custom_minimum_size = Vector2(260, 110)
+	panel.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	center_container.add_child(panel)
+	var margin = MarginContainer.new()
+	margin.custom_minimum_size = Vector2(260, 110)
+	margin.add_theme_constant_override("margin_left", 12)
+	margin.add_theme_constant_override("margin_top", 10)
+	margin.add_theme_constant_override("margin_right", 12)
+	margin.add_theme_constant_override("margin_bottom", 10)
+	panel.add_child(margin)
+	var vbox = VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 10)
+	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	margin.add_child(vbox)
+	var label = RichTextLabel.new()
+	label.bbcode_enabled = true
+	label.text = "[center]" + message_text + "[/center]"
+	label.fit_content = true
+	label.scroll_active = false
+	label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	label.custom_minimum_size = Vector2(236, 0)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.add_child(label)
+	var hbox = HBoxContainer.new()
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_theme_constant_override("separation", 16)
+	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.add_child(hbox)
+	var button_style = load("res://ui/button_theme.tres") as StyleBox
+	var btn_yes = Button.new()
+	btn_yes.text = "Sim"
+	btn_yes.focus_mode = Control.FOCUS_ALL
+	btn_yes.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	btn_yes.custom_minimum_size = Vector2(64, 24)
+	var btn_no = Button.new()
+	btn_no.text = "Não"
+	btn_no.focus_mode = Control.FOCUS_ALL
+	btn_no.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	btn_no.custom_minimum_size = Vector2(64, 24)
+	hbox.add_child(btn_yes)
+	hbox.add_child(btn_no)
+	for btn in [btn_yes, btn_no]:
+		if button_style:
+			btn.add_theme_stylebox_override("normal", button_style)
+			btn.add_theme_stylebox_override("pressed", button_style)
+			btn.add_theme_stylebox_override("hover", button_style)
+			btn.add_theme_stylebox_override("disabled", button_style)
+			btn.add_theme_stylebox_override("focus", button_style)
+		var orig = btn.text
+		btn.mouse_entered.connect(func(): btn.grab_focus())
+		btn.focus_entered.connect(func():
+			btn.text = "> " + orig
+			btn.add_theme_color_override("font_color", Color.YELLOW)
+			btn.add_theme_color_override("font_focus_color", Color.YELLOW)
+			btn.add_theme_color_override("font_hover_color", Color.YELLOW)
+		)
+		btn.focus_exited.connect(func():
+			btn.text = orig
+			btn.remove_theme_color_override("font_color")
+			btn.remove_theme_color_override("font_focus_color")
+			btn.remove_theme_color_override("font_hover_color")
+		)
+	btn_yes.pressed.connect(func():
+		canvas.queue_free()
+		on_confirm.call()
+	)
+	btn_no.pressed.connect(func():
+		canvas.queue_free()
+		if is_instance_valid(return_focus_node):
+			return_focus_node.grab_focus()
+	)
+	get_tree().root.add_child(canvas)
+	await get_tree().process_frame
+	btn_no.grab_focus()
