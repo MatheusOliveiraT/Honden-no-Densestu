@@ -11,6 +11,7 @@ size = Vector2(15, 27)
 size = Vector2(23, 34)
 
 [node name="Tsuchinoko" type="CharacterBody2D" unique_id=1797316529 groups=["Enemies"]]
+y_sort_enabled = true
 script = ExtResource("1_ss36u")
 enemy_id = "tsuchinoko_00"
 enemy_data = ExtResource("2_ss36u")

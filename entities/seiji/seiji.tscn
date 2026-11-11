@@ -12,6 +12,7 @@ height = 27.0
 radius = 30.016663
 
 [node name="Seiji" type="CharacterBody2D" unique_id=161441557 groups=["Players"]]
+y_sort_enabled = true
 script = ExtResource("1_c2wt1")
 stats = ExtResource("2_q2130")
 
