@@ -315,7 +315,6 @@ tile_map_data = PackedByteArray("AAA2ABwAAAAAAAAAAAA1ABsAAQAAAAAAAAA0ABwAAAAAAAA
 tile_set = SubResource("TileSet_lfkbx")
 
 [node name="Seiji" parent="YSortWorld" unique_id=161441557 instance=ExtResource("31_rghct")]
-y_sort_enabled = true
 position = Vector2(202, 433)
 
 [node name="Camera2D" type="Camera2D" parent="YSortWorld/Seiji" unique_id=209341930]
@@ -347,87 +346,48 @@ position = Vector2(-148, -354)
 enemy_id = "tsuchinoko_01"
 speed = 125.0
 
-[node name="baus" type="Node2D" parent="." unique_id=1845457428]
+[node name="baus" type="Node2D" parent="YSortWorld" unique_id=1845457428]
+y_sort_enabled = true
 
-[node name="bau1" parent="baus" unique_id=434083459 instance=ExtResource("28_rbpvg")]
+[node name="bau1" parent="YSortWorld/baus" unique_id=434083459 instance=ExtResource("28_rbpvg")]
 position = Vector2(-96, -144)
 type = 4
 equipment_data = ExtResource("31_0ekug")
 
-[node name="bau2" parent="baus" unique_id=1419418582 instance=ExtResource("28_rbpvg")]
+[node name="bau2" parent="YSortWorld/baus" unique_id=1419418582 instance=ExtResource("28_rbpvg")]
 position = Vector2(656, -912)
 chest_id = "chest_fase1_02"
 souls_amount = 5
 
-[node name="bau3" parent="baus" unique_id=1074420536 instance=ExtResource("28_rbpvg")]
+[node name="bau3" parent="YSortWorld/baus" unique_id=1074420536 instance=ExtResource("28_rbpvg")]
 position = Vector2(848, 240)
 chest_id = "chest_fase1_03"
 type = 2
 item_data = ExtResource("29_rghct")
 
-[node name="lanternas" type="Node2D" parent="." unique_id=1200984714]
+[node name="lanternas" type="Node2D" parent="YSortWorld" unique_id=1200984714]
+y_sort_enabled = true
 
-[node name="lanterna" parent="lanternas" unique_id=1922230995 instance=ExtResource("28_44jry")]
-
-[node name="Sprite2D" parent="lanternas/lanterna" index="0" unique_id=1282005160]
+[node name="lanterna1" parent="YSortWorld/lanternas" unique_id=280399726 instance=ExtResource("28_44jry")]
 position = Vector2(-64, -153)
 
-[node name="CollisionShape2D" parent="lanternas/lanterna" index="2" unique_id=1712748152]
-position = Vector2(-64, -152)
+[node name="lanterna2" parent="YSortWorld/lanternas" unique_id=586098203 instance=ExtResource("28_44jry")]
+position = Vector2(880, 244)
 
-[node name="lanterna2" parent="lanternas" unique_id=1668482531 instance=ExtResource("28_44jry")]
-position = Vector2(943, 404)
+[node name="lanterna3" parent="YSortWorld/lanternas" unique_id=1369699334 instance=ExtResource("28_44jry")]
+position = Vector2(-258, -733)
 
-[node name="Sprite2D" parent="lanternas/lanterna2" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
+[node name="lanterna4" parent="YSortWorld/lanternas" unique_id=357050750 instance=ExtResource("28_44jry")]
+position = Vector2(691, -926)
 
-[node name="CollisionShape2D" parent="lanternas/lanterna2" index="2" unique_id=1712748152]
-position = Vector2(-64, -151)
+[node name="lanterna5" parent="YSortWorld/lanternas" unique_id=1557723801 instance=ExtResource("28_44jry")]
+position = Vector2(-439, -501)
 
-[node name="lanterna3" parent="lanternas" unique_id=1050637846 instance=ExtResource("28_44jry")]
-position = Vector2(-194, -580)
+[node name="lanterna6" parent="YSortWorld/lanternas" unique_id=1045359625 instance=ExtResource("28_44jry")]
+position = Vector2(141, -809)
 
-[node name="Sprite2D" parent="lanternas/lanterna3" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
-
-[node name="CollisionShape2D" parent="lanternas/lanterna3" index="2" unique_id=1712748152]
-position = Vector2(-64, -152)
-
-[node name="lanterna4" parent="lanternas" unique_id=1954768858 instance=ExtResource("28_44jry")]
-position = Vector2(-374, -347)
-
-[node name="Sprite2D" parent="lanternas/lanterna4" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
-
-[node name="CollisionShape2D" parent="lanternas/lanterna4" index="2" unique_id=1712748152]
-position = Vector2(-65, -151)
-
-[node name="lanterna5" parent="lanternas" unique_id=1934600920 instance=ExtResource("28_44jry")]
-position = Vector2(755, -773)
-
-[node name="Sprite2D" parent="lanternas/lanterna5" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
-
-[node name="CollisionShape2D" parent="lanternas/lanterna5" index="2" unique_id=1712748152]
-position = Vector2(-64, -151)
-
-[node name="lanterna6" parent="lanternas" unique_id=1456627235 instance=ExtResource("28_44jry")]
-position = Vector2(323, -654)
-
-[node name="Sprite2D" parent="lanternas/lanterna6" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
-
-[node name="CollisionShape2D" parent="lanternas/lanterna6" index="2" unique_id=1712748152]
-position = Vector2(-63, -152)
-
-[node name="lanterna7" parent="lanternas" unique_id=2043204924 instance=ExtResource("28_44jry")]
-position = Vector2(205, -655)
-
-[node name="Sprite2D" parent="lanternas/lanterna7" index="0" unique_id=1282005160]
-position = Vector2(-64, -153)
-
-[node name="CollisionShape2D" parent="lanternas/lanterna7" index="2" unique_id=1712748152]
-position = Vector2(-64, -155)
+[node name="lanterna7" parent="YSortWorld/lanternas" unique_id=265463294 instance=ExtResource("28_44jry")]
+position = Vector2(260, -806)
 
 [node name="Inventário" parent="." unique_id=1552711463 instance=ExtResource("36_nutwo")]
 anchors_preset = 0
@@ -437,11 +397,3 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="PauseMenu" parent="." unique_id=1393715638 instance=ExtResource("37_h1qmq")]
-
-[editable path="lanternas/lanterna"]
-[editable path="lanternas/lanterna2"]
-[editable path="lanternas/lanterna3"]
-[editable path="lanternas/lanterna4"]
-[editable path="lanternas/lanterna5"]
-[editable path="lanternas/lanterna6"]
-[editable path="lanternas/lanterna7"]
