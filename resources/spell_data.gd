@@ -22,5 +22,5 @@ func get_description() -> String:
 		return description
 	match type:
 		SpellType.HEAL:
-			return "Recupera HP instantaneamente." % base_value
+			return "Recupera %d HP instantaneamente." % base_value
 	return ""

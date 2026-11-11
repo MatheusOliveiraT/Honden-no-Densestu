@@ -28,6 +28,8 @@ var owned_equipments: Array[EquipmentData] = []
 var equipped_weapon: EquipmentData = null
 var equipped_armor: EquipmentData = null
 
+var is_transitioning: bool = false
+
 func _ready() -> void:
 	_init_default_spells()
 
@@ -35,6 +37,16 @@ func _init_default_spells() -> void:
 	var cura := load("res://resources/spells/cura.tres") as SpellData
 	unlock_spell(cura, false)
 	equip_spell(cura)
+
+func disable_all_overworld_enemies() -> void:
+	is_transitioning = true
+	var enemies = get_tree().get_nodes_in_group("Enemies")
+	for enemy in enemies:
+		if enemy is OverworldEnemy:
+			enemy.set_physics_process(false)
+			if is_instance_valid(enemy.interaction_area):
+				enemy.interaction_area.set_deferred("monitoring", false)
+				enemy.interaction_area.set_deferred("monitorable", false)
 
 func add_equipment(equip: EquipmentData) -> void:
 	if not owned_equipments.has(equip):
@@ -331,6 +343,7 @@ func load_game(slot_index: int = 1) -> bool:
 	if unlocked_spells.is_empty():
 		_init_default_spells()
 	returning_from_battle = true
+	is_transitioning = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file(current_map_scene_path)
 	return true

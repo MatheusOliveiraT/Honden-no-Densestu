@@ -26,10 +26,11 @@ var defending_characters: Array[Node] = []
 
 func _ready() -> void:
 	_create_temp_ui()
-	await _spawn_combatants()
-	start_battle()
+	var success = await _spawn_combatants()
+	if success:
+		start_battle()
 
-func _spawn_combatants() -> void:
+func _spawn_combatants() -> bool:
 	if enemy_spawns.is_empty():
 		var spawns_container = get_node_or_null("../SpawnPositions")
 		if spawns_container:
@@ -37,17 +38,18 @@ func _spawn_combatants() -> void:
 				if spawn_node is Marker2D and "EnemySpawn" in spawn_node.name:
 					enemy_spawns.append(spawn_node)
 		enemy_spawns.sort_custom(func(a, b): return a.name < b.name)
-		
+	var party_data = GameManager.current_enemy_party_data
+	if party_data.is_empty() and GameManager.current_enemy_data:
+		party_data.append(GameManager.current_enemy_data)
+	if party_data.is_empty():
+		push_warning("BattleManager iniciou sem dados de inimigos válidos. Cancelando batalha...")
+		SceneTransition.fade_to_battle(GameManager.current_map_scene_path)
+		return false
 	if player_scene and player_spawn:
 		var player_instance = player_scene.instantiate()
 		player_party.append(player_instance)
 		player_instance.add_to_group("Players")
 		get_parent().add_child.call_deferred(player_instance)
-		
-	var party_data = GameManager.current_enemy_party_data
-	if party_data.is_empty() and GameManager.current_enemy_data:
-		party_data.append(GameManager.current_enemy_data)
-		
 	for i in range(party_data.size()):
 		var data = party_data[i]
 		var enemy_instance = BattleEnemy.new()
@@ -64,22 +66,20 @@ func _spawn_combatants() -> void:
 		get_parent().add_child.call_deferred(enemy_instance)
 		if sprite.sprite_frames and sprite.sprite_frames.has_animation("em_batalha"):
 			sprite.play("em_batalha")
-			
 	await get_tree().process_frame
-	
 	for player in player_party:
 		if is_instance_valid(player) and player_spawn:
 			player.global_position = player_spawn.global_position.round()
 			player.set_physics_process(false)
 			if player.has_method("set_in_battle"):
 				player.set_in_battle(true)
-				
 	for i in range(enemy_party.size()):
 		if is_instance_valid(enemy_party[i]):
 			if i < enemy_spawns.size() and enemy_spawns[i] != null:
 				enemy_party[i].global_position = enemy_spawns[i].global_position.round()
 			elif not enemy_spawns.is_empty() and enemy_spawns[0] != null:
 				enemy_party[i].global_position = (enemy_spawns[0].global_position + Vector2(i * 32, 0)).round()
+	return true
 
 func _create_temp_ui() -> void:
 	ui_canvas = CanvasLayer.new()

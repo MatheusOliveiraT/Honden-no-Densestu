@@ -93,8 +93,12 @@ func _on_detection_exited(body: Node2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Seiji:
+		if enemy_data == null or GameManager.is_transitioning:
+			return
+		GameManager.is_transitioning = true
 		target_player = null
 		velocity = Vector2.ZERO
+		interaction_area.set_deferred("monitoring", false)
 		GameManager.player_map_position = body.global_position
 		GameManager.returning_from_battle = true
 		GameManager.defeated_enemy_id = enemy_id

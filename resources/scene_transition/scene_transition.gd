@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var color_rect: ColorRect = $ColorRect
 
 func _ready() -> void:
+	GameManager.is_transitioning = false
 	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	color_rect.color.a = 0.0
 	color_rect.set_anchors_preset(Control.PRESET_FULL_RECT)

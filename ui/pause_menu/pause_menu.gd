@@ -90,7 +90,10 @@ func _connect_buttons() -> void:
 	if btn_back: btn_back.pressed.connect(_close_slots_panel)
 
 func _on_new_game_pressed() -> void:
+	GameManager.disable_all_overworld_enemies()
 	toggle_pause_menu()
+	GameManager.current_enemy_data = null
+	GameManager.current_enemy_party_data.clear()
 	GameManager.total_souls = 0
 	GameManager.total_coins = 0
 	GameManager.current_hp = -1
@@ -99,7 +102,10 @@ func _on_new_game_pressed() -> void:
 	GameManager.owned_equipments.clear()
 	GameManager.equipped_weapon = null
 	GameManager.equipped_armor = null
+	GameManager.defeated_enemy_id = ""
 	GameManager.defeated_enemies.clear()
+	GameManager.returning_from_battle = false
+	GameManager.player_map_position = Vector2.ZERO
 	SceneTransition.fade_to_battle("res://levels/floresta.tscn")
 
 func _on_save_pressed() -> void:
@@ -164,5 +170,6 @@ func _handle_slot_click(slot_index: int) -> void:
 		if slot_index - 1 < slot_buttons.size() and is_instance_valid(slot_buttons[slot_index - 1]):
 			slot_buttons[slot_index - 1].grab_focus()
 	else:
+		GameManager.disable_all_overworld_enemies()
 		toggle_pause_menu()
 		GameManager.load_game(slot_index)
