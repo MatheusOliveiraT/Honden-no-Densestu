@@ -2,6 +2,23 @@
 
 [ext_resource type="Script" uid="uid://cw0tmxtc06fup" path="res://battle/battle_manager.gd" id="1_u2cu5"]
 [ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="2_1otyf"]
+[ext_resource type="Texture2D" uid="uid://bycpumu4on8c5" path="res://ui/textures/icone-menu.png" id="3_n6te2"]
+[ext_resource type="FontFile" uid="uid://8jihwrrwacxh" path="res://ui/m5x7.ttf" id="4_nbjvm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1pkoy"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("3_n6te2")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="Theme" id="Theme_vicex"]
+default_font = ExtResource("4_nbjvm")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_1pkoy")
 
 [node name="BattleScene" type="Node2D" unique_id=1763208964]
 
@@ -13,15 +30,90 @@
 position = Vector2(100, 94)
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPositions" unique_id=640459156]
-position = Vector2(253, 93)
+position = Vector2(253, 73)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPositions" unique_id=1448392350]
-position = Vector2(301, 39)
+position = Vector2(301, 23)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPositions" unique_id=257596747]
-position = Vector2(301, 161)
+position = Vector2(301, 120)
 
 [node name="BattleManager" type="Node2D" parent="." unique_id=233486942]
 position = Vector2(0, 1)
 script = ExtResource("1_u2cu5")
 player_scene = ExtResource("2_1otyf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1992524421]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1958039415]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_vicex")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=1056837176]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(6, -6)
+pivot_offset_ratio = Vector2(-78, -4)
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=76089394]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.35
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/PanelContainer" unique_id=933369661]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/PanelContainer/MarginContainer" unique_id=136868872]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="LogContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=1255955655]
+self_modulate = Color(1, 1, 1, 0.6666667)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.65
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer" unique_id=1374669965]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer" unique_id=563057440]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer" unique_id=1683519585]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control" unique_id=1960458406]
+custom_minimum_size = Vector2(245, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -247.0
+offset_top = -106.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer" unique_id=1198683979]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer" unique_id=611904241]
+layout_mode = 2
+theme_override_constants/separation = 2

@@ -1,8 +1,8 @@
 extends Node
 class_name BattleManager
 
-var log_label: RichTextLabel
-var log_scroll: ScrollContainer
+#var log_label: RichTextLabel
+#var log_scroll: ScrollContainer
 
 enum BattleState { START, TURN_CHECK, PLAYER_TURN, ENEMY_TURN, WIN, LOSE }
 var current_state: BattleState = BattleState.START
@@ -15,17 +15,25 @@ var current_character: Node = null
 @onready var player_spawn: Marker2D = $"../SpawnPositions/PlayerSpawn"
 @export var enemy_spawns: Array[Marker2D] = []
 
+@onready var log_scroll: ScrollContainer = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer"
+@onready var log_label: RichTextLabel = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer/RichTextLabel"
+@onready var action_panel: PanelContainer = $"../CanvasLayer/Control/HBoxContainer/PanelContainer"
+@onready var main_action_container: VBoxContainer = $"../CanvasLayer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"
+@onready var sub_menu_panel: PanelContainer = $"../CanvasLayer/Control/PanelContainer"
+@onready var sub_menu_container: VBoxContainer = $"../CanvasLayer/Control/PanelContainer/MarginContainer/VBoxContainer"
+
 var player_party: Array[Node] = []
 var enemy_party: Array[Node] = []
 
-var ui_canvas: CanvasLayer
-var main_action_container: VBoxContainer
-var sub_menu_container: VBoxContainer
+#var ui_canvas: CanvasLayer
+#var main_action_container: VBoxContainer
+#var sub_menu_container: VBoxContainer
 
 var defending_characters: Array[Node] = []
 
 func _ready() -> void:
-	_create_temp_ui()
+	#_create_temp_ui()
+	_hide_all_ui()
 	var success = await _spawn_combatants()
 	if success:
 		start_battle()
@@ -81,47 +89,47 @@ func _spawn_combatants() -> bool:
 				enemy_party[i].global_position = (enemy_spawns[0].global_position + Vector2(i * 32, 0)).round()
 	return true
 
-func _create_temp_ui() -> void:
-	ui_canvas = CanvasLayer.new()
-	ui_canvas.layer = 50
-	add_child(ui_canvas)
-	
-	# LOG DE BATALHA COM TAMANHO E POSIÇÃO EM PIXELS INTEIROS
-	log_scroll = ScrollContainer.new()
-	log_scroll.position = Vector2(8, 6).round()
-	log_scroll.size = Vector2(368, 52).round()
-	log_scroll.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	ui_canvas.add_child(log_scroll)
+#func _create_temp_ui() -> void:
+	#ui_canvas = CanvasLayer.new()
+	#ui_canvas.layer = 50
+	#add_child(ui_canvas)
+	#
+	## LOG DE BATALHA COM TAMANHO E POSIÇÃO EM PIXELS INTEIROS
+	#log_scroll = ScrollContainer.new()
+	#log_scroll.position = Vector2(8, 6).round()
+	#log_scroll.size = Vector2(368, 52).round()
+	#log_scroll.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	#ui_canvas.add_child(log_scroll)
 
 	log_label = RichTextLabel.new()
-	log_label.bbcode_enabled = true
-	log_label.fit_content = true
-	log_label.custom_minimum_size = Vector2(350, 0)
-	log_label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	
-	# FONTE 16PX NATIVA COM RESPIRO VERTICAL ENTRE LINHAS
-	log_label.add_theme_font_size_override("normal_font_size", 16)
-	log_label.add_theme_font_size_override("bold_font_size", 16)
-	log_label.add_theme_constant_override("line_separation", 2)
-	log_scroll.add_child(label_or_log())
+	#log_label.bbcode_enabled = true
+	#log_label.fit_content = true
+	#log_label.custom_minimum_size = Vector2(350, 0)
+	#log_label.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	#
+	## FONTE 16PX NATIVA COM RESPIRO VERTICAL ENTRE LINHAS
+	#log_label.add_theme_font_size_override("normal_font_size", 16)
+	#log_label.add_theme_font_size_override("bold_font_size", 16)
+	#log_label.add_theme_constant_override("line_separation", 2)
+	#log_scroll.add_child(label_or_log())
+#
+	## MENUS DE AÇÃO COM TAMANHOS ADEQUADOS À FONTE 16PX
+	#main_action_container = VBoxContainer.new()
+	#main_action_container.position = Vector2(8, 120).round()
+	#main_action_container.size = Vector2(110, 88).round()
+	#main_action_container.add_theme_constant_override("separation", 2)
+	#ui_canvas.add_child(main_action_container)
+	#main_action_container.hide()
+	#
+	#sub_menu_container = VBoxContainer.new()
+	#sub_menu_container.position = Vector2(124, 120).round()
+	#sub_menu_container.size = Vector2(160, 88).round()
+	#sub_menu_container.add_theme_constant_override("separation", 2)
+	#ui_canvas.add_child(sub_menu_container)
+	#sub_menu_container.hide()
 
-	# MENUS DE AÇÃO COM TAMANHOS ADEQUADOS À FONTE 16PX
-	main_action_container = VBoxContainer.new()
-	main_action_container.position = Vector2(8, 120).round()
-	main_action_container.size = Vector2(110, 88).round()
-	main_action_container.add_theme_constant_override("separation", 2)
-	ui_canvas.add_child(main_action_container)
-	main_action_container.hide()
-	
-	sub_menu_container = VBoxContainer.new()
-	sub_menu_container.position = Vector2(124, 120).round()
-	sub_menu_container.size = Vector2(160, 88).round()
-	sub_menu_container.add_theme_constant_override("separation", 2)
-	ui_canvas.add_child(sub_menu_container)
-	sub_menu_container.hide()
-
-func label_or_log() -> RichTextLabel:
-	return log_label
+#func label_or_log() -> RichTextLabel:
+	#return log_label
 
 func log_msg(text: String) -> void:
 	if log_label:
@@ -190,6 +198,7 @@ func enable_player_ui() -> void:
 	_clear_container(main_action_container)
 	_clear_container(sub_menu_container)
 	sub_menu_container.hide()
+	sub_menu_panel.hide()
 	
 	var btn_attack = _create_pixel_button("Atacar")
 	btn_attack.pressed.connect(_show_target_selection)
@@ -208,6 +217,7 @@ func enable_player_ui() -> void:
 	main_action_container.add_child(btn_defend)
 	
 	main_action_container.show()
+	action_panel.show()
 	_focus_element(btn_attack)
 
 func _show_target_selection() -> void:
@@ -223,6 +233,7 @@ func _show_target_selection() -> void:
 		
 	_add_back_button(main_action_container.get_child(0))
 	sub_menu_container.show()
+	sub_menu_panel.show()
 	_focus_element(first_btn)
 
 func _show_magic_menu() -> void:
@@ -245,6 +256,7 @@ func _show_magic_menu() -> void:
 			
 	_add_back_button(main_action_container.get_child(1))
 	sub_menu_container.show()
+	sub_menu_panel.show()
 	_focus_element(first_btn)
 
 func _on_spell_selected(spell: SpellData) -> void:
@@ -306,6 +318,7 @@ func _show_item_menu() -> void:
 			
 	_add_back_button(main_action_container.get_child(2))
 	sub_menu_container.show()
+	sub_menu_panel.show()
 	_focus_element(first_btn)
 
 func _use_item_in_battle(item: ItemData) -> void:
@@ -323,6 +336,7 @@ func _add_back_button(return_target: Button = null) -> void:
 	var btn_back = _create_pixel_button("<- Voltar")
 	btn_back.pressed.connect(func(): 
 		sub_menu_container.hide()
+		sub_menu_panel.hide()
 		if is_instance_valid(return_target):
 			return_target.grab_focus()
 		elif main_action_container.visible and main_action_container.get_child_count() > 0:
@@ -488,3 +502,5 @@ func _clear_container(container: Container) -> void:
 func _hide_all_ui() -> void:
 	if main_action_container: main_action_container.hide()
 	if sub_menu_container: sub_menu_container.hide()
+	if action_panel: action_panel.hide()
+	if sub_menu_panel: sub_menu_panel.hide()
