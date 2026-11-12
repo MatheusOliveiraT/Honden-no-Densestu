@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://bardnmy5ebpnn"]
+
+[ext_resource type="Script" uid="uid://5rn1nv51idyl" path="res://ui/components/slots_panel/slots_panel.gd" id="1_3x7kp"]
+[ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="1_h8rie"]
+[ext_resource type="StyleBox" uid="uid://b2ndshwl0x6mb" path="res://ui/button_theme.tres" id="2_3x7kp"]
+
+[node name="SlotsPanel" type="CanvasLayer" unique_id=1537577742]
+process_mode = 3
+layer = 2
+script = ExtResource("1_3x7kp")
+
+[node name="SlotsControl" type="Control" parent="." unique_id=875159885]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 7.0
+offset_right = 426.0
+offset_bottom = 223.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SlotsControl" unique_id=751689655]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 0
+offset_right = 190.0
+offset_bottom = 200.0
+texture = ExtResource("1_h8rie")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="PanelLabel" type="Label" parent="SlotsControl/NinePatchRect" unique_id=607578044]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 10.0
+offset_right = 205.0
+offset_bottom = 23.0
+offset_transform_enabled = true
+text = "Carregar Jogo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotsVBox" type="VBoxContainer" parent="SlotsControl/NinePatchRect" unique_id=1317434744]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 25.0
+offset_right = 285.0
+offset_bottom = 186.0
+
+[node name="Slot1Button" type="Button" parent="SlotsControl/NinePatchRect/SlotsVBox" unique_id=1817265024]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_3x7kp")
+theme_override_styles/pressed = ExtResource("2_3x7kp")
+theme_override_styles/hover = ExtResource("2_3x7kp")
+theme_override_styles/disabled = ExtResource("2_3x7kp")
+theme_override_styles/focus = ExtResource("2_3x7kp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot1Button" unique_id=1913000109]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot1Button/HBoxContainer" unique_id=46363459]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot1Button/HBoxContainer" unique_id=1063999835]
+layout_mode = 2
+
+[node name="Slot2Button" type="Button" parent="SlotsControl/NinePatchRect/SlotsVBox" unique_id=425769822]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_3x7kp")
+theme_override_styles/pressed = ExtResource("2_3x7kp")
+theme_override_styles/hover = ExtResource("2_3x7kp")
+theme_override_styles/disabled = ExtResource("2_3x7kp")
+theme_override_styles/focus = ExtResource("2_3x7kp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot2Button" unique_id=1454020128]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot2Button/HBoxContainer" unique_id=230282653]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot2Button/HBoxContainer" unique_id=1867905047]
+layout_mode = 2
+
+[node name="Slot3Button" type="Button" parent="SlotsControl/NinePatchRect/SlotsVBox" unique_id=1290199122]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_3x7kp")
+theme_override_styles/pressed = ExtResource("2_3x7kp")
+theme_override_styles/hover = ExtResource("2_3x7kp")
+theme_override_styles/disabled = ExtResource("2_3x7kp")
+theme_override_styles/focus = ExtResource("2_3x7kp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot3Button" unique_id=1793523715]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 265.0
+offset_bottom = 35.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot3Button/HBoxContainer" unique_id=1764350152]
+texture_filter = 1
+custom_minimum_size = Vector2(48, 27)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="SlotsControl/NinePatchRect/SlotsVBox/Slot3Button/HBoxContainer" unique_id=715468930]
+layout_mode = 2
+
+[node name="BtnBack" type="Button" parent="SlotsControl/NinePatchRect/SlotsVBox" unique_id=750442226]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_3x7kp")
+theme_override_styles/pressed = ExtResource("2_3x7kp")
+theme_override_styles/hover = ExtResource("2_3x7kp")
+theme_override_styles/disabled = ExtResource("2_3x7kp")
+theme_override_styles/focus = ExtResource("2_3x7kp")
+text = "Voltar"

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b615tqn0n2s6k"]
+
+[ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="1_a5xs4"]
+[ext_resource type="Script" uid="uid://74jdx818eetw" path="res://cutscenes/intro_cutscene/intro_cutscene.gd" id="1_uc168"]
+
+[node name="IntroCutscene" type="Control" unique_id=370321748]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uc168")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=163135219]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+
+[node name="CutsceneArt" type="TextureRect" parent="." unique_id=789970690]
+layout_mode = 0
+
+[node name="DialogPanel" type="NinePatchRect" parent="." unique_id=229169692]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 134.0
+offset_right = 382.0
+offset_bottom = 214.0
+texture = ExtResource("1_a5xs4")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="DialogLabel" type="Label" parent="DialogPanel" unique_id=537450894]
+custom_maximum_size = Vector2(350, -1)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 7.0
+offset_right = 160.0
+offset_bottom = 20.0
+text = "Lorem ipsum dolor sit amet"
+
+[node name="DialogText" type="RichTextLabel" parent="DialogPanel" unique_id=696787809]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 19.0
+offset_right = 365.0
+offset_bottom = 73.0
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut nisi mollis, ultricies velit in, sagittis nulla. Proin nec sapien nec mauris congue auctor in eget mauris. Aenean cursus magna vel tortor commodo, id vestibulum magna pharetra. Quisque interdum lorem vitae lectus ultrices, malesuada lobortis nibh aliquet. Phasellus et blandit lacus, vitae dignissim libero. Morbi placerat erat felis, ac ullamcorper augue vehicula eget. Mauris laoreet mollis justo, ut ornare urna scelerisque sit amet. Vestibulum nulla arcu, volutpat a neque vel, tristique ultrices magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; "
+scroll_active = false
+
+[node name="SkipHintLabel" type="Label" parent="." unique_id=761818877]
+layout_mode = 0
+offset_left = 328.0
+offset_right = 383.0
+offset_bottom = 13.0
+text = "[ESC] Pular"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2121456765]

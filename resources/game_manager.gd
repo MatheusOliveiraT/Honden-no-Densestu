@@ -2,7 +2,7 @@ extends Node
 
 var player_map_position: Vector2 = Vector2.ZERO
 var returning_from_battle: bool = false
-var current_map_scene_path: String = "res://levels/floresta.tscn"
+var current_map_scene_path: String = "res://levels/floresta/floresta.tscn"
 
 var defeated_enemy_id: String = ""
 var defeated_enemies: Array[String] = []
@@ -295,7 +295,7 @@ func load_game(slot_index: int = 1) -> bool:
 	var json = JSON.new()
 	if json.parse(json_string) != OK: return false
 	var save_data: Dictionary = json.data
-	current_map_scene_path = save_data.get("current_map_scene_path", "res://levels/floresta.tscn")
+	current_map_scene_path = save_data.get("current_map_scene_path", "res://levels/floresta/floresta.tscn")
 	player_map_position = Vector2(save_data.get("player_position_x", 0.0), save_data.get("player_position_y", 0.0))
 	current_hp = save_data.get("current_hp", -1)
 	current_mp = save_data.get("current_mp", -1)

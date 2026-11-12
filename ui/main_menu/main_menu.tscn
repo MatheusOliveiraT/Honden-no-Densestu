@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://perg6ip525rs"]
+
+[ext_resource type="Script" uid="uid://cvy80wt63l3gt" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+[ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="2_mu8pm"]
+[ext_resource type="StyleBox" uid="uid://b2ndshwl0x6mb" path="res://ui/button_theme.tres" id="3_omy8q"]
+[ext_resource type="PackedScene" uid="uid://bardnmy5ebpnn" path="res://ui/components/slots_panel/slots_panel.tscn" id="4_i5wg5"]
+
+[node name="MainMenu" type="Control" unique_id=2043369022]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -384.0
+offset_bottom = -216.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uhj5c")
+
+[node name="Background" type="NinePatchRect" parent="." unique_id=485256327]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 216.0
+texture = ExtResource("2_mu8pm")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=839565079]
+custom_minimum_size = Vector2(190, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 383.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=83701860]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=938825368]
+layout_mode = 2
+offset_transform_enabled = true
+text = "Honden no Desestu"
+horizontal_alignment = 1
+
+[node name="MenuBox" type="NinePatchRect" parent="CenterContainer/VBoxContainer" unique_id=1608243568]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+texture = ExtResource("2_mu8pm")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/MenuBox" unique_id=1153192407]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 133.0
+offset_bottom = 133.0
+alignment = 1
+
+[node name="BtnNewGame" type="Button" parent="CenterContainer/VBoxContainer/MenuBox/ButtonsContainer" unique_id=2030790839]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_omy8q")
+theme_override_styles/pressed = ExtResource("3_omy8q")
+theme_override_styles/hover = ExtResource("3_omy8q")
+theme_override_styles/disabled = ExtResource("3_omy8q")
+theme_override_styles/focus = ExtResource("3_omy8q")
+text = "Começar Novo Jogo"
+
+[node name="BtnContinue" type="Button" parent="CenterContainer/VBoxContainer/MenuBox/ButtonsContainer" unique_id=100230981]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_omy8q")
+theme_override_styles/pressed = ExtResource("3_omy8q")
+theme_override_styles/hover = ExtResource("3_omy8q")
+theme_override_styles/disabled = ExtResource("3_omy8q")
+theme_override_styles/focus = ExtResource("3_omy8q")
+text = "Carregar Jogo"
+
+[node name="BtnConfig" type="Button" parent="CenterContainer/VBoxContainer/MenuBox/ButtonsContainer" unique_id=654854738]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_omy8q")
+theme_override_styles/pressed = ExtResource("3_omy8q")
+theme_override_styles/hover = ExtResource("3_omy8q")
+theme_override_styles/disabled = ExtResource("3_omy8q")
+theme_override_styles/focus = ExtResource("3_omy8q")
+text = "Configurações"
+
+[node name="BtnQuit" type="Button" parent="CenterContainer/VBoxContainer/MenuBox/ButtonsContainer" unique_id=1672077120]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_omy8q")
+theme_override_styles/pressed = ExtResource("3_omy8q")
+theme_override_styles/hover = ExtResource("3_omy8q")
+theme_override_styles/disabled = ExtResource("3_omy8q")
+theme_override_styles/focus = ExtResource("3_omy8q")
+text = "Sair do Jogo"
+
+[node name="SlotsPanel" parent="." unique_id=1537577742 instance=ExtResource("4_i5wg5")]
