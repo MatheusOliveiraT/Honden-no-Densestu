@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0dshrkugbvwf" path="res://entities/seiji/seiji.tscn" id="2_1otyf"]
 [ext_resource type="Texture2D" uid="uid://bycpumu4on8c5" path="res://ui/textures/icone-menu.png" id="3_n6te2"]
 [ext_resource type="FontFile" uid="uid://8jihwrrwacxh" path="res://ui/m5x7.ttf" id="4_nbjvm"]
+[ext_resource type="Script" uid="uid://kfhfoqiuo7uq" path="res://battle/battle_status_header.gd" id="5_nbjvm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1pkoy"]
 content_margin_left = 8.0
@@ -20,6 +21,59 @@ texture_margin_bottom = 8.0
 default_font = ExtResource("4_nbjvm")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_1pkoy")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qld74"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.19215687, 0.20392157, 0.39607844, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_coff1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trk6d"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfkbx"]
+bg_color = Color(0.05882353, 0.05882353, 0.16078432, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aui74"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
 [node name="BattleScene" type="Node2D" unique_id=1763208964]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=778205936]
@@ -27,16 +81,16 @@ PanelContainer/styles/panel = SubResource("StyleBoxTexture_1pkoy")
 [node name="SpawnPositions" type="Node2D" parent="." unique_id=1354169017]
 
 [node name="PlayerSpawn" type="Marker2D" parent="SpawnPositions" unique_id=1202065932]
-position = Vector2(100, 94)
+position = Vector2(90, 76)
 
 [node name="EnemySpawn1" type="Marker2D" parent="SpawnPositions" unique_id=640459156]
-position = Vector2(253, 73)
+position = Vector2(253, 76)
 
 [node name="EnemySpawn2" type="Marker2D" parent="SpawnPositions" unique_id=1448392350]
-position = Vector2(301, 23)
+position = Vector2(310, 63)
 
 [node name="EnemySpawn3" type="Marker2D" parent="SpawnPositions" unique_id=257596747]
-position = Vector2(301, 120)
+position = Vector2(310, 100)
 
 [node name="BattleManager" type="Node2D" parent="." unique_id=233486942]
 position = Vector2(0, 1)
@@ -66,6 +120,7 @@ grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(6, -6)
 pivot_offset_ratio = Vector2(-78, -4)
+theme_override_constants/separation = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=76089394]
 layout_mode = 2
@@ -74,24 +129,115 @@ size_flags_stretch_ratio = 0.35
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/PanelContainer" unique_id=933369661]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/PanelContainer/MarginContainer" unique_id=136868872]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 6
 
 [node name="LogContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer" unique_id=1255955655]
-self_modulate = Color(1, 1, 1, 0.6666667)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.65
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer" unique_id=1374669965]
 layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer" unique_id=563057440]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer" unique_id=2138985618]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer" unique_id=1683519585]
+[node name="Status" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer" unique_id=1037388914]
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("5_nbjvm")
+
+[node name="Nome" type="Label" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status" unique_id=1310063575]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Seiji"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status" unique_id=1772820026]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="HP" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer" unique_id=1817737832]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="HP" type="Label" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/HP" unique_id=1517972748]
+layout_mode = 2
+text = "HP"
+
+[node name="label_hp" type="Label" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/HP" unique_id=240684395]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+text = "100/100"
+horizontal_alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/HP" unique_id=605573829]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_qld74")
+
+[node name="barra_hp" type="ProgressBar" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/HP/PanelContainer" unique_id=1882859790]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 2)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_coff1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_trk6d")
+value = 100.0
+show_percentage = false
+
+[node name="MP" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer" unique_id=1025690351]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="MP" type="Label" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/MP" unique_id=2021216165]
+layout_mode = 2
+text = "MP"
+
+[node name="label_mp" type="Label" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/MP" unique_id=1102284277]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+text = "50/50"
+horizontal_alignment = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/MP" unique_id=1590800589]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_qld74")
+
+[node name="barra_mp" type="ProgressBar" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status/VBoxContainer/MP/PanelContainer2" unique_id=2090758157]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 2)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_lfkbx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aui74")
+show_percentage = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer" unique_id=563057440]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1683519585]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -106,14 +252,18 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -247.0
+offset_left = -249.0
 offset_top = -106.0
 grow_horizontal = 0
 grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer" unique_id=1198683979]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer" unique_id=611904241]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 6

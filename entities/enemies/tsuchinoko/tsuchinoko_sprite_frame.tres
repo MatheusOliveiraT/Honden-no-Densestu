@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c6qovgn7mkp84" path="res://entities/enemies/tsuchinoko/tsuchinoko-2.png" id="1_sj5fe"]
 [ext_resource type="Texture2D" uid="uid://bhy20rpeq0sx7" path="res://entities/enemies/tsuchinoko/tsuchinoko-3.png" id="2_diyor"]
 [ext_resource type="Texture2D" uid="uid://n3axgovsctqi" path="res://entities/enemies/tsuchinoko/tsuchinoko-4.png" id="3_v1ajo"]
-[ext_resource type="Texture2D" uid="uid://usrby6t6smhi" path="res://entities/enemies/tsuchinoko/tsuchinoko-1.png" id="4_ck1cs"]
+[ext_resource type="Texture2D" uid="uid://5k15votyvqx2" path="res://entities/enemies/tsuchinoko/tsuchinoko-5.png" id="4_cmorh"]
 [ext_resource type="Texture2D" uid="uid://b6kkw1pplixsb" path="res://entities/enemies/tsuchinoko/tsuchinoko-6.png" id="5_bmk0x"]
 
 [resource]
@@ -24,7 +24,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_ck1cs")
+"texture": ExtResource("4_cmorh")
 }],
 "loop": 1,
 "name": &"em_batalha",

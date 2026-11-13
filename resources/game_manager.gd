@@ -153,7 +153,7 @@ func register_defeated_enemy(enemy_id: String) -> void:
 	defeated_enemy_id = enemy_id
 
 func is_enemy_defeated(enemy_id: String) -> bool:
-	return defeated_enemies.has(enemy_id) or defeated_enemy_id == enemy_id
+	return defeated_enemies.has(enemy_id)
 
 func add_souls(amount: int) -> void:
 	total_souls += amount
@@ -304,6 +304,7 @@ func load_game(slot_index: int = 1) -> bool:
 	current_level = save_data.get("current_level", 1)
 	var def_enemies = save_data.get("defeated_enemies", [])
 	defeated_enemies.clear()
+	defeated_enemy_id = ""
 	for enemy_id in def_enemies:
 		defeated_enemies.append(str(enemy_id))
 	inventory.clear()

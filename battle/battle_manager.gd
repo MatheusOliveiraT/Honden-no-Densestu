@@ -15,8 +15,9 @@ var current_character: Node = null
 @onready var player_spawn: Marker2D = $"../SpawnPositions/PlayerSpawn"
 @export var enemy_spawns: Array[Marker2D] = []
 
-@onready var log_scroll: ScrollContainer = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer"
-@onready var log_label: RichTextLabel = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/ScrollContainer/RichTextLabel"
+@onready var log_scroll: ScrollContainer = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/ScrollContainer"
+@onready var log_label: RichTextLabel = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/ScrollContainer/RichTextLabel"
+@onready var status_header: BattleStatusHeader = $"../CanvasLayer/Control/HBoxContainer/LogContainer/MarginContainer/VBoxContainer/Status"
 @onready var action_panel: PanelContainer = $"../CanvasLayer/Control/HBoxContainer/PanelContainer"
 @onready var main_action_container: VBoxContainer = $"../CanvasLayer/Control/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"
 @onready var sub_menu_panel: PanelContainer = $"../CanvasLayer/Control/PanelContainer"
@@ -24,6 +25,12 @@ var current_character: Node = null
 
 var player_party: Array[Node] = []
 var enemy_party: Array[Node] = []
+
+const BATTLE_BACKGROUNDS := {
+	"res://levels/floresta/floresta.tscn": "res://battle/backgrounds/floresta.png",
+}
+
+@onready var background: Sprite2D = $"../Background"
 
 #var ui_canvas: CanvasLayer
 #var main_action_container: VBoxContainer
@@ -33,6 +40,7 @@ var defending_characters: Array[Node] = []
 
 func _ready() -> void:
 	#_create_temp_ui()
+	_apply_background()
 	_hide_all_ui()
 	var success = await _spawn_combatants()
 	if success:
@@ -145,6 +153,8 @@ func start_battle() -> void:
 	for player in player_party:
 		if "stats" in player and player.stats: 
 			player.stats.initialize()
+	if not player_party.is_empty() and "stats" in player_party[0] and player_party[0].stats:
+		status_header.bind(player_party[0].stats)
 	for enemy in enemy_party:
 		if "stats" in enemy and enemy.stats: 
 			enemy.stats.initialize()
@@ -204,7 +214,7 @@ func enable_player_ui() -> void:
 	btn_attack.pressed.connect(_show_target_selection)
 	main_action_container.add_child(btn_attack)
 	
-	var btn_magic = _create_pixel_button("Magia (" + str(current_character.stats.current_mp) + " MP)")
+	var btn_magic = _create_pixel_button("Magia")
 	btn_magic.pressed.connect(_show_magic_menu)
 	main_action_container.add_child(btn_magic)
 	
@@ -350,7 +360,31 @@ func _create_pixel_button(btn_text: String) -> Button:
 	btn.custom_minimum_size = Vector2(0, 16)
 	btn.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	btn.add_theme_font_size_override("font_size", 16)
+	_style_menu_button(btn, btn_text)
 	return btn
+
+func _style_menu_button(btn: Button, base_text: String) -> void:
+	var vazio := StyleBoxEmpty.new()
+	for estado in ["normal", "hover", "pressed", "hover_pressed", "focus"]:
+		btn.add_theme_stylebox_override(estado, vazio)
+	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	btn.focus_mode = Control.FOCUS_ALL
+
+	var cores := ["font_color", "font_focus_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color"]
+	btn.mouse_entered.connect(func():
+		if not btn.disabled:
+			btn.grab_focus()
+	)
+	btn.focus_entered.connect(func():
+		btn.text = "> " + base_text
+		for cor in cores:
+			btn.add_theme_color_override(cor, Color.YELLOW)
+	)
+	btn.focus_exited.connect(func():
+		btn.text = base_text
+		for cor in cores:
+			btn.remove_theme_color_override(cor)
+	)
 
 func _focus_element(btn: Button) -> void:
 	await get_tree().process_frame
@@ -504,3 +538,18 @@ func _hide_all_ui() -> void:
 	if sub_menu_container: sub_menu_container.hide()
 	if action_panel: action_panel.hide()
 	if sub_menu_panel: sub_menu_panel.hide()
+	
+func _apply_background() -> void:
+	var path: String = BATTLE_BACKGROUNDS.get(GameManager.current_map_scene_path, "")
+	if path == "" or not ResourceLoader.exists(path):
+		return 
+	var tex := load(path) as Texture2D
+	if tex == null:
+		return
+	background.texture = tex
+	background.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	background.centered = false
+	background.position = Vector2.ZERO
+	var view := get_viewport().get_visible_rect().size
+	var s := maxf(view.x / tex.get_width(), view.y / tex.get_height())
+	background.scale = Vector2(s, s)

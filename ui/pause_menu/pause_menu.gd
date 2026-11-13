@@ -94,6 +94,8 @@ func _on_new_game_pressed() -> void:
 		func(): _start_new_game(),
 		btn_new_game
 	)
+	GameManager.defeated_enemies.clear()
+	GameManager.defeated_enemy_id = ""
 
 func _start_new_game() -> void:
 	GameManager.disable_all_overworld_enemies()
