@@ -16,6 +16,7 @@ enum SpellType { DAMAGE, HEAL, BUFF, DEBUFF }
 @export var status_type: CharacterStats.StatusType = CharacterStats.StatusType.POISON
 @export var status_duration: int = 3
 @export var status_potency: int = 5
+@export var soul_cost: int = 50
 
 func get_description() -> String:
 	if description != "":

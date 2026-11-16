@@ -51,3 +51,7 @@ func _create_map_boundaries(bounds: Rect2) -> void:
 		col.shape = shape
 		col.position = b["pos"]
 		border_body.add_child(col)
+
+
+func _on_prox_level_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

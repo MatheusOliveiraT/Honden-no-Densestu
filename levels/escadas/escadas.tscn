@@ -463,7 +463,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="PauseMenu" parent="." unique_id=1393715638 instance=ExtResource("37_iqqvk")]
-visible = false
 
 [node name="transparente" type="ColorRect" parent="." unique_id=1452283610]
 offset_left = -584.0
