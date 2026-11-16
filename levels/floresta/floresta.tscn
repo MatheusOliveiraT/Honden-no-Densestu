@@ -393,6 +393,7 @@ position = Vector2(141, -809)
 position = Vector2(260, -806)
 
 [node name="Inventário" parent="." unique_id=1552711463 instance=ExtResource("36_1yph2")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -400,3 +401,4 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="PauseMenu" parent="." unique_id=1393715638 instance=ExtResource("37_i6him")]
+visible = false

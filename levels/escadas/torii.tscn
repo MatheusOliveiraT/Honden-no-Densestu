@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://yslvfe4j5njf"]
+
+[ext_resource type="Texture2D" uid="uid://yte6u2d1vi7u" path="res://sprites-import/torii.png" id="1_vvgdd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfkbx"]
+size = Vector2(44, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aui74"]
+size = Vector2(44, 120)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=985963541]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1914961379]
+texture = ExtResource("1_vvgdd")
+
+[node name="esquerda" type="CollisionShape2D" parent="." unique_id=1199424131]
+position = Vector2(-76, 20)
+shape = SubResource("RectangleShape2D_lfkbx")
+
+[node name="direita" type="CollisionShape2D" parent="." unique_id=431230636]
+position = Vector2(76, 20)
+shape = SubResource("RectangleShape2D_aui74")
