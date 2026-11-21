@@ -1,7 +1,8 @@
 extends Node2D
 
 @onready var map_layer: TileMapLayer = $Mapa
-@onready var wall_layer: TileMapLayer = $pedras
+#@onready var wall_layer: TileMapLayer = $pedras
+@onready var wall_layer: TileMapLayer = get_node_or_null("pedras")
 @onready var camera: Camera2D = $YSortWorld/Seiji/Camera2D
 
 func _ready() -> void:

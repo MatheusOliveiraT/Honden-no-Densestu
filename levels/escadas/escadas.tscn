@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://dit8dkkfv30yk" path="res://sprites-import/pedra-9.png" id="36_cqe4r"]
 [ext_resource type="PackedScene" uid="uid://ch6aorf60q72" path="res://ui/inventory_menu/inventário.scn" id="36_ltp8i"]
 [ext_resource type="PackedScene" uid="uid://coi1qoem1qibl" path="res://ui/pause_menu/pause_menu.tscn" id="37_iqqvk"]
+[ext_resource type="PackedScene" uid="uid://bfg3liaw2brcl" path="res://entities/enemies/tsuchinoko/tsuchinoko.tscn" id="40_p83v0"]
 [ext_resource type="PackedScene" uid="uid://bqj0elb4txs62" path="res://levels/torii.tscn" id="42_do2jh"]
 [ext_resource type="Script" uid="uid://cf1kd1r7eqlua" path="res://resources/item_data.gd" id="42_x2cra"]
 
@@ -403,22 +404,26 @@ limit_smoothed = true
 [node name="Inimigos" type="Node2D" parent="YSortWorld" unique_id=601781384]
 y_sort_enabled = true
 
+[node name="Tsuchinoko00" parent="YSortWorld/Inimigos" unique_id=1797316529 instance=ExtResource("40_p83v0")]
+position = Vector2(426, -330)
+speed = 125.0
+
 [node name="baus" type="Node2D" parent="YSortWorld" unique_id=1845457428]
 y_sort_enabled = true
 
-[node name="bau1" parent="YSortWorld/baus" unique_id=434083459 instance=ExtResource("32_m3mul")]
+[node name="bau4" parent="YSortWorld/baus" unique_id=434083459 instance=ExtResource("32_m3mul")]
 position = Vector2(278, -935)
 type = 4
 item_data = SubResource("Resource_i5wg5")
 equipment_data = ExtResource("33_y6fgb")
 
-[node name="bau2" parent="YSortWorld/baus" unique_id=1419418582 instance=ExtResource("32_m3mul")]
+[node name="bau5" parent="YSortWorld/baus" unique_id=1419418582 instance=ExtResource("32_m3mul")]
 position = Vector2(532, -243)
 chest_id = "chest_fase1_02"
 type = 1
 coins_amount = 5
 
-[node name="bau3" parent="YSortWorld/baus" unique_id=126310711 instance=ExtResource("32_m3mul")]
+[node name="bau6" parent="YSortWorld/baus" unique_id=126310711 instance=ExtResource("32_m3mul")]
 position = Vector2(-532, -1058)
 type = 2
 item_data = SubResource("Resource_wb7l1")
@@ -474,8 +479,9 @@ color = Color(0.24534443, 0.28098407, 0.3164666, 0.6)
 
 [node name="transparente" type="ColorRect" parent="transparente" unique_id=823373704]
 layout_mode = 0
-offset_left = 1159.0
-offset_right = 1599.0
-offset_bottom = 1456.0
+offset_left = 1157.0
+offset_top = 9.0
+offset_right = 1597.0
+offset_bottom = 1465.0
 mouse_filter = 2
 color = Color(0.24534443, 0.28098407, 0.3164666, 0.6)
