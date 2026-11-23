@@ -124,4 +124,3 @@ theme_override_styles/focus = ExtResource("3_c3jo5")
 text = "Voltar ao Jogo"
 
 [node name="SlotsPanel" parent="." unique_id=1537577742 instance=ExtResource("4_b4b0p")]
-visible = false
