@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://dinj7mio60d7x"]
+
+[ext_resource type="Script" uid="uid://bnn0fbv27u5fd" path="res://ui/components/settings_menu/settings_menu.gd" id="1_bjk7p"]
+[ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="2_ndeh3"]
+[ext_resource type="StyleBox" uid="uid://b2ndshwl0x6mb" path="res://ui/button_theme.tres" id="3_no7as"]
+
+[node name="SettingsMenu" type="CanvasLayer" unique_id=1102416105]
+layer = 110
+script = ExtResource("1_bjk7p")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1286356818]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer" unique_id=2090654242]
+custom_minimum_size = Vector2(280, 210)
+layout_mode = 2
+texture = ExtResource("2_ndeh3")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/NinePatchRect" unique_id=1530713710]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer" unique_id=1568090092]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=623539990]
+layout_mode = 2
+text = "Configurações"
+horizontal_alignment = 1
+
+[node name="MasterHBox" type="HBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1902439350]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/MasterHBox" unique_id=1808569165]
+layout_mode = 2
+text = "Geral"
+
+[node name="MasterSlider" type="HSlider" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/MasterHBox" unique_id=1009802066]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="MasterValue" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/MasterHBox" unique_id=1033157936]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "100%"
+
+[node name="BGMHBox" type="HBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=210996103]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/BGMHBox" unique_id=90726363]
+layout_mode = 2
+text = "Música"
+
+[node name="BGMSlider" type="HSlider" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/BGMHBox" unique_id=1917030515]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="BGMValue" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/BGMHBox" unique_id=1240488836]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "80%"
+
+[node name="SFXHBox" type="HBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=847463440]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/SFXHBox" unique_id=676597320]
+layout_mode = 2
+text = "Efeitos"
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/SFXHBox" unique_id=1664787350]
+custom_minimum_size = Vector2(110, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+
+[node name="SFXValue" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/SFXHBox" unique_id=1831966270]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "100%"
+
+[node name="DisplayHBox" type="HBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1932742506]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/DisplayHBox" unique_id=1684016813]
+layout_mode = 2
+text = "Tela"
+
+[node name="BtnDisplayMode" type="Button" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/DisplayHBox" unique_id=824245092]
+custom_minimum_size = Vector2(130, 24)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_no7as")
+theme_override_styles/pressed = ExtResource("3_no7as")
+theme_override_styles/hover = ExtResource("3_no7as")
+theme_override_styles/disabled = ExtResource("3_no7as")
+theme_override_styles/focus = ExtResource("3_no7as")
+text = "Janela"
+
+[node name="CtrlBackHBox" type="HBoxContainer" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer" unique_id=913835821]
+layout_mode = 2
+
+[node name="BtnControls" type="Button" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/CtrlBackHBox" unique_id=187725403]
+custom_minimum_size = Vector2(130, 24)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_no7as")
+theme_override_styles/pressed = ExtResource("3_no7as")
+theme_override_styles/hover = ExtResource("3_no7as")
+theme_override_styles/disabled = ExtResource("3_no7as")
+theme_override_styles/focus = ExtResource("3_no7as")
+text = "Controles"
+
+[node name="BtnBack" type="Button" parent="CenterContainer/NinePatchRect/MarginContainer/VBoxContainer/CtrlBackHBox" unique_id=1421101415]
+custom_minimum_size = Vector2(130, 24)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_no7as")
+theme_override_styles/pressed = ExtResource("3_no7as")
+theme_override_styles/hover = ExtResource("3_no7as")
+theme_override_styles/disabled = ExtResource("3_no7as")
+theme_override_styles/focus = ExtResource("3_no7as")
+text = "Voltar"

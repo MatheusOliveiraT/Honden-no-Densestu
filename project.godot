@@ -16,10 +16,15 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://dym73yauidrbo"
+
 [autoload]
 
 SceneTransition="*uid://cdv5jhfqkidyi"
 GameManager="*uid://cue3jsu4obuw6"
+AudioManager="*uid://dgrvcjva6fn0o"
 
 [display]
 
@@ -39,6 +44,7 @@ Players=""
 theme/default_font_antialiasing=0
 theme/default_font_subpixel_positioning=0
 theme/custom="uid://dllkilrtopvmt"
+theme/custom_font="uid://8jihwrrwacxh"
 
 [input]
 

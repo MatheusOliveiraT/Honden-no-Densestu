@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://6jdt7iu160ca" path="res://sprites-import/capa.png" id="2_joh67"]
 [ext_resource type="Texture2D" uid="uid://kcuj7pa2tj0t" path="res://ui/textures/menu-5.png" id="2_mu8pm"]
 [ext_resource type="StyleBox" uid="uid://b2ndshwl0x6mb" path="res://ui/button_theme.tres" id="3_omy8q"]
-[ext_resource type="Texture2D" uid="uid://bw82ls2rr768" path="res://sprites-import/Honden Densetsu.png" id="3_u184e"]
 [ext_resource type="PackedScene" uid="uid://bardnmy5ebpnn" path="res://ui/components/slots_panel/slots_panel.tscn" id="4_i5wg5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3c04x"]
+load_path = "res://.godot/imported/Honden Densetsu.png-df0928b7a7e598260850a7e2dc929ecb.ctex"
 
 [node name="MainMenu" type="Control" unique_id=2043369022]
 layout_mode = 3
@@ -39,11 +41,11 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TitleLabel" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=960136013]
-texture_filter = 2
+texture_filter = 1
 custom_minimum_size = Vector2(400, 120)
 layout_mode = 2
 offset_transform_enabled = true
-texture = ExtResource("3_u184e")
+texture = SubResource("CompressedTexture2D_3c04x")
 expand_mode = 1
 stretch_mode = 5
 

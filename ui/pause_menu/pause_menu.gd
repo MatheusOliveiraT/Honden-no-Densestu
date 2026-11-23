@@ -6,14 +6,15 @@ class_name PauseMenu
 @onready var btn_save: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/SaveLoadContainer/BtnSave
 @onready var btn_continue: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/SaveLoadContainer/BtnContinue
 @onready var btn_config: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/BtnConfig
-@onready var btn_main_menu: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/BtnMainMenu
-@onready var btn_quit: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/BtnQuit
+@onready var btn_main_menu: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/MenuQuitContainer/BtnMainMenu
+@onready var btn_quit: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/MenuQuitContainer/BtnQuit
+@onready var btn_voltar: Button = $CenterContainer/VBoxContainer/NinePatchRect/ButtonsContainer/BtnBack
 @onready var slots_panel: SlotsPanel = $SlotsPanel
 
 var is_open: bool = false
 var original_button_texts: Dictionary = {}
 
-const CONTROLS_POPUP: PackedScene = preload("res://ui/components/ControlsPopup.tscn")
+const SETTINGS_MENU: PackedScene = preload("res://ui/components/settings_menu/settings_menu.tscn")
 const MAIN_MENU_PATH: String = "res://ui/main_menu/main_menu.tscn"
 
 func _ready() -> void:
@@ -55,7 +56,7 @@ func restore_after_screenshot() -> void:
 	if slots_panel: slots_panel.show()
 
 func _setup_button_focus_effects() -> void:
-	var buttons = [btn_new_game, btn_save, btn_continue, btn_config, btn_main_menu, btn_quit]
+	var buttons = [btn_new_game, btn_save, btn_continue, btn_config, btn_main_menu, btn_quit, btn_voltar]
 	for btn in buttons:
 		if is_instance_valid(btn):
 			btn.focus_mode = Control.FOCUS_ALL
@@ -87,6 +88,11 @@ func _connect_buttons() -> void:
 	if btn_config: btn_config.pressed.connect(_on_config_pressed)
 	if btn_main_menu: btn_main_menu.pressed.connect(_on_main_menu_pressed)
 	if btn_quit: btn_quit.pressed.connect(_on_quit_pressed)
+	if btn_voltar: btn_voltar.pressed.connect(_on_voltar_pressed)
+
+func _on_voltar_pressed() -> void:
+	if is_open:
+		toggle_pause_menu()
 
 func _on_new_game_pressed() -> void:
 	slots_panel._show_confirmation_dialog(
@@ -118,7 +124,7 @@ func _start_new_game() -> void:
 	SceneTransition.fade_to_battle("res://cutscenes/intro_cutscene/intro_cutscene.tscn")
 
 func _on_config_pressed() -> void:
-	var popup := CONTROLS_POPUP.instantiate()
+	var popup := SETTINGS_MENU.instantiate()
 	get_tree().root.add_child(popup)
 	popup.tree_exited.connect(func():
 		if is_instance_valid(btn_config):

@@ -9,7 +9,7 @@ class_name MainMenu
 
 var original_button_texts: Dictionary = {}
 
-const CONTROLS_POPUP: PackedScene = preload("res://ui/components/ControlsPopup.tscn")
+const SETTINGS_MENU: PackedScene = preload("res://ui/components/settings_menu/settings_menu.tscn")
 const INTRO_CUTSCENE_PATH: String = "res://cutscenes/intro_cutscene/intro_cutscene.tscn"
 
 func _ready() -> void:
@@ -92,7 +92,7 @@ func _on_new_game_pressed() -> void:
 	SceneTransition.fade_to_battle(INTRO_CUTSCENE_PATH)
 
 func _on_config_pressed() -> void:
-	var popup := CONTROLS_POPUP.instantiate()
+	var popup := SETTINGS_MENU.instantiate()
 	get_tree().root.add_child(popup)
 	popup.tree_exited.connect(func():
 		if is_instance_valid(btn_config):
