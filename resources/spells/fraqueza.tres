@@ -6,7 +6,7 @@
 script = ExtResource("1_3jxbb")
 id = "fraqueza"
 spell_name = "Fraqueza"
-description = "Reduz 5 de ataque do durante 3 turnos."
+description = "Reduz "
 type = 3
 status_type = 4
 metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

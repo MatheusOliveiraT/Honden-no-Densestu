@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://2dlj6vtjlaef"]
 
-[ext_resource type="Script" uid="uid://s7myldaok2fk" path="res://levels/floresta/floresta.gd" id="1_aiycy"]
+[ext_resource type="Script" uid="uid://s7myldaok2fk" path="res://levels/game_level.gd" id="1_aiycy"]
 [ext_resource type="Texture2D" uid="uid://c0d26niabrnen" path="res://sprites-import/caminho-1.png" id="2_6kq27"]
 [ext_resource type="Texture2D" uid="uid://cdlfhf7wfygc0" path="res://sprites-import/caminho-2.png" id="3_5uh60"]
 [ext_resource type="Texture2D" uid="uid://6fwxunscs74x" path="res://sprites-import/agua-6.png" id="4_huctj"]
