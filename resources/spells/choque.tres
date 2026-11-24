@@ -6,7 +6,7 @@
 script = ExtResource("1_rjkqk")
 id = "choque"
 spell_name = "Choque"
-description = "Dano + Chance de paralisar"
+description = "Causa 10 de dano inicial, adicionalmente o inimigo tem 50% de chance de ficar paralizado durante 3 turnos."
 mp_cost = 20
 type = 0
 applies_status = true

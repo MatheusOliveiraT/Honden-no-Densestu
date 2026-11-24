@@ -6,7 +6,7 @@
 script = ExtResource("1_ve8l2")
 id = "veneno"
 spell_name = "Veneno"
-description = "Causa dano por turno ao alvo"
+description = "Causa 5 de dano por turno ao alvo, durante 3 turnos."
 type = 3
 applies_status = true
 status_potency = 3

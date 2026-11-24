@@ -60,7 +60,8 @@ func refresh_slots() -> void:
 		var label_text := ""
 		if info.get("exists", false):
 			var date_str = info.get("save_date", "Sem Data")
-			label_text = "Slot " + str(slot_idx) + " [" + date_str + "]"
+			var loc_str: String = info.get("level_name", "Desconhecido")
+			label_text = "Slot %d - %s [%s]" % [slot_idx, loc_str, date_str]
 			var thumb = GameManager.get_slot_thumbnail(slot_idx)
 			if tex_rect and thumb:
 				tex_rect.texture = thumb

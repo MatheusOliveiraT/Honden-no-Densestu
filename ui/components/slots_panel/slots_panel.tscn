@@ -11,17 +11,19 @@ script = ExtResource("1_3x7kp")
 
 [node name="SlotsControl" type="Control" parent="." unique_id=875159885]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 42.0
-offset_top = 7.0
-offset_right = 426.0
-offset_bottom = 223.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="SlotsControl" unique_id=751689655]
-custom_minimum_size = Vector2(300, 200)
+custom_minimum_size = Vector2(320, 200)
 layout_mode = 0
-offset_right = 190.0
-offset_bottom = 200.0
+offset_left = 30.0
+offset_top = 8.0
+offset_right = 350.0
+offset_bottom = 208.0
 texture = ExtResource("1_h8rie")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -43,7 +45,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 15.0
 offset_top = 25.0
-offset_right = 285.0
+offset_right = 305.0
 offset_bottom = 186.0
 
 [node name="Slot1Button" type="Button" parent="SlotsControl/NinePatchRect/SlotsVBox" unique_id=1817265024]

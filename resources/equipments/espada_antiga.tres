@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://bdl1rqg2kvkpg"]
+
+[ext_resource type="Script" uid="uid://bqcejka4soj11" path="res://resources/equipment_data.gd" id="1_64s4n"]
+
+[resource]
+script = ExtResource("1_64s4n")
+id = "espada_antiga"
+item_name = "Espada Antiga"
+display_name = "Espada Antiga"
+description = "Uma espada simpless. Ela parece desgastada."
+base_attack_bonus = 1
+base_soul_upgrade_cost = 5
+cost_in_coins = 5
+metadata/_custom_type_script = "uid://bqcejka4soj11"

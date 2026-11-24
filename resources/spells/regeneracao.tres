@@ -6,7 +6,7 @@
 script = ExtResource("1_mlgp5")
 id = "regeneracao"
 spell_name = "Regeneração"
-description = "Cura HP a cada turno"
+description = "Cura 5 de HP a cada turno, durante 3 turnos."
 mp_cost = 15
 type = 2
 applies_status = true

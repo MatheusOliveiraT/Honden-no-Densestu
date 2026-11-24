@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_wumlc")
+description = "Cura 10 de HP imediatamente."
 texture = ExtResource("2_prjaf")
 base_value = 30
 metadata/_custom_type_script = "uid://vmgwjyqbwqi5"

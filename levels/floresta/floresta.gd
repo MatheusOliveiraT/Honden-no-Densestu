@@ -1,11 +1,16 @@
 extends Node2D
+class_name GameLevel
+
+@export var level_name: String = "Floresta"
 
 @onready var map_layer: TileMapLayer = $Mapa
-#@onready var wall_layer: TileMapLayer = $pedras
 @onready var wall_layer: TileMapLayer = get_node_or_null("pedras")
 @onready var camera: Camera2D = $YSortWorld/Seiji/Camera2D
 
 func _ready() -> void:
+	GameManager.current_level_name = level_name
+	if not scene_file_path.is_empty():
+		GameManager.current_map_scene_path = scene_file_path
 	var full_bounds := _calculate_combined_bounds()
 	_setup_camera_limits(full_bounds)
 	_create_map_boundaries(full_bounds)
@@ -43,7 +48,7 @@ func _create_map_boundaries(bounds: Rect2) -> void:
 		{ "pos": Vector2(0, bounds.position.y), "normal": Vector2.DOWN },
 		{ "pos": Vector2(0, bounds.end.y), "normal": Vector2.UP },
 		{ "pos": Vector2(bounds.position.x, 0), "normal": Vector2.RIGHT },
-		{ "pos": Vector2(bounds.end.x, 0), "normal": Vector2.LEFT }  
+		{ "pos": Vector2(bounds.end.x, 0), "normal": Vector2.LEFT }
 	]
 	for b in borders:
 		var col := CollisionShape2D.new()
@@ -52,7 +57,3 @@ func _create_map_boundaries(bounds: Rect2) -> void:
 		col.shape = shape
 		col.position = b["pos"]
 		border_body.add_child(col)
-
-
-func _on_prox_level_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.

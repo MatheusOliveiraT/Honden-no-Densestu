@@ -341,44 +341,45 @@ y_sort_enabled = true
 
 [node name="Kappa00" parent="YSortWorld/Inimigos" unique_id=1401986159 instance=ExtResource("30_k025o")]
 position = Vector2(-270, -35)
-enemy_id = "kappa_00"
+enemy_id = "kappa_fase1_00"
 speed = 130.0
 
 [node name="Kappa01" parent="YSortWorld/Inimigos" unique_id=355447226 instance=ExtResource("30_k025o")]
 position = Vector2(723, 72)
-enemy_id = "kappa_01"
+enemy_id = "kappa_fase1_01"
 speed = 130.0
 
 [node name="Kappa02" parent="YSortWorld/Inimigos" unique_id=1904829737 instance=ExtResource("30_k025o")]
 position = Vector2(635, -723)
-enemy_id = "kappa_02"
+enemy_id = "kappa_fase1_02"
 speed = 130.0
 
 [node name="Tsuchinoko00" parent="YSortWorld/Inimigos" unique_id=1797316529 instance=ExtResource("31_fml4m")]
 position = Vector2(732, -371)
+enemy_id = "tsuchinoko_fase1_00"
 speed = 125.0
 
 [node name="Tsuchinoko01" parent="YSortWorld/Inimigos" unique_id=1711810108 instance=ExtResource("31_fml4m")]
 position = Vector2(-148, -354)
-enemy_id = "tsuchinoko_01"
+enemy_id = "tsuchinoko_fase1_01"
 speed = 125.0
 
 [node name="baus" type="Node2D" parent="YSortWorld" unique_id=1845457428]
 y_sort_enabled = true
 
-[node name="bau1" parent="YSortWorld/baus" unique_id=434083459 instance=ExtResource("32_0skdp")]
+[node name="Bau00" parent="YSortWorld/baus" unique_id=434083459 instance=ExtResource("32_0skdp")]
 position = Vector2(-96, -144)
+chest_id = "chest_fase1_00"
 type = 4
 equipment_data = ExtResource("33_wg5kv")
 
-[node name="bau2" parent="YSortWorld/baus" unique_id=1419418582 instance=ExtResource("32_0skdp")]
+[node name="Bau01" parent="YSortWorld/baus" unique_id=1419418582 instance=ExtResource("32_0skdp")]
 position = Vector2(656, -912)
-chest_id = "chest_fase1_02"
 souls_amount = 5
 
-[node name="bau3" parent="YSortWorld/baus" unique_id=1074420536 instance=ExtResource("32_0skdp")]
+[node name="Bau02" parent="YSortWorld/baus" unique_id=1074420536 instance=ExtResource("32_0skdp")]
 position = Vector2(848, 240)
-chest_id = "chest_fase1_03"
+chest_id = "chest_fase1_02"
 type = 2
 item_data = ExtResource("34_j2oy8")
 

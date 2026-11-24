@@ -6,7 +6,7 @@
 script = ExtResource("1_r7oka")
 id = "chama"
 spell_name = "Chama"
-description = "Dano inicial + Queimadura"
+description = "Causa 10 de dano inicial, adicionalmente causando 3 de dano por turno, durante 3 turnos."
 mp_cost = 15
 type = 0
 applies_status = true

@@ -499,7 +499,7 @@ func check_battle_end() -> bool:
 			if "stats" in player and player.stats:
 				GameManager.save_stats_to_game_manager(player.stats)
 		if not enemies_alive:
-			current_state = BattleState.WINcanva
+			current_state = BattleState.WIN
 			_hide_all_ui()
 			log_msg("\n[b][color=green]=== VITÓRIA! ===[/color][/b]")
 			var total_earned_souls: int = 0

@@ -121,6 +121,7 @@ func _start_new_game() -> void:
 	GameManager.returning_from_battle = false
 	GameManager.player_map_position = Vector2.ZERO
 	GameManager.current_map_scene_path = "res://levels/floresta/floresta.tscn"
+	GameManager.current_level_name = "Floresta"
 	SceneTransition.fade_to_battle("res://cutscenes/intro_cutscene/intro_cutscene.tscn")
 
 func _on_config_pressed() -> void:

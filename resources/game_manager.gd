@@ -3,6 +3,7 @@ extends Node
 var player_map_position: Vector2 = Vector2.ZERO
 var returning_from_battle: bool = false
 var current_map_scene_path: String = "res://levels/floresta/floresta.tscn"
+var current_level_name: String = "Floresta"
 
 var defeated_enemy_id: String = ""
 var defeated_enemies: Array[String] = []
@@ -274,7 +275,8 @@ func save_game(slot_index: int = 1) -> void:
 		"equipped_weapon_path": equipped_weapon.get_source_path() if equipped_weapon else "",
 		"equipped_armor_path": equipped_armor.get_source_path() if equipped_armor else "",
 		"unlocked_spells": unlocked_spells_serialized,
-		"equipped_spells": equipped_spells_serialized
+		"equipped_spells": equipped_spells_serialized,
+		"level_name": current_level_name,
 	}
 	var path = get_save_path(slot_index)
 	var file = FileAccess.open(path, FileAccess.WRITE)
@@ -302,6 +304,7 @@ func load_game(slot_index: int = 1) -> bool:
 	total_souls = save_data.get("total_souls", 0)
 	total_coins = save_data.get("total_coins", 0)
 	current_level = save_data.get("current_level", 1)
+	current_level_name = save_data.get("level_name", "Desconhecido")
 	var def_enemies = save_data.get("defeated_enemies", [])
 	defeated_enemies.clear()
 	defeated_enemy_id = ""

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SpellData" format=3 uid="uid://bc3q2oe4hd060"]
+
+[ext_resource type="Script" uid="uid://vmgwjyqbwqi5" path="res://resources/spell_data.gd" id="1_i5cn2"]
+
+[resource]
+script = ExtResource("1_i5cn2")
+id = "forca"
+spell_name = "Força"
+description = "Aumenta o ataque em 5 pontos durante 3 turnos."
+mp_cost = 20
+type = 2
+status_type = 5
+metadata/_custom_type_script = "uid://vmgwjyqbwqi5"
