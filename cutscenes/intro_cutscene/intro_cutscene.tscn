@@ -22,7 +22,14 @@ grow_vertical = 2
 color = Color(0.012617188, 0.012617188, 0.012617188, 1)
 
 [node name="CutsceneArt" type="TextureRect" parent="." unique_id=789970690]
+texture_filter = 1
 layout_mode = 0
+offset_left = 78.0
+offset_top = 31.0
+offset_right = 306.0
+offset_bottom = 103.0
+expand_mode = 1
+stretch_mode = 5
 
 [node name="DialogPanel" type="NinePatchRect" parent="." unique_id=229169692]
 layout_mode = 0

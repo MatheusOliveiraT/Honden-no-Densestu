@@ -8,36 +8,40 @@ class_name IntroCutscene
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 const FIRST_LEVEL_PATH: String = "res://levels/floresta/floresta.tscn"
+const ART_SCROLL: String = "res://cutscenes/intro_cutscene/inicial-1.png"
+const ART_HONDEN: String = "res://cutscenes/intro_cutscene/inicial-2.png"
+
+const ART_FADE_IN: float = 0.8 
+const ART_FADE_OUT: float = 0.3
 
 var cutscene_steps: Array[Dictionary] = [
 	{
 		"speaker": "",
-		"text": "Há muito tempo, a floresta antiga guardava segredos esquecidos...",
-		"art": "",
-		"anim": ""
-	},
-	{
-		"speaker": "Seiji",
-		"text": "Finalmente cheguei. Preciso tomar cuidado por aqui.",
-	},
-	{
-		"speaker": "Voz Misteriosa",
-		"text": "[color=cyan]Quem ousa entrar nestas terras?[/color]",
-		"art": ""
+		"text": "Após o falecimento do seu avô, Seiji Mikage herdou o templo de sua família, passado por gerações.",
+		"art": ART_SCROLL
 	},
 	{
 		"speaker": "",
-		"text": "E assim começa a jornada..."
+		"text": "No entanto, a notícia vinha com um aviso: o templo tinha sido tomado por yokais!",
+		"art": ART_SCROLL
+	},
+	{
+		"speaker": "",
+		"text": "Agora, era responsabilidade de Seiji tomá-lo de volta...",
+		"art": ART_HONDEN
 	}
 ]
 var current_step_index: int = -1
 var is_typing: bool = false
 var is_finishing: bool = false
 var type_tween: Tween
+var art_tween: Tween
+var current_art_path: String = ""
 
 func _ready() -> void:
 	get_tree().paused = false
 	dialog_text.bbcode_enabled = true
+	cutscene_art.modulate.a = 0.0
 	_next_step()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -66,12 +70,33 @@ func _next_step() -> void:
 	else:
 		speaker_label.text = speaker
 		speaker_label.show()
-	if step.has("art") and step["art"] is Texture2D:
-		cutscene_art.texture = step["art"]
+	if step.has("art"):
+		_show_art(step["art"])
 	if step.has("anim") and anim_player and anim_player.has_animation(step["anim"]):
 		anim_player.play(step["anim"])
 	var full_text: String = step.get("text", "")
 	_start_typing(full_text)
+
+func _show_art(path: String) -> void:
+	if path == current_art_path:
+		return
+	current_art_path = path
+	if art_tween and art_tween.is_valid():
+		art_tween.kill()
+	art_tween = create_tween()
+	if cutscene_art.texture != null and cutscene_art.modulate.a > 0.0:
+		art_tween.tween_property(cutscene_art, "modulate:a", 0.0, ART_FADE_OUT)
+	art_tween.tween_callback(_set_art_texture.bind(path))
+	if path != "":
+		art_tween.tween_property(cutscene_art, "modulate:a", 1.0, ART_FADE_IN)
+ 
+func _set_art_texture(path: String) -> void:
+	if path != "" and ResourceLoader.exists(path):
+		cutscene_art.texture = load(path)
+	else:
+		if path != "":
+			push_warning("nao encotroui arte: " + path)
+		cutscene_art.texture = null
 
 func _start_typing(text: String) -> void:
 	if type_tween and type_tween.is_valid():
@@ -100,6 +125,8 @@ func _finish_cutscene() -> void:
 	is_finishing = true
 	if type_tween and type_tween.is_valid():
 		type_tween.kill()
+	if art_tween and art_tween.is_valid():
+		art_tween.kill()
 	if anim_player:
 		anim_player.stop()
 	SceneTransition.fade_to_battle(FIRST_LEVEL_PATH)
