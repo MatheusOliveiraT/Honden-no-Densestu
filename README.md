@@ -30,7 +30,7 @@ RPG top-down em pixel art desenvolvido na **Godot Engine 4** (GDScript).
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/MatheusOliveiraT/Honden-no-Densestu.git
+   git clone https://github.com/MatheusOliveiraT/Honden-no-Densetsu.git
    ```
 2. Abra a Godot Engine 4.
 3. Clique em Importar e selecione o arquivo project.godot na pasta raiz do projeto.
