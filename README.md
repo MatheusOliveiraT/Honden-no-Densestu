@@ -1,4 +1,4 @@
-# Honden no Desestu
+# Honden no Desetsu
 
 RPG top-down em pixel art desenvolvido na **Godot Engine 4** (GDScript).
 
