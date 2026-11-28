@@ -30,6 +30,7 @@ const BATTLE_BACKGROUNDS := {
 	"res://levels/floresta/floresta.tscn": "res://battle/backgrounds/floresta.png",
 	"res://levels/escadas/escadas.tscn": "res://battle/backgrounds/escadas.png",
 	"res://levels/sandou/sandou.tscn": "res://battle/backgrounds/sandou.png",
+	"res://levels/tamagaki/tamagaki.tscn": "res://battle/backgrounds/tamagaki.png",
 }
 
 @onready var background: Sprite2D = $"../Background"

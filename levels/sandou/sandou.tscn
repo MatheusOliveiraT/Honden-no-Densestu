@@ -304,7 +304,7 @@ sources/4 = SubResource("TileSetAtlasSource_i6yqk")
 sources/5 = SubResource("TileSetAtlasSource_hfio6")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekgtn"]
-size = Vector2(53.5, 170.5)
+size = Vector2(111, 170.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ug4pj"]
 texture = ExtResource("7_w8aqg")
@@ -332,6 +332,9 @@ metadata/_custom_type_script = "uid://bqcejka4soj11"
 script = ExtResource("44_n8tsn")
 metadata/_custom_type_script = "uid://cf1kd1r7eqlua"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcu5j"]
+size = Vector2(128.5, 92)
+
 [node name="Escadas" type="Node2D" unique_id=262577094]
 script = ExtResource("1_76dto")
 level_name = "Sandou"
@@ -345,14 +348,14 @@ tile_map_data = PackedByteArray("AADe/8T/AQAAAAAAAADf/8P/AQAAAAAAAADg/8P/AQAAAAA
 tile_set = SubResource("TileSet_vicex")
 
 [node name="LevelAnt" type="Area2D" parent="." unique_id=108441549]
-position = Vector2(400, 864)
+position = Vector2(-541, -817)
 script = ExtResource("39_fcu5j")
 next_scene_path = "uid://2dlj6vtjlaef"
 target_level_id = 2
 next_spawn_position = Vector2(200, -950)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelAnt" unique_id=708204201]
-position = Vector2(-931.75, -1677)
+position = Vector2(11.5, -3)
 shape = SubResource("RectangleShape2D_ekgtn")
 
 [node name="YSortWorld" type="Node2D" parent="." unique_id=361838998]
@@ -660,20 +663,12 @@ grow_vertical = 1
 
 [node name="PauseMenu" parent="." unique_id=1393715638 instance=ExtResource("48_dm5o0")]
 
-[node name="transparente" type="ColorRect" parent="." unique_id=1452283610]
-visible = false
-offset_left = -584.0
-offset_top = -976.0
-offset_right = -144.0
-offset_bottom = 480.0
-mouse_filter = 2
-color = Color(0.24534443, 0.28098407, 0.3164666, 0.6)
+[node name="ProxLevel" type="Area2D" parent="." unique_id=1176991077]
+position = Vector2(253, 441)
+script = ExtResource("39_fcu5j")
+next_scene_path = "uid://crel46bovvyb0"
+target_level_id = 2
 
-[node name="transparente" type="ColorRect" parent="transparente" unique_id=823373704]
-layout_mode = 0
-offset_left = 1157.0
-offset_top = 9.0
-offset_right = 1597.0
-offset_bottom = 1465.0
-mouse_filter = 2
-color = Color(0.24534443, 0.28098407, 0.3164666, 0.6)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProxLevel" unique_id=1043558035]
+position = Vector2(4, 37)
+shape = SubResource("RectangleShape2D_fcu5j")
